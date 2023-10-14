@@ -15,6 +15,15 @@ import firebase from "../database/firebaseDB";
 
 
 
+const deleteStore = () => {
+    // subjCollection.doc(item.key)
+    //     .delete().then((res) => {
+    //         Alert.alert("Complete Delete");
+    //     })
+}
+
+
+
 const DetailList = (props) => {
 
     const data = props.data; // data = {date: '12/11/2023', nameWin: 'นายโยคี ขี่รุ้งพุ่งออกมา', numberWin: '05', place: 'ซอยเกกี1', status: 'green', time: "12:12" ,type: "วาจาไม่สุภาพ"}
@@ -62,7 +71,7 @@ const DetailList = (props) => {
                 </Text>
 
                 <View style={[styles.line, {fontSize:13,}]}>
-                <Text style={styles.textFront}><Entypo name="list" size={20} color="black" />สถานที่: </Text> 
+                <Text style={styles.textFront}><Entypo name="list" size={20} color="black" />รายละเอียด: </Text> 
                 <Text style={[styles.textBack, {marginTop:"3%"}]}>Oh, now that guy has a head full of grandiose plans fueled by raw ambition. I don't understand a word he says once he starts talking about his theories... Eh, but as long as he keeps our cash reserves stocked up, I'm not complaining.</Text></View>
                 
                 <View style={[styles.line, {fontSize:13,}]}>
@@ -88,7 +97,9 @@ const DetailList = (props) => {
                         <AntDesign name="select1" size={24} color="black" />
                         <Text style={styles.statusRedText}>แก้ไขการร้องเรียน</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
+                    <TouchableOpacity onPress={()=>{
+                            deleteStore();
+                        }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
                         <AntDesign name="delete" size={24} color="black" />
                         <Text style={styles.statusRedText}>ลบรายการร้องเรียน</Text>
                     </TouchableOpacity>

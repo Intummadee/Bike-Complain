@@ -18,6 +18,12 @@ import myProfile from "../screens/myProfile";
 import history from "../screens/history";
 import detailList from "../screens/detailList";
 
+// import Icon
+import { AntDesign } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons'; 
+
+
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -68,10 +74,22 @@ const profile = () => {
 
 const tab = () => { 
     return(
-        <Tab.Navigator initialRouteName='homeStack' screenOptions={{ headerShown:false ,tabBarActiveTintColor: "#FF724C", tabBarStyle: { backgroundColor: "#004466" }, tabBarLabelStyle: { fontSize: 15 }  }}>
-            <Tab.Screen name='homeStack' component={homeStack} />
-            <Tab.Screen name='map' component={map} />
-            <Tab.Screen name='profile' component={profile} />
+        <Tab.Navigator initialRouteName='homeStack' screenOptions={{ 
+            headerShown:false ,
+            tabBarActiveTintColor: "#FF724C", 
+            tabBarStyle: { backgroundColor: "#004466" }, 
+            tabBarLabelStyle: { fontSize: 15 },
+            tabBarInactiveTintColor: 'gray',
+        }}>
+            <Tab.Screen name='homeStack' component={homeStack} options={{ tabBarIcon: ({ color, size }) => {
+                return <AntDesign name="home" size={24} color={color} />;  
+            }, }}  />
+            <Tab.Screen name='map' component={map} options={{ tabBarIcon: ({ color, size }) => {
+                return <Feather name="map-pin" size={24} color={color} />;  
+            },}}  />
+            <Tab.Screen name='profile' component={profile} options={{ tabBarIcon: ({ color, size }) => {
+                return <AntDesign name="user" size={24} color={color} />;  
+            },}}  />
         </Tab.Navigator>
     )
 }
