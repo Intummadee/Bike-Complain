@@ -75,6 +75,10 @@ const renderList = ({ item, index }, props) => {
 
 const history = ({ navigation }) => {
 
+  // คลิ๊กปุ่ม เรียงตาม วันที่
+  const [clickDate, setClickDate] = useState(true);
+  const [historySort, sethistorySort] = useState([]); // Array ที่เอาไว้ sort ข้อมูล
+
   // เก็บ ข้อมูล userไว้
   const [dataUser, setdataUser] = useState([]);
   const [id, setId] = useState(""); // id ของ documentใน Firebase เช่น As3zPvxQOo5JgQRck3eX, Intummadee
@@ -94,8 +98,8 @@ const history = ({ navigation }) => {
           //  ตรวจสอบว่าเป็น history ของ user คนนี้
           setId(res.id);
           all_data.push(res.data());
-          // console.log(all_data);
-          setdataUser(all_data[0]);
+          setdataUser(all_data[0]);           
+           
         }
 
 
@@ -104,13 +108,15 @@ const history = ({ navigation }) => {
   useEffect(() => {
     // ทำงานที่ควรทำหลังจาก component ถูกเรนเดอร์
     const unsubscribe = subjCollection.onSnapshot(getCollection);
+    
     return () => {
       unsubscribe(); // ในบางกรณี, คุณต้องการทำงานบางอย่าง (เช่น, unsubscribe จาก Firebase, หรือทำความสะอาดข้อมูลที่ไม่ได้ใช้ = Unmounting (การลบ component ออกจาก DOM)
     };
   }, []); // ตำแหน่งนี้กำหนด dependencies เป็น [] ซึ่งหมายถึง useEffect จะทำงานเมื่อ component ถูกเรนเดอร์ครั้งแรกเท่านั้น
 
 
-
+  
+ 
 
   // dropdown
   const [value, setValue] = useState("");
@@ -144,7 +150,16 @@ const history = ({ navigation }) => {
           <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                  console.log("กดวันที่");
+                console.log("กดวันที่");
+                const historySort = [...dataUser.history];
+                historySort.sort((a, b) => {
+                  const [dayA, monthA, yearA] = a.date.split('/').map(Number);
+                  const [dayB, monthB, yearB] = b.date.split('/').map(Number);
+                  return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
+                });
+                sethistorySort(historySort)
+                // console.log(historySort);
+                setClickDate(!clickDate)
               }}>
                   <View style={{ width:'100%',  justifyContent:'center',alignItems:'center', flexDirection:'column' }}>
                       {/* <View style={{flexDirection:'row' , backgroundColor:'green', }}>
@@ -159,16 +174,30 @@ const history = ({ navigation }) => {
       </View>
       <View style={{ width:'100%', height:"100%", flexDirection:'row'}}>
         <SafeAreaView style={styles.container}>
-
-          {/* Flat list ของ รายการร้องเรียน  */}
-          <FlatList 
-            navigation={navigation} 
-            data={dataUser.history}  
-            renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
-            numColumns={1} 
-            keyExtractor={(item, index) => index.toString()}
-          />
           
+          
+          {/* Flat list ของ รายการร้องเรียน  */}
+          {clickDate && (
+            <FlatList 
+              navigation={navigation} 
+              data={dataUser.history}  
+              renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
+              numColumns={1} 
+              keyExtractor={(item, index) => index.toString()}
+            />
+            )}
+          {clickDate==false && (
+              <FlatList 
+                navigation={navigation} 
+                data={historySort}
+                renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
+                numColumns={1} 
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )
+          }
+
+
         </SafeAreaView>
       </View>
     </View>
