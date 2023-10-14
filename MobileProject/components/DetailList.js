@@ -14,20 +14,33 @@ import { AntDesign } from '@expo/vector-icons';
 import firebase from "../database/firebaseDB";
 
 
+// {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: []}
+const updateStore = (id, dataHistory, dataUser ) => {
+    
 
-const deleteStore = () => {
-    // subjCollection.doc(item.key)
-    //     .delete().then((res) => {
-    //         Alert.alert("Complete Delete");
-    //     })
-}
+
+    subjCollection.doc(id)
+    .set({
+        name: dataUser.name,
+        password: dataUser.password,
+        email: dataUser.email,
+        history: [],
+    })
+    .then(() => {
+        console.log("User Update");
+    }).catch(() => {
+        alert("ยูเซอร์ไม่ถูก Add");
+    })
+};
 
 
 
 const DetailList = (props) => {
 
-    const data = props.data; // data = {date: '12/11/2023', nameWin: 'นายโยคี ขี่รุ้งพุ่งออกมา', numberWin: '05', place: 'ซอยเกกี1', status: 'green', time: "12:12" ,type: "วาจาไม่สุภาพ"}
-
+    const dataHistory = props.data; // data = {date: '12/11/2023', nameWin: 'นายโยคี ขี่รุ้งพุ่งออกมา', numberWin: '05', place: 'ซอยเกกี1', status: 'green', time: "12:12" ,type: "วาจาไม่สุภาพ"}
+    const id = props.id // idของDocumentในFirebase
+    const dataUser = props.dataUser // idของDocumentในFirebase
+    const navigation = props.navigation;
 
     return (
         <View style={styles.list}>
@@ -35,9 +48,9 @@ const DetailList = (props) => {
                 <Text style={{fontSize:20, fontWeight:"bold"}}>ประเภทคำร้อง :</Text>
                 <TouchableOpacity style={[styles.touchOpacity, {width:"45%", justifyContent:'center', backgroundColor:data.status }]} onPress={()=>{console.log("clickk!!");}}>
                     <Text style={{color:'white', fontWeight:"bold"}}>
-                        { data.status=="green" ? "ดำเนินการสำเร็จ" : ""}
-                        { data.status=="red" ? "ยังไม่ดำเนินการ" : ""}
-                        { data.status=="orange" ? "กำลังดำเนินการ" : ""}
+                        { dataHistory.status=="green" ? "ดำเนินการสำเร็จ" : ""}
+                        { dataHistory.status=="red" ? "ยังไม่ดำเนินการ" : ""}
+                        { dataHistory.status=="orange" ? "กำลังดำเนินการ" : ""}
 
                     </Text>
                 </TouchableOpacity>
@@ -81,7 +94,7 @@ const DetailList = (props) => {
             </View>
 
 
-            { data.status=="green" && (
+            { dataHistory.status=="green" && (
                 <View style={[styles.line, {flex:0.2,}]}>
                 <Text style={{fontSize:20, fontWeight:"bold"}}>หมายเหตุ: </Text>
                 <View style={[styles.touchOpacity, {backgroundColor:'white', }]} >
@@ -91,14 +104,14 @@ const DetailList = (props) => {
             )}
 
 
-            { data.status=="red" && (
+            { dataHistory.status=="red" && (
                 <View style={[styles.line, {flex:0.2, justifyContent:'center', alignContent:'space-around', flexDirection:'row'}]}>
                     <TouchableOpacity style={[styles.statusRedButton,{}]}>
                         <AntDesign name="select1" size={24} color="black" />
                         <Text style={styles.statusRedText}>แก้ไขการร้องเรียน</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
-                            deleteStore();
+                            updateStore(id, dataHistory, dataUser);
                         }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
                         <AntDesign name="delete" size={24} color="black" />
                         <Text style={styles.statusRedText}>ลบรายการร้องเรียน</Text>
