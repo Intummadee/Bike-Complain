@@ -59,13 +59,14 @@ const renderItem = item => {
   );
 };
 
-const renderList = ({ item }, props) => {
+const renderList = ({ item, index }, props) => {
   return (
     <Box
         data={item}
+        index={index}
         onSelect={() => {
           console.log("click list ");
-          props.navigation.navigate("detailList", {data: item, id : props.id, dataUser: props.dataUser})
+          props.navigation.navigate("detailList", {data: item, id : props.id, dataUser: props.dataUser, index: index})
         }}
     />
   );
@@ -158,7 +159,16 @@ const history = ({ navigation }) => {
       </View>
       <View style={{ width:'100%', height:"100%", flexDirection:'row'}}>
         <SafeAreaView style={styles.container}>
-          <FlatList navigation={navigation} data={dataUser.history} renderItem={(item) => renderList(item, { navigation, id, dataUser })} numColumns={1} />
+
+          {/* Flat list ของ รายการร้องเรียน  */}
+          <FlatList 
+            navigation={navigation} 
+            data={dataUser.history}  
+            renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
+            numColumns={1} 
+            keyExtractor={(item, index) => index.toString()}
+          />
+          
         </SafeAreaView>
       </View>
     </View>

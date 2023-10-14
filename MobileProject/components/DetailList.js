@@ -14,20 +14,28 @@ import { AntDesign } from '@expo/vector-icons';
 import firebase from "../database/firebaseDB";
 
 
-// {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: []}
-const updateStore = (id, dataHistory, dataUser ) => {
+// dataUser = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: []}
+const updateStore = (id, dataHistory, dataUser, index, navigation ) => {
     
+    //dataUser.history = [{}, {}, {}, {}] , x = {}
+    // dataHistory = {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', …}
+    console.log("index", index); // indexของhistoryที่ถูกเลือก จาก บรรดาhistoryทั้งหมดของ User
 
+    // ลบ history นี้ออกจาก บรรดาhistoryทั้งหมดของ User
+    dataUser.history.splice(index, 1)
+  
 
+    const subjCollection = firebase.firestore().collection("Users");
     subjCollection.doc(id)
     .set({
         name: dataUser.name,
         password: dataUser.password,
         email: dataUser.email,
-        history: [],
+        history: dataUser.history,
     })
     .then(() => {
-        console.log("User Update");
+        navigation.goBack();
+
     }).catch(() => {
         alert("ยูเซอร์ไม่ถูก Add");
     })
@@ -35,18 +43,20 @@ const updateStore = (id, dataHistory, dataUser ) => {
 
 
 
+// Component
 const DetailList = (props) => {
 
     const dataHistory = props.data; // data = {date: '12/11/2023', nameWin: 'นายโยคี ขี่รุ้งพุ่งออกมา', numberWin: '05', place: 'ซอยเกกี1', status: 'green', time: "12:12" ,type: "วาจาไม่สุภาพ"}
     const id = props.id // idของDocumentในFirebase
-    const dataUser = props.dataUser // idของDocumentในFirebase
+    const dataUser = props.dataUser // ข้อมูลของuserทั้งหมดเลย
     const navigation = props.navigation;
+    const index = props.index; // indexคือ ลำดับ history ใน array History ทั้งหมด
 
     return (
         <View style={styles.list}>
             <View style={{flex:0.15,}}>
                 <Text style={{fontSize:20, fontWeight:"bold"}}>ประเภทคำร้อง :</Text>
-                <TouchableOpacity style={[styles.touchOpacity, {width:"45%", justifyContent:'center', backgroundColor:data.status }]} onPress={()=>{console.log("clickk!!");}}>
+                <TouchableOpacity style={[styles.touchOpacity, {width:"45%", justifyContent:'center', backgroundColor:dataHistory.status }]} onPress={()=>{console.log("clickk!!");}}>
                     <Text style={{color:'white', fontWeight:"bold"}}>
                         { dataHistory.status=="green" ? "ดำเนินการสำเร็จ" : ""}
                         { dataHistory.status=="red" ? "ยังไม่ดำเนินการ" : ""}
@@ -59,7 +69,7 @@ const DetailList = (props) => {
             <View style={{marginTop:"5%", height:'auto',}}>
                 <Text style={[ styles.line ,{fontSize:16, } ]}><MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
                 <Text style={styles.textFront}>ผู้ถูกร้องเรียน: </Text>
-                <Text style={styles.textBack}>นายโยคี ขี่รุ้งพุ่งออกมา</Text>
+                <Text style={styles.textBack}>{dataHistory.nameWin}</Text>
                 </Text>
 
 
@@ -67,12 +77,12 @@ const DetailList = (props) => {
                 <Text style={{fontSize:16 }}>
                     <Feather name="calendar" size={20} color="black" /> 
                     <Text style={styles.textFront}>วันที่: </Text>
-                    <Text style={styles.textBack}>12/10/2023</Text>
+                    <Text style={styles.textBack}>{dataHistory.date}</Text>
                 </Text>
                 <Text style={{fontSize:13, }}>
                     <MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
                     <Text style={styles.textFront}>เวลา: </Text>
-                    <Text style={styles.textBack}>12:12</Text>
+                    <Text style={styles.textBack}>{dataHistory.time}</Text>
                 </Text>
                 </View>
                 
@@ -80,12 +90,12 @@ const DetailList = (props) => {
                 <Text style={[styles.line, {fontSize:13,}]}>
                 <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
                 <Text style={styles.textFront}>สถานที่: </Text>
-                <Text style={styles.textBack}>เกกีซอย1</Text>
+                <Text style={styles.textBack}>{dataHistory.place}</Text>
                 </Text>
 
                 <View style={[styles.line, {fontSize:13,}]}>
                 <Text style={styles.textFront}><Entypo name="list" size={20} color="black" />รายละเอียด: </Text> 
-                <Text style={[styles.textBack, {marginTop:"3%"}]}>Oh, now that guy has a head full of grandiose plans fueled by raw ambition. I don't understand a word he says once he starts talking about his theories... Eh, but as long as he keeps our cash reserves stocked up, I'm not complaining.</Text></View>
+                <Text style={[styles.textBack, {marginTop:"3%"}]}>{dataHistory.detail}</Text></View>
                 
                 <View style={[styles.line, {fontSize:13,}]}>
                 <Text style={styles.textFront}><AntDesign name="picture" size={20} color="black" />ภาพหลักฐาน: </Text> 
@@ -111,7 +121,7 @@ const DetailList = (props) => {
                         <Text style={styles.statusRedText}>แก้ไขการร้องเรียน</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
-                            updateStore(id, dataHistory, dataUser);
+                            updateStore(id, dataHistory, dataUser, index, navigation);
                         }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
                         <AntDesign name="delete" size={24} color="black" />
                         <Text style={styles.statusRedText}>ลบรายการร้องเรียน</Text>

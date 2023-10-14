@@ -67,9 +67,8 @@ const login = ({navigation}) => {
     const putDataUser = (item) => {
         dispatch( putUserData(item) ); //ค่าที่ส่งไปเก็บ = = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: Array(1)}
     };  
- 
+       
 
-   
 
     return (
     <View style={styles.container}>
