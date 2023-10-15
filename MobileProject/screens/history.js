@@ -24,14 +24,10 @@ import firebase from "../database/firebaseDB";
 
 
 const data = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-  { label: 'Item 8', value: '8' },
+  { label: 'ดำเนินการสำเร็จ', value: 'green' },
+  { label: 'กำลังดำเนินการ', value: 'orange' },
+  { label: 'ยังไม่ได้ดำเนินการ', value: 'red' },
+  { label: 'ทั้งหมด', value: 'all' },
 ];
 
 
@@ -44,6 +40,7 @@ const data = [
 // ]};
 
 const renderItem = item => {
+   
   return (
     <View style={styles.item}>
       <Text style={{flex: 1, fontSize: 16,}}>{item.label}</Text>
@@ -119,7 +116,10 @@ const history = ({ navigation }) => {
  
 
   // dropdown
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(""); //ค่า สถานะจาก dropdown ที่ถูกเลือก
+  const [statusSort, setstatusSort] = useState([]); //ค่า สถานะจาก dropdown ที่ถูกเลือก
+  
+ 
 
   return (
     <View style={styles.list}>
@@ -141,7 +141,14 @@ const history = ({ navigation }) => {
               valueField="value"
               searchPlaceholder="Search..."
               value={value}
-              onChange={setValue}
+
+              onChange={item => { 
+                const filteredDataUser = dataUser.history.filter(x => x.status == item.value);
+                console.log("dropdown ที่เลือก : ", item.value);
+                setValue(item.value);
+                setstatusSort(filteredDataUser);
+              }}
+               
               renderLeftIcon={() => (
                   <AntDesign name="folder1" size={20} color="grey" style={{}} />
                 )}
@@ -196,6 +203,17 @@ const history = ({ navigation }) => {
               />
             )
           }
+          {clickDate==false && (
+              <FlatList 
+                navigation={navigation} 
+                data={historySort}
+                renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
+                numColumns={1} 
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )
+          }
+
 
 
         </SafeAreaView>
