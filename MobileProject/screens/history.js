@@ -57,6 +57,8 @@ const renderItem = item => {
 };
 
 const renderList = ({ item, index }, props) => {
+  // console.log("");
+  // console.log("item ใน Box :",item);
   return (
     <Box
         data={item}
@@ -72,14 +74,12 @@ const renderList = ({ item, index }, props) => {
 
 const history = ({ navigation }) => {
 
-  // คลิ๊กปุ่ม เรียงตาม วันที่
-  const [clickDate, setClickDate] = useState(true);
-  const [historySort, sethistorySort] = useState([]); // Array ที่เอาไว้ sort ข้อมูล
-
+ 
+  
   // เก็บ ข้อมูล userไว้
   const [dataUser, setdataUser] = useState([]);
   const [id, setId] = useState(""); // id ของ documentใน Firebase เช่น As3zPvxQOo5JgQRck3eX, Intummadee
-
+  
   const user = useSelector( (state) => state.myReducer.user );
   // userที่ได้ เป็นarrayมีแค่ลำดับเดียว ตอนใช้อย่าลืม [0] = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
   
@@ -87,19 +87,19 @@ const history = ({ navigation }) => {
   const getCollection = (querySnapshot) => {
     const all_data = [];
     querySnapshot.forEach((res) => {
-        // console.log("user in Redux",user[0]);
-        // console.log("res.data() : ", res.data().history);
-        // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
-        // res.data().history = 0: {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', …} 1: {type: 'ขับรถเร็ว', nameWin: 'เป๊ปซี่ โคล่า', place: 'ซอยเกกี1', date: '14/10/2023', status: 'green', …}2: {place: 'RNP', numberWin: '07', nameWin: 'โกโก้ หวานน้อย', status: 'orange', time: '15:00', …}3: {time: '10:17', type: 'วาจาไม่สุภาพ', nameWin: 'นํ้าดื่ม สิงห์', numberWin: '02', place: 'แอร์ลิ้ง', …}
-        if(res.data().name == user[0].name){
-          //  ตรวจสอบว่าเป็น history ของ user คนนี้
-          setId(res.id);
-          all_data.push(res.data());
-          setdataUser(all_data[0]);           
-           
-        }
-
-
+      // console.log("user in Redux",user[0]);
+      // console.log("res.data() : ", res.data().history);
+      // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
+      // res.data().history = 0: {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', …} 1: {type: 'ขับรถเร็ว', nameWin: 'เป๊ปซี่ โคล่า', place: 'ซอยเกกี1', date: '14/10/2023', status: 'green', …}2: {place: 'RNP', numberWin: '07', nameWin: 'โกโก้ หวานน้อย', status: 'orange', time: '15:00', …}3: {time: '10:17', type: 'วาจาไม่สุภาพ', nameWin: 'นํ้าดื่ม สิงห์', numberWin: '02', place: 'แอร์ลิ้ง', …}
+      if(res.data().name == user[0].name){
+        //  ตรวจสอบว่าเป็น history ของ user คนนี้
+        setId(res.id);
+        all_data.push(res.data());
+        setdataUser(all_data[0]);           
+        
+      }
+      
+      
     });
   };
   useEffect(() => {
@@ -108,17 +108,82 @@ const history = ({ navigation }) => {
     
     return () => {
       unsubscribe(); // ในบางกรณี, คุณต้องการทำงานบางอย่าง (เช่น, unsubscribe จาก Firebase, หรือทำความสะอาดข้อมูลที่ไม่ได้ใช้ = Unmounting (การลบ component ออกจาก DOM)
+       
     };
   }, []); // ตำแหน่งนี้กำหนด dependencies เป็น [] ซึ่งหมายถึง useEffect จะทำงานเมื่อ component ถูกเรนเดอร์ครั้งแรกเท่านั้น
-
-
+  
   
  
-
+  
+  
+  
   // dropdown
   const [value, setValue] = useState(""); //ค่า สถานะจาก dropdown ที่ถูกเลือก
-  const [statusSort, setstatusSort] = useState([]); //ค่า สถานะจาก dropdown ที่ถูกเลือก
+  const [clickStatus, setclickStatus] = useState(false); //ค่า สถานะจาก dropdown ที่ถูกเลือก
   
+  // เป็น array ที่เอาไว้แสดง ตาม สถานะ
+  const [dataMockup, setdataMockup] = useState([]); // arrayที่ถูก sort ตามสถานะ จาก Onchange ใน dropDown
+
+  // คลิ๊กปุ่ม เรียงตาม วันที่
+  const [clickDate, setClickDate] = useState(false);
+  const [historySort, sethistorySort] = useState([]); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
+
+
+  // ฟังชันที่เอาไว้ sort รายการร้องเรียน
+  const renderSort = () => {
+    let sortArray = [];
+    let historySort = [];
+    
+    let clickDate1 = !clickDate;
+    console.log("renderSort", clickDate1, clickStatus, "value :", value);
+    
+
+    // ถ้ามีการเลือก สถานะ
+    if(value != ""){
+      // ถ้าเลือก สถานะ ทั้งหมด
+      if(value == "ทั้งหมด"){
+        sortArray = [...dataUser.history ]
+        console.log("ถ้าเลือก สถานะ ทั้งหมด", sortArray);
+      }
+      else{
+        const filteredDataUser = dataUser.history.filter(x => x.status == item.value);
+        sortArray = [...filteredDataUser]
+        console.log("ถ้าเลือก สถานะ อย่างอื่น", sortArray);
+      }
+      
+    }
+    // ถ้าไม่มีการเลือกทั้ง วันที่ และ ไม่มีการเลือก สถานะ
+    else{
+      sortArray = [...dataUser.history ]
+      console.log("ถ้าไม่เลือกสถานะ ", sortArray);
+      console.log("");
+    } 
+    
+    // เอา sortArray มาเรียงตามวันที่ ถ้าไม่มีการคลิ๊กก็ไม่ต้องเข้า condition เรียงอันนี้
+    if(clickDate1 == true){
+      // มีการคลิ๊ก เรียงวันที่ 
+      historySort = [...sortArray];
+      historySort.sort((a, b) => {
+        const [dayA, monthA, yearA] = a.date.split('/').map(Number);
+        const [dayB, monthB, yearB] = b.date.split('/').map(Number);
+        return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
+      });
+      sethistorySort(historySort)
+      console.log("ถ้าคลิ๊ก วันที่  ", historySort);
+    }
+    else{
+      // ไม่มีการคลิ๊ก
+      historySort = [...sortArray];
+      console.log("ถ้าไม่คลิ๊ก วันที่  ", historySort);
+    }
+    sethistorySort(historySort);
+    setClickDate(clickDate1);
+    setclickStatus(true)
+    
+    console.log("");
+    console.log("สรุปค่าที่ส่ง : ",historySort);
+    // return historySort;
+  }
  
 
   return (
@@ -143,10 +208,16 @@ const history = ({ navigation }) => {
               value={value}
 
               onChange={item => { 
-                const filteredDataUser = dataUser.history.filter(x => x.status == item.value);
-                console.log("dropdown ที่เลือก : ", item.value);
+                // const filteredDataUser = dataUser.history.filter(x => x.status == item.value);
+                // console.log("dropdown ที่เลือก : ", item.value);
                 setValue(item.value);
-                setstatusSort(filteredDataUser);
+
+                // let test = [];
+                // test = [...filteredDataUser]
+                // setdataMockup(test);
+
+                setclickStatus(true)
+                renderSort()
               }}
                
               renderLeftIcon={() => (
@@ -157,16 +228,8 @@ const history = ({ navigation }) => {
           <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                console.log("กดวันที่");
-                const historySort = [...dataUser.history];
-                historySort.sort((a, b) => {
-                  const [dayA, monthA, yearA] = a.date.split('/').map(Number);
-                  const [dayB, monthB, yearB] = b.date.split('/').map(Number);
-                  return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
-                });
-                sethistorySort(historySort)
-                // console.log(historySort);
-                setClickDate(!clickDate)
+ 
+                renderSort()
               }}>
                   <View style={{ width:'100%',  justifyContent:'center',alignItems:'center', flexDirection:'column' }}>
                       {/* <View style={{flexDirection:'row' , backgroundColor:'green', }}>
@@ -184,7 +247,7 @@ const history = ({ navigation }) => {
           
           
           {/* Flat list ของ รายการร้องเรียน  */}
-          {clickDate && (
+          {/* {clickDate && (
             <FlatList 
               navigation={navigation} 
               data={dataUser.history}  
@@ -192,27 +255,60 @@ const history = ({ navigation }) => {
               numColumns={1} 
               keyExtractor={(item, index) => index.toString()}
             />
-            )}
-          {clickDate==false && (
+            )} */}
+
+          
+          {/* {clickDate==false && (
               <FlatList 
                 navigation={navigation} 
-                data={historySort}
+                data={dataMockup}
                 renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
                 numColumns={1} 
                 keyExtractor={(item, index) => index.toString()}
               />
             )
-          }
-          {clickDate==false && (
+          } */}
+
+          {/* เอาไว้เรียงสถานะ   */}
+          {/* {clickStatus==false  (
+              <FlatList 
+                navigation={navigation} 
+                data={dataUser.history}
+                renderItem={(item) => {
+                    console.log(item)
+                    renderList(item, { navigation, id, dataUser })
+                  }
+                } 
+                numColumns={1} 
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )
+          } */}
+
+          {clickStatus==true || clickDate==true ? (
               <FlatList 
                 navigation={navigation} 
                 data={historySort}
-                renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
+                renderItem={(item) => 
+
+                  renderList(item, { navigation, id, dataUser })
+                } 
+                numColumns={1} 
+                keyExtractor={(item, index) => index.toString()}
+              />
+            ) : (
+              <FlatList 
+                navigation={navigation} 
+                data={dataUser.history}
+                renderItem={(item) => 
+                  renderList(item, { navigation, id, dataUser })
+                } 
                 numColumns={1} 
                 keyExtractor={(item, index) => index.toString()}
               />
             )
           }
+
 
 
 
