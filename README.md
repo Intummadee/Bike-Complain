@@ -3,6 +3,7 @@
 
 
 คำสั่ง Install ทั้งหมด
+```
 npx create-expo-app MobileProject 
 cd MobileProject 
 npx expo install react-native-web@~0.18.10 react-dom@18.2.0 @expo/webpack-config@^18.0.1
@@ -33,4 +34,4 @@ npm install moment --save
 
 คำสั่ง start เริ่ม : npx expo start --reset-cache
 
-npx expo install --fix (ถ้ามีขึ้น หลังจากที่ใช้คำสั่ง startไปแล้ว ก็ให้ ctrl + c ออกใช้คำสั่งนี้)
+npx expo install --fix (ถ้ามีขึ้น หลังจากที่ใช้คำสั่ง startไปแล้ว ก็ให้ ctrl + c ออกใช้คำสั่งนี้)```
