@@ -127,32 +127,40 @@ const history = ({ navigation }) => {
   // คลิ๊กปุ่ม เรียงตาม วันที่
   const [clickDate, setClickDate] = useState(false);
   const [historySort, sethistorySort] = useState([]); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
+  const [countDate, setcountDate] = useState(1); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
 
 
   // ฟังชันที่เอาไว้ sort รายการร้องเรียน
-  const renderSort = () => {
+  const renderSort = (statusClick_input, clickDate_input, countDate_input) => {
+    console.log("clickDate", clickDate);
     let sortArray = [];
     let historySort = [];
-    
-    let clickDate1 = !clickDate;
-    console.log("renderSort", clickDate1, clickStatus, "value :", value);
+    let clickStatus_1 = false
+
     
 
+    console.log("renderSort", clickDate_input, clickStatus_1, "value :", statusClick_input);
+
     // ถ้ามีการเลือก สถานะ
-    if(value != ""){
+    if(statusClick_input != "" || clickStatus == true){
+      clickStatus_1 = true
+    }
+
+    // ถ้ามีการเลือก สถานะ
+    if(clickStatus_1 == true){
       // ถ้าเลือก สถานะ ทั้งหมด
-      if(value == "ทั้งหมด"){
+      if(statusClick_input == "all"){
         sortArray = [...dataUser.history ]
         console.log("ถ้าเลือก สถานะ ทั้งหมด", sortArray);
       }
       else{
-        const filteredDataUser = dataUser.history.filter(x => x.status == item.value);
+        const filteredDataUser = dataUser.history.filter(x => x.status == statusClick_input);
         sortArray = [...filteredDataUser]
         console.log("ถ้าเลือก สถานะ อย่างอื่น", sortArray);
       }
       
     }
-    // ถ้าไม่มีการเลือกทั้ง วันที่ และ ไม่มีการเลือก สถานะ
+    // ถ้าไม่มี การเลือก สถานะ
     else{
       sortArray = [...dataUser.history ]
       console.log("ถ้าไม่เลือกสถานะ ", sortArray);
@@ -160,29 +168,39 @@ const history = ({ navigation }) => {
     } 
     
     // เอา sortArray มาเรียงตามวันที่ ถ้าไม่มีการคลิ๊กก็ไม่ต้องเข้า condition เรียงอันนี้
-    if(clickDate1 == true){
-      // มีการคลิ๊ก เรียงวันที่ 
-      historySort = [...sortArray];
-      historySort.sort((a, b) => {
-        const [dayA, monthA, yearA] = a.date.split('/').map(Number);
-        const [dayB, monthB, yearB] = b.date.split('/').map(Number);
-        return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
-      });
-      sethistorySort(historySort)
-      console.log("ถ้าคลิ๊ก วันที่  ", historySort);
-    }
-    else{
-      // ไม่มีการคลิ๊ก
-      historySort = [...sortArray];
-      console.log("ถ้าไม่คลิ๊ก วันที่  ", historySort);
-    }
-    sethistorySort(historySort);
-    setClickDate(clickDate1);
-    setclickStatus(true)
+    // if(clickDate_input == true){
+      
+   
+      if((countDate_input) % 2 == 0 ){
+          // จะเรียงวันที่เลย ถ้า มันยังเป็นเลขคู่อยู่
+          historySort = [...sortArray];
+          historySort.sort((a, b) => {
+            const [dayA, monthA, yearA] = a.date.split('/').map(Number);
+            const [dayB, monthB, yearB] = b.date.split('/').map(Number);
+            return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
+          });
+          // console.log("เลข คู่", count+1);
+      }
+      else{
+        // ไม่เรียงเพราะมัันเป็นเลขคี่
+        historySort = [...sortArray];
+        // console.log("คลิ๊กวันที่ แต่ มันเป็นเลข คี่", count+1);
+      }
+      if(clickDate_input == true){
+        // ถ้าคลิ๊กปุ่มวันที่ ก็จะอัพเดตค่า
+        // console.log("ถ้าคลิ๊ก วันที่  ", historySort);
+        setClickDate(!clickDate);
+        setcountDate(countDate+1)
+      }
     
-    console.log("");
-    console.log("สรุปค่าที่ส่ง : ",historySort);
-    // return historySort;
+    
+    
+    
+    sethistorySort(historySort);
+    
+    // console.log("");
+    // console.log("สรุปค่าที่ส่ง : ",historySort);
+ 
   }
  
 
@@ -208,16 +226,11 @@ const history = ({ navigation }) => {
               value={value}
 
               onChange={item => { 
-                // const filteredDataUser = dataUser.history.filter(x => x.status == item.value);
-                // console.log("dropdown ที่เลือก : ", item.value);
+
                 setValue(item.value);
-
-                // let test = [];
-                // test = [...filteredDataUser]
-                // setdataMockup(test);
-
                 setclickStatus(true)
-                renderSort()
+                renderSort(item.value, false, countDate)
+
               }}
                
               renderLeftIcon={() => (
@@ -228,8 +241,10 @@ const history = ({ navigation }) => {
           <TouchableOpacity
               style={styles.button}
               onPress={() => {
- 
-                renderSort()
+
+                // วันที่
+                renderSort(value, true, countDate+1)
+
               }}>
                   <View style={{ width:'100%',  justifyContent:'center',alignItems:'center', flexDirection:'column' }}>
                       {/* <View style={{flexDirection:'row' , backgroundColor:'green', }}>
