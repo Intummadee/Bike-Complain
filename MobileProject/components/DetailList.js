@@ -16,14 +16,23 @@ import firebase from "../database/firebaseDB";
 
 // dataUser = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: []}
 const updateStore = (id, dataHistory, dataUser, index, navigation ) => {
-    
+
+
     //dataUser.history = [{}, {}, {}, {}] , x = {}
     // dataHistory = {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', …}
-    console.log("index", index); // indexของhistoryที่ถูกเลือก จาก บรรดาhistoryทั้งหมดของ User
+
+
+    const dataIndex = dataUser.history.findIndex(item => {
+        return Object.keys(item).every(key => item[key] === dataHistory[key]);
+    });
+    console.log("Index ของ data ใน dataUser:", dataIndex); //index ของhistoryที่จะลบ
+      
 
     // ลบ history นี้ออกจาก บรรดาhistoryทั้งหมดของ User
-    dataUser.history.splice(index, 1)
-  
+    dataUser.history.splice(dataIndex, 1)
+    
+
+
 
     const subjCollection = firebase.firestore().collection("Users");
     subjCollection.doc(id)
@@ -39,6 +48,7 @@ const updateStore = (id, dataHistory, dataUser, index, navigation ) => {
     }).catch(() => {
         alert("ยูเซอร์ไม่ถูก Add");
     })
+
 };
 
 
