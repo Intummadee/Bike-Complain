@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, useWindowDimensions, FlatList, Button, Text } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import GridTile from "../components/GridTile";
 
 
@@ -116,8 +116,20 @@ const listWin = ({ navigation }) => {
       };
     }, []); // ตำแหน่งนี้กำหนด dependencies เป็น [] ซึ่งหมายถึง useEffect จะทำงานเมื่อ component ถูกเรนเดอร์ครั้งแรกเท่านั้น
   
+
+    const renderTabBar = props => (
+      <TabBar
+          {...props}
+          activeColor={'#FF9770'}
+          inactiveColor={'white'}
+          indicatorContainerStyle={{backgroundColor:"#004466"}}
+          indicatorStyle={{backgroundColor:'#FF9770', height:"10%"}}
+      />
+    );
+
     return (
       <TabView
+        
         navigationState={{ index, routes }}
         renderScene={
           // SceneMap = ฟังก์ชันที่ใช้สร้าง map ของ component ที่ควรแสดงในแต่ละ tab ของ TabView.
@@ -128,7 +140,8 @@ const listWin = ({ navigation }) => {
         }
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-
+        renderTabBar={renderTabBar}
+        
       />
     );
 }
