@@ -126,7 +126,11 @@ const DetailList = (props) => {
 
             { dataHistory.status=="red" && (
                 <View style={[styles.line, {flex:0.2, justifyContent:'center', alignContent:'space-around', flexDirection:'row'}]}>
-                    <TouchableOpacity style={[styles.statusRedButton,{}]}>
+                    <TouchableOpacity style={[styles.statusRedButton,{}]}
+                        onPress={()=>{
+                            navigation.navigate("updateForm", {data : props})
+                        }}
+                    >
                         <AntDesign name="select1" size={24} color="black" />
                         <Text style={styles.statusRedText}>แก้ไขการร้องเรียน</Text>
                     </TouchableOpacity>

@@ -57,8 +57,9 @@ const renderItem = item => {
 };
 
 const renderList = ({ item, index }, props) => {
-  // console.log("");
-  // console.log("item ใน Box :",item);
+  
+  console.log("");
+  console.log("item ใน Box :",item);
   return (
     <Box
         data={item}
@@ -198,8 +199,7 @@ const history = ({ navigation }) => {
     
     sethistorySort(historySort);
     
-    // console.log("");
-    // console.log("สรุปค่าที่ส่ง : ",historySort);
+    
  
   }
  
@@ -261,51 +261,12 @@ const history = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
           
           
-          {/* Flat list ของ รายการร้องเรียน  */}
-          {/* {clickDate && (
-            <FlatList 
-              navigation={navigation} 
-              data={dataUser.history}  
-              renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
-              numColumns={1} 
-              keyExtractor={(item, index) => index.toString()}
-            />
-            )} */}
 
-          
-          {/* {clickDate==false && (
-              <FlatList 
-                navigation={navigation} 
-                data={dataMockup}
-                renderItem={(item) => renderList(item, { navigation, id, dataUser })} 
-                numColumns={1} 
-                keyExtractor={(item, index) => index.toString()}
-              />
-            )
-          } */}
-
-          {/* เอาไว้เรียงสถานะ   */}
-          {/* {clickStatus==false  (
-              <FlatList 
-                navigation={navigation} 
-                data={dataUser.history}
-                renderItem={(item) => {
-                    console.log(item)
-                    renderList(item, { navigation, id, dataUser })
-                  }
-                } 
-                numColumns={1} 
-                keyExtractor={(item, index) => index.toString()}
-              />
-            )
-          } */}
-
-          {clickStatus==true || clickDate==true ? (
+          {(clickStatus==true || clickDate==true) ? (
               <FlatList 
                 navigation={navigation} 
                 data={historySort}
                 renderItem={(item) => 
-
                   renderList(item, { navigation, id, dataUser })
                 } 
                 numColumns={1} 

@@ -19,13 +19,14 @@ const myProfile = ({ navigation }) => {
         <View style={{width:"100%", alignItems:'center'}}>
             <Image style={styles.pic} source={require("../assets/Nahida.avif")}/>
             {/* {data.email} กับ {data.name} ค่อยแก้ทีหลัง  */}
-            <Text style={{fontWeight:'bold' , fontSize:20}}>Lessor Lord Kusanali</Text>
-            <Text style={{color:'grey', fontWeight:'bold'}}>Nahida</Text>
+            <Text style={{fontWeight:'bold' , fontSize:20}}>{data.email}</Text>
+            <Text style={{color:'grey', fontWeight:'bold'}}>{data.name}</Text>
         </View>
         <View  style={{width:"100%", alignItems:'center', marginTop:"20%"}}>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
+                    // ประวัติการร้องเรียน
                     console.log("ประวัติการร้องเรียน");
                     navigation.navigate("history")
                 }}>
@@ -39,6 +40,7 @@ const myProfile = ({ navigation }) => {
                 onPress={() => {
                     console.log("ออกจากระบบ");
                     // navigation.navigate("form", {routeData: data})
+                    navigation.navigate("authen")
                 }}>
                     <View style={{ width:'100%',  justifyContent:'center',alignItems:'center', flexDirection:'row' }}>
                         <FontAwesome name="sign-out" size={20} color="#C35257" />

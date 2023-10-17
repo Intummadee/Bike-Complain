@@ -86,7 +86,7 @@ const form = ({ navigation , route }) => {
      
     
     // ข้อมูลในฟอร์ม เอาไว้ส่ง
-    const [place, setPlace] = useState("");
+    const [detail, setDetail] = useState("");
  
 
     return (
@@ -183,8 +183,8 @@ const form = ({ navigation , route }) => {
                             numberOfLines={3} //บรรทัดที่โชว์ ถ้ามากกว่านี้มันจะสไลด์ให้แทน
                             maxLength={200}
                             style={[styles.detailInput, styles.shadowProp]}
-                            onChangeText={setPlace}
-                            value={place}
+                            onChangeText={setDetail}
+                            value={detail}
                         />
                     </View>
                     

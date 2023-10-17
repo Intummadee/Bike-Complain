@@ -17,6 +17,7 @@ import form from "../screens/form";
 import myProfile from "../screens/myProfile";
 import history from "../screens/history";
 import detailList from "../screens/detailList";
+import updateForm from "../screens/updateForm";
 
 // import Icon
 import { AntDesign } from '@expo/vector-icons'; 
@@ -67,6 +68,7 @@ const profile = () => {
             <Stack.Screen name='myProfile' component={myProfile} options={{title:'บัญชีของฉัน'}} />
             <Stack.Screen name='history' component={history} options={{title:'ประวัติการร้องเรียน'}} />
             <Stack.Screen name='detailList' component={detailList} options={{title:'รายละเอียดการร้องเรียน'}} />
+            <Stack.Screen name='updateForm' component={updateForm} options={{title:'รายละเอียดการร้องเรียน'}} />
         </Stack.Navigator>
     )
 }
