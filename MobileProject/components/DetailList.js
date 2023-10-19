@@ -67,7 +67,7 @@ const DetailList = (props) => {
             <View style={{flex:0.15,}}>
                 <Text style={{fontSize:20, fontWeight:"bold"}}>ประเภทคำร้อง :</Text>
                 <TouchableOpacity style={[styles.touchOpacity, {width:"45%", justifyContent:'center', backgroundColor:dataHistory.status }]} onPress={()=>{console.log("clickk!!");}}>
-                    <Text style={{color:'white', fontWeight:"bold"}}>
+                    <Text style={{color:'white', fontWeight:"bold", margin:10}}>
                         { dataHistory.status=="green" ? "ดำเนินการสำเร็จ" : ""}
                         { dataHistory.status=="red" ? "ยังไม่ดำเนินการ" : ""}
                         { dataHistory.status=="orange" ? "กำลังดำเนินการ" : ""}

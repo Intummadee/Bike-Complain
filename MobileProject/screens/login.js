@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         flex:0.1,
         justifyContent: 'center',
         alignItems: 'center',
-        fontFamily: 'Cochin', //ค่อยเปลี่ยน
+        // fontFamily: 'Cochin', //ค่อยเปลี่ยน
     },
   
   });

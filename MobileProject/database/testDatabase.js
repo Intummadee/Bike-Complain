@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
-import { initializeApp } from 'firebase/app'
+import { getApp, getApps, initializeApp } from 'firebase/app'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -15,8 +15,8 @@ const firebaseConfig = {
     measurementId: "G-PXH6B1FRKN"
   };
 
-// firebase.initializeApp(firebaseConfig);
-const app = initializeApp(firebaseConfig)
+ 
+const app = getApps.length > 0 ? getApp() : initializeApp(firebaseConfig);
 const storage = getStorage(app)
 
-export default storage;
+export {app ,storage};

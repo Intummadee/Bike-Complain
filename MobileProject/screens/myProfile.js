@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     pic: {
         width: 100, 
         height: 100,
-        borderRadius:"50%",
+        borderRadius:50,
     },
     button: {
         borderRadius: 20,

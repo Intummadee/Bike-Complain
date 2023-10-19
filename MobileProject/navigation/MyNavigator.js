@@ -30,10 +30,14 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
+// testUpload
+import testUpload from "../screens/testUpload";
+
 const authen = () => { 
     return(
         <Stack.Navigator initialRouteName='login' screenOptions={{headerShown:false}} >
-            <Tab.Screen name='login' component={login} />
+            {/* <Tab.Screen name='login' component={login} /> */}
+            <Tab.Screen name='testUpload' component={testUpload} />
             <Tab.Screen name='signup' component={signup} />
         </Stack.Navigator>
     )
@@ -100,7 +104,7 @@ const tab = () => {
 const MainNavigator = () => { 
     return(
         <NavigationContainer>
-            <Stack.Navigator  initialRouteName="tab" screenOptions={{headerShown:false}}>
+            <Stack.Navigator  initialRouteName="authen" screenOptions={{headerShown:false}}>
                 <Stack.Screen name="authen" component={authen} />
                 <Stack.Screen name='tab' component={tab} />
             </Stack.Navigator>
