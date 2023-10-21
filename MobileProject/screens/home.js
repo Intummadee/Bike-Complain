@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View,ImageBackground, Image,TextInput,Button, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 
-// Import Firebase
-import firebase from "../database/firebaseDB";
 
-// Redux
-import { useSelector, useDispatch } from "react-redux";
 
 const dummyData = [
     {
@@ -26,21 +22,7 @@ const dummyData = [
 
 const home = ({navigation}) => {
 
-  const subjCollection = firebase.firestore().collection("Users");
-  const getCollection = (querySnapshot) => {
-     
-    querySnapshot.forEach((res) => {
-        console.log(res.id);
-    });
-  };
-
-  useEffect(() => {
-      const unsubscribe = subjCollection.onSnapshot(getCollection);
-      return () => {
-        unsubscribe(); // ในบางกรณี, คุณต้องการทำงานบางอย่าง (เช่น, unsubscribe จาก Firebase, หรือทำความสะอาดข้อมูลที่ไม่ได้ใช้ = Unmounting (การลบ component ออกจาก DOM)
-      };
-  }, []); // Empty dependency array means this effect runs once after the initial render
-
+   
 
 
     const renderMealItem = (itemData) => {     

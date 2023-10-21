@@ -9,13 +9,15 @@ import firebase from "../database/firebaseDB";
 // Redux
 import { useSelector, useDispatch } from "react-redux"
 import { putUserData } from "../store/actions/myAction";
+import { putDocumentName } from "../store/actions/myAction";
 
 const signup = ({navigation}) => {
 
     // Redux
     const dispatch = useDispatch();
-    const putDataUser = (item) => {
-        dispatch( putUserData(item) ); //ค่าที่ส่งไปเก็บ = = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: Array(1)}
+    const putDataUser = (item, name) => {
+        dispatch( putUserData(item) ); //ค่าที่ส่งไปเก็บ = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: Array(1)}
+        dispatch( putDocumentName(name))
     };  
 
     // Validation Form 
@@ -35,13 +37,14 @@ const signup = ({navigation}) => {
         else{
             setIncorrectConfirm(false);
             // ให้ชื่อ document ตามชื่อ username
+
             subjCollection.doc(userName).set({
                 email: userEmail,
                 history: [],
                 name: userName,
                 password:userPassword,
             }).then(() => {
-                putDataUser({email: userEmail,history: [],name: userName,password:userPassword,}) //ส่งไปให้Storeส่วนกลาง หรือ Redux
+                putDataUser({email: userEmail,history: [],name: userName,password:userPassword,}, userName) //ส่งไปให้Storeส่วนกลาง หรือ Redux
                 navigation.navigate("tab");
             }).catch(() => {
                 alert("ยูเซอร์ไม่ถูก Add");

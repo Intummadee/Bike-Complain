@@ -12,6 +12,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import firebase from "../database/firebaseDB";
 
 
+
 const dummyData = [
   {number: 1, name: "นายโยคี ขี่", place:"วินคลอง" , pic: require('../assets/raiden.jpg') },
   {number: 1, name: "นายโยคี ขี่", place:"วินคลอง" , pic: require('../assets/raiden.jpg') },
