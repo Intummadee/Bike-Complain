@@ -36,8 +36,8 @@ import testUpload from "../screens/testUpload";
 const authen = () => { 
     return(
         <Stack.Navigator initialRouteName='login' screenOptions={{headerShown:false}} >
-            {/* <Tab.Screen name='login' component={login} /> */}
-            <Tab.Screen name='testUpload' component={testUpload} />
+            <Tab.Screen name='login' component={login} />
+            {/* <Tab.Screen name='testUpload' component={testUpload} /> */}
             <Tab.Screen name='signup' component={signup} />
         </Stack.Navigator>
     )
