@@ -34,7 +34,6 @@ const signup = ({navigation}) => {
         }
         else{
             setIncorrectConfirm(false);
-
             subjCollection.add({
                 email: userEmail,
                 history: [],
