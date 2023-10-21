@@ -16,10 +16,14 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
  
 
+// Import Firebase
+import firebase from "../database/firebaseDB";
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
 
 
-
-// import time Version test
+ 
  
 
 
@@ -55,6 +59,7 @@ const form = ({ navigation , route }) => {
 
     const routeData_DetailWin = route.params.routeData;
     console.log("ข้อมูลrouteที่ส่งมา : ",routeData_DetailWin);
+    // {license: 'MM00 กรุงเทพมหานคร', no: '18', place: 'วินคลอง 4 เขตลาดกระบัง', pictureLicense: '18', pictureWin: '18', name: "Pink Firebase"}
 
     // dropdown
     const [value, setValue] = useState("");
@@ -79,14 +84,61 @@ const form = ({ navigation , route }) => {
           setDate(selectedDate);
         }
       };
-
-    
-
-
-     
     
     // ข้อมูลในฟอร์ม เอาไว้ส่ง
     const [detail, setDetail] = useState("");
+
+
+    
+
+    // ชื่อ document Name ที่จะอัพเดต
+    const documentName = useSelector( (state) => state.myReducer.doc_name );
+
+    const complaint = (navigation) => {
+      const subjCollection = firebase.firestore().collection("Users");
+
+      const dataUser = [];
+      const all_data = [];
+
+    
+      // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
+      // โครงสร้าง history = {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', url:"", nameWin:"Raiden", detail:"อยากได้อะ แต่ไม่มีตี้", date:"12/16/5465"}
+      querySnapshot.forEach((res) => {
+        if(resid == documentName){
+          dataUser = {...res.data()}
+          all_data = [...res.data().history]
+          all_data.push({
+            type:value,
+            status:"red",
+            place:"",
+            detail:"",
+            numberWin:"",
+            nameWin:"",
+            time:time,
+            date:date.toLocaleString(),
+            url:"",
+          })
+        }
+      });
+
+
+      
+
+
+      subjCollection.doc(documentName)
+        .set({
+          password: dataUser.password,
+          email: dataUser.email,
+          name: dataUser.name,
+          history: [],
+        })
+        .then(() => {
+          alert("Add รายการร้องเรียนแล้ว");
+          navigation.popToTop();
+        }).catch(() => {
+            alert("ยูเซอร์ไม่ถูก Add");
+        })
+    }
  
 
     return (
@@ -200,7 +252,8 @@ const form = ({ navigation , route }) => {
                             style={styles.touchOpacity}
                             onPress={() => {
                                 console.log("ส่งคำร้องเรียน");
-                                navigation.popToTop();
+                                complaint(navigation);
+                                // navigation.popToTop();
                             }}>
                                 <View style={{flex:1, flexDirection:'row', width:'auto',justifyContent:'center' }}>
                                     <Ionicons name="documents-outline" size={18} color="white" />

@@ -104,7 +104,7 @@ const tab = () => {
 const MainNavigator = () => { 
     return(
         <NavigationContainer>
-            <Stack.Navigator  initialRouteName="authen" screenOptions={{headerShown:false}}>
+            <Stack.Navigator  initialRouteName="tab" screenOptions={{headerShown:false}}>
                 <Stack.Screen name="authen" component={authen} />
                 <Stack.Screen name='tab' component={tab} />
             </Stack.Navigator>

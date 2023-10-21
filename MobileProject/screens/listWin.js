@@ -32,23 +32,24 @@ const dummyCost = [
     
 
 
-const FirstRoute = (props) => (
 
 
+  const FirstRoute = (props) => (
     <FlatList 
-    data={props.myWin} 
-    renderItem={
-      ({ item  ,index }) => (
-        <GridTile
-          dataItem={item} // ส่ง props ชื่อ dataItem ไป
-          onSelect={() => {
-            props.navigation.navigate("detailWin", {routeData: item});
-          }}
-        />
+      data={props.myWin} 
+      renderItem={
+        ({ item  ,index }) => (
+          <GridTile
+            dataItem={item} // ส่ง props ชื่อ dataItem ไป
+            onSelect={() => {
+              props.navigation.navigate("detailWin", {routeData: item});
+            }}
+          />
         )} 
-      numColumns={2} />
+      numColumns={2} 
+    />
+  );
      
-    );
   
   const SecondRoute = (props) => (
     <View style={styles.list}>
@@ -85,7 +86,7 @@ const listWin = ({ navigation }) => {
     
     
     // FireBase
-    const subjCollection = firebase.firestore().collection("Wins");
+    const subjCollection = firebase.firestore().collection("Service_Points");
     // array of Win
     const [subject_list, setsubject_list] = React.useState([]);
     // array of Price
@@ -96,8 +97,8 @@ const listWin = ({ navigation }) => {
       const all_price = [];
       querySnapshot.forEach((res) => {
           // console.log("res: ", res);
-          // console.log("res.data() : ", res.data().ซอยเกกี1);
-          res.data().ซอยเกกี1.forEach((item) => {
+          console.log("res.data() : ", res.data()); // res.data().ซอยเกกี1 = {price : [], winAll : []} 
+          res.data().winAll.forEach((item) => {
             all_data.push(item)
           })
           res.data().price.forEach((item) => {
