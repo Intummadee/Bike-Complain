@@ -34,7 +34,8 @@ const signup = ({navigation}) => {
         }
         else{
             setIncorrectConfirm(false);
-            subjCollection.add({
+            // ให้ชื่อ document ตามชื่อ username
+            subjCollection.doc(userName).set({
                 email: userEmail,
                 history: [],
                 name: userName,

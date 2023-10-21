@@ -35,7 +35,7 @@ const login = ({navigation}) => {
             console.log(res.data());
     
             setIncorrectEmail(true)
-            if(res.data().name == userName){ //ชื่อผู้ใช้ถูกแล้ว
+            if(res.id == userName){ // ถ้าเข้าเงื่อนไขนี้คือ ชื่อผู้ใช้ถูกแล้ว
                 userFound = true;
                 if(res.data().password == userPassword){
                     all_data.push(res.data())
