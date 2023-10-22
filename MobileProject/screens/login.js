@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Image,TextInput,Button, TouchableOpacity, SafeA
 
 // Redux
 import { useSelector, useDispatch } from "react-redux"
-import { putUserData } from "../store/actions/myAction";
 import { putDocumentName } from "../store/actions/myAction";
+import { putUSER_DATA } from "../store/actions/myAction";
 
 // Firebase
 import firebase from "../database/firebaseDB";
@@ -27,6 +27,8 @@ const login = ({navigation}) => {
     const [showIncorrectEmail, setIncorrectEmail] = useState(false);
 
     
+    // Redux
+    const dispatch = useDispatch();
     
      
     const getCollection = (querySnapshot) => {
@@ -40,7 +42,11 @@ const login = ({navigation}) => {
                 userFound = true;
                 if(res.data().password == userPassword){
                     all_data.push(res.data())
-                    putDataUser(res.data(), res.id) //ส่งไปให้Storeส่วนกลาง หรือ Redux
+
+                    //ส่งไปให้Storeส่วนกลาง หรือ Redux
+                    dispatch( putUSER_DATA(res.data()) ) // {history: Array(0), name: 'judas', email: '64070257@kmitl.ac.th', password: '1111'}
+                    // dispatch( putDocumentName(res.id) ); // judas
+
                     setIncorrectPassword(false)
                     navigation.navigate("tab"); // 
                 }
@@ -63,15 +69,9 @@ const login = ({navigation}) => {
         };
     };
 
-    // Redux
-    const dispatch = useDispatch();
-    const putDataUser = (item, name) => {
-        dispatch( putUserData(item) ); //ค่าที่ส่งไปเก็บ = = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: Array(1)}
-        dispatch( putDocumentName(name))
-    };  
+    
        
-
-
+     
     return (
     
     <SafeAreaView  style={styles.container}>

@@ -44,6 +44,7 @@ const authen = () => {
 }
 
 
+
 const homeStack = () => { 
     return(
         <Stack.Navigator screenOptions={{headerShown:false}}>

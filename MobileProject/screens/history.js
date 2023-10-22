@@ -81,18 +81,17 @@ const history = ({ navigation }) => {
   const [dataUser, setdataUser] = useState([]);
   const [id, setId] = useState(""); // id ของ documentใน Firebase เช่น As3zPvxQOo5JgQRck3eX, Intummadee
   
-  const user = useSelector( (state) => state.myReducer.user );
-  // userที่ได้ เป็นarrayมีแค่ลำดับเดียว ตอนใช้อย่าลืม [0] = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
+  const user = useSelector((state) => state.myReducer.user_data);
   
   const subjCollection = firebase.firestore().collection("Users");
   const getCollection = (querySnapshot) => {
     const all_data = [];
     querySnapshot.forEach((res) => {
-      // console.log("user in Redux",user[0]);
+     
       // console.log("res.data() : ", res.data().history);
       // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
       // res.data().history = 0: {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', …} 1: {type: 'ขับรถเร็ว', nameWin: 'เป๊ปซี่ โคล่า', place: 'ซอยเกกี1', date: '14/10/2023', status: 'green', …}2: {place: 'RNP', numberWin: '07', nameWin: 'โกโก้ หวานน้อย', status: 'orange', time: '15:00', …}3: {time: '10:17', type: 'วาจาไม่สุภาพ', nameWin: 'นํ้าดื่ม สิงห์', numberWin: '02', place: 'แอร์ลิ้ง', …}
-      if(res.data().name == user[0].name){
+      if(res.data().name == user.name){
         //  ตรวจสอบว่าเป็น history ของ user คนนี้
         setId(res.id);
         all_data.push(res.data());

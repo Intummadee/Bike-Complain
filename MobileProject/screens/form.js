@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import {Modal, StyleSheet, Text, TouchableHighlight, View, SafeAreaView, ScrollView,StatusBar, Button, TextInput, TouchableOpacity} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
@@ -95,37 +95,36 @@ const form = ({ navigation , route }) => {
     const documentName = useSelector( (state) => state.myReducer.doc_name );
     
     const [UserData, setUserData] = useState({});
+    const [HistoryData, setHistoryData] = useState([]);
      
+
 
     const complaint = (navigation) => {
       
       const dateObject = new Date(time);
       const options = { hour: '2-digit', minute: '2-digit' };
-      const formattedTime = dateObject.toLocaleTimeString([], options);
+      const formattedTime = dateObject.toLocaleTimeString([], options); // 11:30 ส่วน Date = 21/10/2023
 
-      console.log("time", formattedTime); // 11:30
-      console.log("date", date.toLocaleDateString(),); // 21/10/2023
       const subjCollection = firebase.firestore().collection("Users");
-
-       
-
-       
+      
       
       // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
       // โครงสร้าง history = {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', url:"", nameWin:"Raiden", detail:"อยากได้อะ แต่ไม่มีตี้", date:"12/16/5465"}
+    
       const getCollection = (querySnapshot) => {
-        let dataUser = {};
-        let all_data = [];
+        var dataUser = {};
+        var all_data = [];
 
         querySnapshot.forEach((res) => {
           if(res.id == documentName){
 
             dataUser = {...res.data()}
-            console.log("dataUserก่อนset",dataUser.email);
+             
+            // console.log("dataUserก่อนset", dataUser.email);
             setUserData(dataUser)
-            console.log("dataUser11111111 : ", UserData);
-
+            
             all_data = [...res.data().history]
+
             all_data.push({
               type: value,
               status: "red",
@@ -137,31 +136,41 @@ const form = ({ navigation , route }) => {
               date: date.toLocaleDateString(),
               url: "",
             })
+            setHistoryData([...all_data])
+
           }
         });
          
       }
-
-       
       subjCollection.onSnapshot(getCollection);
-      
-      
-
+       
+      console.log(UserData);
 
       // subjCollection.doc(documentName)
-      //   .set({
-      //     password: dataUser.password,
-      //     email: dataUser.email,
-      //     name: dataUser.name,
-      //     history: [],
-      //   })
-      //   .then(() => {
-      //     alert("Add รายการร้องเรียนแล้ว");
-      //     navigation.popToTop();
-      //   }).catch(() => {
-      //       alert("ยูเซอร์ไม่ถูก Add");
-      //   })
+      //       .set({
+      //         password: UserData.password,
+      //         email: UserData.email,
+      //         name: UserData.name,
+      //         history: HistoryData,
+      //       })
+      //       .then(() => {
+      //         alert("Add รายการร้องเรียนแล้ว");
+      //         // navigation.popToTop();
+      //       }).catch(() => {
+      //         alert("ยูเซอร์ไม่ถูก Add");
+      //       })
     }
+
+    // useEffect(() => {
+      
+    //   const subjCollection = firebase.firestore().collection("Users");
+    //   const unsubscribe = subjCollection.onSnapshot(getCollection);
+
+    //   return () => {
+    //     unsubscribe();
+        
+    //   };
+    // }, [complaint]); // dependencies คือ array ของตัวแปรที่ถ้ามีการเปลี่ยนแปลงจะทำให้ useEffect ทำงานใหม่
  
 
     return (

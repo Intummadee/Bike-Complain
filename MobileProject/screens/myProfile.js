@@ -10,10 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 const myProfile = ({ navigation }) => {
-    const dataUser = useSelector( (state) => state.myReducer.user );
-    const data = dataUser[0]; // data = {email: 'judas@kmitl.ac.th', name: 'judas', history: Array(0), password: '1111'}
-
-  return (
+    const data = useSelector((state) => state.myReducer.user_data) // {email: '64070257@kmitl.ac.th', history: Array(0), password: '1111', name: 'judas'}
+    
+    return (
     <View style={styles.list}>
       <View style={styles.box}>
         <View style={{width:"100%", alignItems:'center'}}>

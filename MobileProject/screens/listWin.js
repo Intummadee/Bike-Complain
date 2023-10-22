@@ -96,16 +96,19 @@ const listWin = ({ navigation }) => {
       const all_data = [];
       const all_price = [];
       querySnapshot.forEach((res) => {
-          // console.log("res: ", res);
+          console.log("res: ", res.id); // จะได้ชื่อ documentมา เช่น  ซอยเกกี1, ซอยเกกี 3
           console.log("res.data() : ", res.data()); // res.data().ซอยเกกี1 = {price : [], winAll : []} 
-          res.data().winAll.forEach((item) => {
-            all_data.push(item)
-          })
-          res.data().price.forEach((item) => {
-            all_price.push(item)
-          })
-          setsubject_list(all_data);
-          setprice_list(all_price);
+          if(res.id == "ซอยเกกี1"){
+            res.data().winAll.forEach((item) => {
+              all_data.push(item)
+            })
+            res.data().price.forEach((item) => {
+              all_price.push(item)
+            })
+            setsubject_list(all_data);
+            setprice_list(all_price);
+          }
+          
       });
     };
      

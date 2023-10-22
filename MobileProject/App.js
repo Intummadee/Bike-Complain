@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import myReducer from "./store/reducers/myReducer";
 
 const rootReducer = combineReducers({
-  myReducer: myReducer,
+  myReducer: myReducer, // อ้างอิงจากตัวด้านหน้า
 });
 
 // store
@@ -21,4 +21,3 @@ export default function App() {
     <Provider store={store}><MyNavigator /></Provider>
   );
 }
-

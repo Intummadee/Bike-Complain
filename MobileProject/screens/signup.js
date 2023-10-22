@@ -8,8 +8,8 @@ import firebase from "../database/firebaseDB";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux"
-import { putUserData } from "../store/actions/myAction";
 import { putDocumentName } from "../store/actions/myAction";
+import { putUSER_DATA } from "../store/actions/myAction";
 
 const signup = ({navigation}) => {
 
@@ -44,7 +44,9 @@ const signup = ({navigation}) => {
                 name: userName,
                 password:userPassword,
             }).then(() => {
-                putDataUser({email: userEmail,history: [],name: userName,password:userPassword,}, userName) //ส่งไปให้Storeส่วนกลาง หรือ Redux
+                //ส่งไปให้Storeส่วนกลาง หรือ Redux
+                dispatch( putDocumentName(userName) )
+                dispatch( putUSER_DATA({email: userEmail,history: [],name: userName,password:userPassword}) )
                 navigation.navigate("tab");
             }).catch(() => {
                 alert("ยูเซอร์ไม่ถูก Add");

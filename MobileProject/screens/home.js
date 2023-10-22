@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View,ImageBackground, Image,TextInput,Button, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 
-
+import { useSelector, useDispatch } from "react-redux";
+ 
 
 const dummyData = [
     {
@@ -22,13 +23,15 @@ const dummyData = [
 
 const home = ({navigation}) => {
 
-   
+ 
+  const counter = useSelector( (state) => state.myReducer.counter );
+  console.log("myReducer", counter);
 
 
     const renderMealItem = (itemData) => {     
         return (
             <View style={styles.mealItem}>
-                <TouchableOpacity onPress={() => { navigation.navigate("screen1", {item: itemData.item}) }}>
+                <TouchableOpacity style={{ }} onPress={() => { navigation.navigate("screen1", {item: itemData.item}) }}>
                     <View style={{}}>
                         <View style={{ ...styles.mealRow, ...styles.mealHeader, }}>
                             <ImageBackground source={itemData.item.image} style={styles.bgImage}>
@@ -55,7 +58,7 @@ const home = ({navigation}) => {
     return (
         <View style={styles.list}>
             <FlatList
-                style={{ width: "100%", marginTop:"20px", }}
+                style={{ width: "100%", marginTop:"20px",  }}
                 data={dummyData}
                 renderItem={renderMealItem}
             />
@@ -70,10 +73,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        
       },
     mealItem: {
-      flex:0.1,
-      // height: 300,
+      flex:1,
+      height: 300,
       height:'auto',
       width: "90%",
       backgroundColor: "#f5f5f5",
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
     mealHeader: {
       backgroundColor:'black',
       // ตรงรูปภาพ background 
-      height: "40%",
+      height: "80%",
     },
   
     mealDetail: {
