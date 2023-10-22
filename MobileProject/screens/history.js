@@ -78,25 +78,26 @@ const history = ({ navigation }) => {
  
   
   // เก็บ ข้อมูล userไว้
-  const [dataUser, setdataUser] = useState([]);
+  const [dataUser, setdataUser] = useState([]); // {password: '1111', history: Array(2), email: '64070257@kmitl.ac.th', name: 'judas'}          
   const [id, setId] = useState(""); // id ของ documentใน Firebase เช่น As3zPvxQOo5JgQRck3eX, Intummadee
   
+   // ชื่อ document Name ที่จะอัพเดต
+  const documentName = useSelector( (state) => state.myReducer.doc_name );
   const user = useSelector((state) => state.myReducer.user_data);
   
   const subjCollection = firebase.firestore().collection("Users");
   const getCollection = (querySnapshot) => {
-    const all_data = [];
+    let all_data = {};
     querySnapshot.forEach((res) => {
      
       // console.log("res.data() : ", res.data().history);
       // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
       // res.data().history = 0: {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', …} 1: {type: 'ขับรถเร็ว', nameWin: 'เป๊ปซี่ โคล่า', place: 'ซอยเกกี1', date: '14/10/2023', status: 'green', …}2: {place: 'RNP', numberWin: '07', nameWin: 'โกโก้ หวานน้อย', status: 'orange', time: '15:00', …}3: {time: '10:17', type: 'วาจาไม่สุภาพ', nameWin: 'นํ้าดื่ม สิงห์', numberWin: '02', place: 'แอร์ลิ้ง', …}
-      if(res.data().name == user.name){
-        //  ตรวจสอบว่าเป็น history ของ user คนนี้
+      if(res.id == documentName){
         setId(res.id);
-        all_data.push(res.data());
-        setdataUser(all_data[0]);           
-        
+        all_data = {...res.data()}
+        setdataUser(all_data);  
+         
       }
       
       

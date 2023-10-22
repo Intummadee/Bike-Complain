@@ -15,7 +15,7 @@ const Box = (props) => {
 
  
   const data = props.data; // data = {date: '12/11/2023', nameWin: 'นายโยคี ขี่รุ้งพุ่งออกมา', numberWin: '05', place: 'ซอยเกกี1', status: 'green', time: "12:12" ,type: "วาจาไม่สุภาพ"}
-  // console.log("Box" ,props.data);
+  console.log("Box" ,props.data);
   return (
     <TouchableOpacity
       style={styles.container}
