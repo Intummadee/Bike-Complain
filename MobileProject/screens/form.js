@@ -29,10 +29,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
+    { label: 'พฤติกรรมการขับขี่', value: 'พฤติกรรมการขับขี่' },
+    { label: 'วาจาไม่สุภาพ', value: 'วาจาไม่สุภาพ' },
+    { label: 'พฤติกรรมไม่เหมาะสม', value: 'พฤติกรรมไไม่เหมาะสม' },
+    { label: 'การเอาเปรียบราคา', value: 'การเอาเปรียบราคา' },
     { label: 'Item 5', value: '5' },
     { label: 'Item 6', value: '6' },
     { label: 'Item 7', value: '7' },
@@ -57,12 +57,43 @@ const data = [
 
 const form = ({ navigation , route }) => {
 
+    const subjCollection = firebase.firestore().collection("Users");
+
+    // ชื่อ document Name ที่จะอัพเดต
+    const documentName = useSelector( (state) => state.myReducer.doc_name );
+
+    // querySnapshot คือ Query Snapshot ที่ได้จาก Firebase Firestore    
+    // res.data() ถูกใช้เพื่อดึงข้อมูลของเอกสารแต่ละรายการ
+    const getCollection = (querySnapshot) => {
+      var all_data = {};
+      var all_history = [];
+      querySnapshot.forEach((res) => {
+        if(res.id == documentName){
+          all_data = {...res.data()}
+          all_history = [...res.data().history]
+        }
+      });
+      setUserData(all_data)
+      setHistoryData(all_history)
+    };
+  
+    useEffect(() => {
+      const unsubscribe = subjCollection.onSnapshot(getCollection);
+      return () => {
+        unsubscribe(); // ในบางกรณี, คุณต้องการทำงานบางอย่าง (เช่น, unsubscribe จาก Firebase, หรือทำความสะอาดข้อมูลที่ไม่ได้ใช้ = Unmounting (การลบ component ออกจาก DOM)
+      };
+    }, []); // Empty dependency array means this effect runs once after the initial render
+
+
+
+
     const routeData_DetailWin = route.params.routeData;
     console.log("ข้อมูลrouteที่ส่งมา : ",routeData_DetailWin);
     // {name: 'Pink Firebase', no: '18', place: 'วินคลอง 4 เขตลาดกระบัง', win_url: 'url', license_url: 'url', license: "MM00 กรุงเทพมหานคร" }
 
     // dropdown
-    const [value, setValue] = useState("");
+    const [value1, setValue1] = useState(""); // ค่า value จะเป็น object = {"_index": 1, "label": "วาจาไม่สุภาพ", "value": "วาจาไม่สุภาพ"}
+
 
      
     // พวก time
@@ -91,8 +122,7 @@ const form = ({ navigation , route }) => {
 
     
 
-    // ชื่อ document Name ที่จะอัพเดต
-    const documentName = useSelector( (state) => state.myReducer.doc_name );
+     
     
     const [UserData, setUserData] = useState({});
     const [HistoryData, setHistoryData] = useState([]);
@@ -105,73 +135,40 @@ const form = ({ navigation , route }) => {
       const options = { hour: '2-digit', minute: '2-digit' };
       const formattedTime = dateObject.toLocaleTimeString([], options); // 11:30 ส่วน Date = 21/10/2023
 
-      const subjCollection = firebase.firestore().collection("Users");
+      let all_data = [...HistoryData];
+      all_data.push({
+        type: value1.label,
+        status: "red",
+        place: routeData_DetailWin.place,
+        detail: detail,
+        numberWin: routeData_DetailWin.no,
+        nameWin: routeData_DetailWin.name,
+        time: formattedTime,
+        date: date.toLocaleDateString(),
+        url: "",
+      }) 
+      console.log(value1);
       
       
-      // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
-      // โครงสร้าง history = {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', url:"", nameWin:"Raiden", detail:"อยากได้อะ แต่ไม่มีตี้", date:"12/16/5465"}
-    
-      const getCollection = (querySnapshot) => {
-        var dataUser = {};
-        var all_data = [];
-
-        querySnapshot.forEach((res) => {
-          if(res.id == documentName){
-
-            dataUser = {...res.data()}
-             
-            // console.log("dataUserก่อนset", dataUser.email);
-            setUserData(dataUser)
-            
-            all_data = [...res.data().history]
-
-            all_data.push({
-              type: value,
-              status: "red",
-              place: routeData_DetailWin.place,
-              detail: detail,
-              numberWin: routeData_DetailWin.no,
-              nameWin: routeData_DetailWin.name,
-              time: formattedTime,
-              date: date.toLocaleDateString(),
-              url: "",
-            })
-            setHistoryData([...all_data])
-
-          }
-        });
-         
-      }
-      subjCollection.onSnapshot(getCollection);
        
-      console.log(UserData);
 
-      // subjCollection.doc(documentName)
-      //       .set({
-      //         password: UserData.password,
-      //         email: UserData.email,
-      //         name: UserData.name,
-      //         history: HistoryData,
-      //       })
-      //       .then(() => {
-      //         alert("Add รายการร้องเรียนแล้ว");
-      //         // navigation.popToTop();
-      //       }).catch(() => {
-      //         alert("ยูเซอร์ไม่ถูก Add");
-      //       })
+      subjCollection.doc(documentName)
+      .set({
+        password: UserData.password,
+        email: UserData.email,
+        name: UserData.name,
+        history: all_data,
+      })
+      .then(() => {
+        console.log("UserData ",UserData);
+        console.log("all_data", all_data);
+        navigation.popToTop();
+      }).catch(() => {
+        alert("ยูเซอร์ไม่ถูก Add");
+      })
     }
 
-    // useEffect(() => {
-      
-    //   const subjCollection = firebase.firestore().collection("Users");
-    //   const unsubscribe = subjCollection.onSnapshot(getCollection);
-
-    //   return () => {
-    //     unsubscribe();
-        
-    //   };
-    // }, [complaint]); // dependencies คือ array ของตัวแปรที่ถ้ามีการเปลี่ยนแปลงจะทำให้ useEffect ทำงานใหม่
- 
+   
 
     return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -249,8 +246,8 @@ const form = ({ navigation , route }) => {
                             valueField="value"
                             placeholder="ประเภทคำร้องเรียน"
                             searchPlaceholder="Search..."
-                            value={value}
-                            onChange={setValue}
+                            value={value1}
+                            onChange={setValue1}
                             renderLeftIcon={() => (
                                 <AntDesign name="folder1" size={20} color="grey" style={{marginLeft:"10%"}} />
                             )}

@@ -98,6 +98,7 @@ const listWin = ({ navigation }) => {
       querySnapshot.forEach((res) => {
           console.log("res: ", res.id); // จะได้ชื่อ documentมา เช่น  ซอยเกกี1, ซอยเกกี 3
           console.log("res.data() : ", res.data()); // res.data().ซอยเกกี1 = {price : [], winAll : []} 
+          
           if(res.id == "ซอยเกกี1"){
             res.data().winAll.forEach((item) => {
               all_data.push(item)
