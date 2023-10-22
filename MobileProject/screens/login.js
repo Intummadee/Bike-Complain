@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image,TextInput,Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image,TextInput,Button, TouchableOpacity, SafeAreaView } from 'react-native';
 
 // Redux
 import { useSelector, useDispatch } from "react-redux"
 import { putUserData } from "../store/actions/myAction";
+import { putDocumentName } from "../store/actions/myAction";
 
 // Firebase
 import firebase from "../database/firebaseDB";
@@ -32,14 +33,14 @@ const login = ({navigation}) => {
         const all_data = [];
         let userFound = false; // เอาไว้เช็กว่า ชื่อผู้ใช้ถูกไหม ถ้าถูกก็ไม่ต้องขึ้นเตือนสีแดง
         querySnapshot.forEach((res) => {
-            console.log(res.data());
+             
     
             setIncorrectEmail(true)
             if(res.id == userName){ // ถ้าเข้าเงื่อนไขนี้คือ ชื่อผู้ใช้ถูกแล้ว
                 userFound = true;
                 if(res.data().password == userPassword){
                     all_data.push(res.data())
-                    putDataUser(res.data()) //ส่งไปให้Storeส่วนกลาง หรือ Redux
+                    putDataUser(res.data(), res.id) //ส่งไปให้Storeส่วนกลาง หรือ Redux
                     setIncorrectPassword(false)
                     navigation.navigate("tab"); // 
                 }
@@ -64,20 +65,22 @@ const login = ({navigation}) => {
 
     // Redux
     const dispatch = useDispatch();
-    const putDataUser = (item) => {
+    const putDataUser = (item, name) => {
         dispatch( putUserData(item) ); //ค่าที่ส่งไปเก็บ = = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: Array(1)}
+        dispatch( putDocumentName(name))
     };  
        
 
 
     return (
-    <View style={styles.container}>
+    
+    <SafeAreaView  style={styles.container}>
         <View style={styles.content}>
             <View style={styles.title}>
                 <Text style={{color: '#FF724C', fontWeight:"bold", fontSize:25}}>WTH, Bro</Text>
                 <Text style={{color: '#FF724C', fontWeight:"bold", fontSize:20}}>แอพลิเคชั่นร้องเรียน</Text>
             </View>
-            <View style={{flex:0.4, marginTop:"20%", width:"60%"}}>
+            <View style={{marginTop:"15%", width:"60%", height:'auto'}}>
                 <TextInput
                     style={styles.input}
                     placeholder="ชื่อผู้ใช้"
@@ -103,7 +106,7 @@ const login = ({navigation}) => {
                     <Text style={styles.validationText}>*ชื่อผู้ใช้ไม่ถูกต้อง</Text>
                 )}
             </View>
-            <View style={{flex:0.2, width:'60%', marginTop:"15%" }}>
+            <View style={{width:'60%',marginTop:"5%",position:'relative', height:'auto', }}>
                 <Button
                     style={{}}
                     color="#FF724C"
@@ -119,7 +122,7 @@ const login = ({navigation}) => {
                     }}
                 />
             </View>
-            <View style={{color:'grey', marginTop:"1%" , flex:0.1, justifyContent:'center',alignSelf:'center', flexDirection:'row', width:"100%"}}>
+            <View style={{color:'grey', marginTop:"5%" , height:'auto', justifyContent:'center',alignSelf:'center', flexDirection:'row', width:"100%"}}>
                 <Text style={{fontSize:14, color:'grey'}}>ยังไม่มีบัญชีผู้ใช้?</Text>
                 <TouchableOpacity onPress={() => {
                     console.log("คลิกเพื่อลงทะเบียนตอนนี้");
@@ -131,8 +134,7 @@ const login = ({navigation}) => {
                 </TouchableOpacity>
             </View>
         </View>
-
-    </View>
+    </SafeAreaView >
   )
 }
 const styles = StyleSheet.create({
@@ -145,6 +147,7 @@ const styles = StyleSheet.create({
       flex: 0.6,
       justifyContent:'center',
       alignItems:'center',
+    //   backgroundColor:'red'
     },
     input: {
       height: 40,
@@ -165,10 +168,12 @@ const styles = StyleSheet.create({
         // backgroundColor:'white' 
     },
     title: {
-        flex:0.1,
+        // flex:0.1,
+        height:'auto',
         justifyContent: 'center',
         alignItems: 'center',
         // fontFamily: 'Cochin', //ค่อยเปลี่ยน
+        // backgroundColor:'white'
     },
   
   });

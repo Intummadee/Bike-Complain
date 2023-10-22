@@ -29,8 +29,8 @@ const home = ({navigation}) => {
         return (
             <View style={styles.mealItem}>
                 <TouchableOpacity onPress={() => { navigation.navigate("screen1", {item: itemData.item}) }}>
-                    <View>
-                        <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
+                    <View style={{}}>
+                        <View style={{ ...styles.mealRow, ...styles.mealHeader, }}>
                             <ImageBackground source={itemData.item.image} style={styles.bgImage}>
                                 <View style={styles.titleContainer}>
                                     <Text style={styles.title}  numberOfLines={1}>
@@ -72,10 +72,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
       },
     mealItem: {
-      flex:1,
-      height: 300,
+      flex:0.1,
+      // height: 300,
+      height:'auto',
       width: "90%",
       backgroundColor: "#f5f5f5",
+      // backgroundColor:'red',
       borderRadius: 10,
       overflow: "hidden",
       alignSelf:"center",
@@ -84,11 +86,12 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       marginBottom:'20%',
       marginTop:"10%",
+      backgroundColor:'green',
     },
     mealHeader: {
-      backgroundColor:'yellow',
+      backgroundColor:'black',
       // ตรงรูปภาพ background 
-      height: "80%",
+      height: "40%",
     },
   
     mealDetail: {
@@ -103,20 +106,23 @@ const styles = StyleSheet.create({
     
     bgImage: {
       width: "100%",
-      height: "100%",
+      height: "auto",
       justifyContent: "flex-end",
     },
     titleContainer: {
       backgroundColor: "rgba(0,0,0,0.5)",
-      paddingVertical: 20,
+      paddingVertical: 13,
       paddingHorizontal: 12,
+      backgroundColor:'#ED8F72',
+      
     },
     title: {
       // fontFamily: "open-sans-bold",
-      fontSize: 20,
+      fontSize: 15,
       fontWeight: "bold",
       color: "white",
       textAlign: "center",
+      color: "#004466",
     },
   });
   

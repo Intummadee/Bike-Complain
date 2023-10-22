@@ -59,7 +59,7 @@ const form = ({ navigation , route }) => {
 
     const routeData_DetailWin = route.params.routeData;
     console.log("ข้อมูลrouteที่ส่งมา : ",routeData_DetailWin);
-    // {license: 'MM00 กรุงเทพมหานคร', no: '18', place: 'วินคลอง 4 เขตลาดกระบัง', pictureLicense: '18', pictureWin: '18', name: "Pink Firebase"}
+    // {name: 'Pink Firebase', no: '18', place: 'วินคลอง 4 เขตลาดกระบัง', win_url: 'url', license_url: 'url', license: "MM00 กรุงเทพมหานคร" }
 
     // dropdown
     const [value, setValue] = useState("");
@@ -93,58 +93,81 @@ const form = ({ navigation , route }) => {
 
     // ชื่อ document Name ที่จะอัพเดต
     const documentName = useSelector( (state) => state.myReducer.doc_name );
+    
+    const [UserData, setUserData] = useState({});
+     
 
     const complaint = (navigation) => {
+      
+      const dateObject = new Date(time);
+      const options = { hour: '2-digit', minute: '2-digit' };
+      const formattedTime = dateObject.toLocaleTimeString([], options);
+
+      console.log("time", formattedTime); // 11:30
+      console.log("date", date.toLocaleDateString(),); // 21/10/2023
       const subjCollection = firebase.firestore().collection("Users");
 
-      const dataUser = [];
-      const all_data = [];
+       
 
-    
+       
+      
       // res.data() = {password: '1111', name: 'เฟรม', history: Array(4), email: '64070257@kmitl.ac.th'}
       // โครงสร้าง history = {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', url:"", nameWin:"Raiden", detail:"อยากได้อะ แต่ไม่มีตี้", date:"12/16/5465"}
-      querySnapshot.forEach((res) => {
-        if(resid == documentName){
-          dataUser = {...res.data()}
-          all_data = [...res.data().history]
-          all_data.push({
-            type:value,
-            status:"red",
-            place:"",
-            detail:"",
-            numberWin:"",
-            nameWin:"",
-            time:time,
-            date:date.toLocaleString(),
-            url:"",
-          })
-        }
-      });
+      const getCollection = (querySnapshot) => {
+        let dataUser = {};
+        let all_data = [];
 
+        querySnapshot.forEach((res) => {
+          if(res.id == documentName){
 
+            dataUser = {...res.data()}
+            console.log("dataUserก่อนset",dataUser.email);
+            setUserData(dataUser)
+            console.log("dataUser11111111 : ", UserData);
+
+            all_data = [...res.data().history]
+            all_data.push({
+              type: value,
+              status: "red",
+              place: routeData_DetailWin.place,
+              detail: detail,
+              numberWin: routeData_DetailWin.no,
+              nameWin: routeData_DetailWin.name,
+              time: formattedTime,
+              date: date.toLocaleDateString(),
+              url: "",
+            })
+          }
+        });
+         
+      }
+
+       
+      subjCollection.onSnapshot(getCollection);
+      
       
 
 
-      subjCollection.doc(documentName)
-        .set({
-          password: dataUser.password,
-          email: dataUser.email,
-          name: dataUser.name,
-          history: [],
-        })
-        .then(() => {
-          alert("Add รายการร้องเรียนแล้ว");
-          navigation.popToTop();
-        }).catch(() => {
-            alert("ยูเซอร์ไม่ถูก Add");
-        })
+      // subjCollection.doc(documentName)
+      //   .set({
+      //     password: dataUser.password,
+      //     email: dataUser.email,
+      //     name: dataUser.name,
+      //     history: [],
+      //   })
+      //   .then(() => {
+      //     alert("Add รายการร้องเรียนแล้ว");
+      //     navigation.popToTop();
+      //   }).catch(() => {
+      //       alert("ยูเซอร์ไม่ถูก Add");
+      //   })
     }
  
 
     return (
         <SafeAreaView style={styles.safeAreaView}>
-        <ScrollView contentContainerStyle={styles.list}>  
             <View style={styles.box}>
+            <ScrollView>
                 <View style={{ flex: 1, }}>
                     <View style={{ width:"100%", height:'15%', marginTop:'15%' ,flexDirection:'row' }}>
                         <View style={{width:"45%", marginLeft:"5%", justifyContent:'space-between'}}>
@@ -174,7 +197,7 @@ const form = ({ navigation , route }) => {
                             <TouchableOpacity style={styles.touch_dateAndTime} onPress={()=>{
                                 console.log("Click Time");
                                 setShowTimePicker(true)
-                            }}>
+                            }}> 
                                 <View style={styles.dateAndTime}>
                                     <Text style={styles.dateAndTime_Text}><Ionicons name="ios-time-outline" size={20} color="grey"  style={{marginLeft:"10%"}} /> 00:00</Text>
                                   
@@ -262,9 +285,21 @@ const form = ({ navigation , route }) => {
                         </TouchableOpacity>
                     </View>
 
+                    <View style={{width:"auto", height:'auto', marginTop:'10%', justifyContent:'center', alignItems:'center' }}>
+                    <Text style={styles.text}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                      </Text>
+                    </View>
+
                 </View>
-            </View>
-        </ScrollView>                      
+            </ScrollView>                      
+          </View>
         </SafeAreaView>
       );
     };
@@ -282,9 +317,13 @@ const styles = StyleSheet.create({
 // marginTop: "5%" (ระหว่างตัวอักษรกับกล่อง)
 
 // พวกicon -> marginLeft:"10%" , size={20}
-
+    scrollView: {
+      backgroundColor: 'red',
+      marginHorizontal: 20,
+    },
     safeAreaView: {
         flex: 1,
+        alignItems: 'center',
         paddingTop: StatusBar.currentHeight,
       },
     container: {
@@ -340,16 +379,18 @@ const styles = StyleSheet.create({
     box: {
         width: '86%',
         height: '100%',
-        backgroundColor: '#FF724C',
+        // backgroundColor: '#FF724C',
+        backgroundColor: 'lightpink',
         position: 'absolute',
         marginTop: '15%',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         flexDirection: 'row',
+        alignItems: 'center',
     },
     list: {
         flex: 1,
-        backgroundColor: '#EEEBEB',
+        backgroundColor: 'cyan',
         alignItems: 'center',
     },
     dropdown: {
