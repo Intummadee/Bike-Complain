@@ -26,7 +26,7 @@ const testUpload = () => {
    const [image, setImage] = useState(null)
    const [isloading, setloading] = useState(false)
 
-   const [imageURL, setImageURL] = useState(null);
+  
 
 
   const pickImage = async  () => {
@@ -150,31 +150,7 @@ const testUpload = () => {
             </>
           )}
 
-          <View style={{flex:0.3}}>
-            <TouchableOpacity style={{borderWidth:1, backgroundColor:'yellow', margin:10, padding:10}} 
-            onPress={addImage}>
-              <Text>downloadImageFromStorage</Text>
-            </TouchableOpacity>
-          </View>
-            
-
-          {!image ? (
-            // ไม่มีรูปภาพ
-            <View style={{backgroundColor:'grey'}}>
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
-            </View>
-            ) : (
-              // กรณีมีรูป
-              <View style={{backgroundColor:'white'}}>
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
-            </View>
-            )}
+          
 
 
       </View>

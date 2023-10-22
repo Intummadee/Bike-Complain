@@ -1,5 +1,10 @@
 import React, { useEffect,useState } from 'react';
-import {Modal, StyleSheet, Text, TouchableHighlight, View, SafeAreaView, ScrollView,StatusBar, Button, TextInput, TouchableOpacity} from "react-native";
+import {Modal, StyleSheet, Text, TouchableHighlight, View, SafeAreaView, ScrollView,
+  StatusBar, Button, TextInput, 
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 
@@ -23,8 +28,10 @@ import firebase from "../database/firebaseDB";
 import { useSelector, useDispatch } from "react-redux";
 
 
- 
- 
+// Import สำหรับการ upload รูป Image  
+import { storage } from '../database/testDatabase';
+import { getDownloadURL ,uploadBytes, ref, deleteObject } from 'firebase/storage';
+import * as ImagePicker from 'expo-image-picker';
 
 
 
@@ -62,8 +69,6 @@ const form = ({ navigation , route }) => {
     // ชื่อ document Name ที่จะอัพเดต
     const documentName = useSelector( (state) => state.myReducer.doc_name );
 
-    // querySnapshot คือ Query Snapshot ที่ได้จาก Firebase Firestore    
-    // res.data() ถูกใช้เพื่อดึงข้อมูลของเอกสารแต่ละรายการ
     const getCollection = (querySnapshot) => {
       var all_data = {};
       var all_history = [];
@@ -145,29 +150,107 @@ const form = ({ navigation , route }) => {
         nameWin: routeData_DetailWin.name,
         time: formattedTime,
         date: date.toLocaleDateString(),
-        url: "",
+        url: image,
       }) 
-      console.log(value1);
-      
-      
-       
+      console.log("UserData.email", UserData.email);
+      console.log("UserData.name", UserData.name);
+      console.log("UserData.password", UserData.password);
+      console.log("value1.label", value1.label);
+      console.log("url", image);
 
       subjCollection.doc(documentName)
       .set({
-        password: UserData.password,
         email: UserData.email,
-        name: UserData.name,
         history: all_data,
+        name: UserData.name,
+        password: UserData.password,
       })
       .then(() => {
-        console.log("UserData ",UserData);
-        console.log("all_data", all_data);
         navigation.popToTop();
       }).catch(() => {
         alert("ยูเซอร์ไม่ถูก Add");
       })
     }
 
+    // สำหรับ การทำ Image
+    const [image, setImage] = useState(null)
+    const [isloading, setloading] = useState(false)
+    const pickImage = async  () => {
+      console.log("pickImage 🟢🟢🟢");
+      setloading(true)
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      console.log("result: ",result);
+  
+      if (!result.canceled) {
+        console.log("result.assets[0].uri ", result.assets[0].uri );
+        
+        // จุดที่ผู้ใช้ไม่ยกเลิกอัพโหลดภาพ
+        // setImage(result.assets[0].uri);
+        const uploadURL = await uploadImageAsync(result.assets[0].uri)
+        setImage(uploadURL);
+        console.log("image => ", uploadURL);
+        setInterval(() => {
+          setloading(false)
+        }, 1000);
+      }
+      else{
+        console.log("ทำไม");
+        setImage(null)
+        setInterval(()=>{
+          setloading(false);
+        },2000);
+      }
+     };
+     const uploadImageAsync = async (uri) => {
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function (e) {
+          console.log(e);
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", uri, true);
+        xhr.send(null);
+      });
+  
+      try{
+        const storageRef = ref(storage, `Image/image-`+Date.now());
+        //  uploadBytes เป็น ฟังชัน upload ไปยัง storage
+        const result = await uploadBytes(storageRef, blob);
+  
+        // We're done with the blob, close and release it
+        blob.close();
+        return await getDownloadURL(storageRef);
+  
+      }catch(err){
+        alert(err+"")
+      }
+     };
+     // สำหรับ ลบ รูปภาพ 
+  const deleteImage = async () => {
+    setloading(true);
+    const deleteRef = ref(storage, image);
+    // image = https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Image%2Fimage-1697881800366?alt=media&token=82981114-0602-4fe8-a76d-a3507a1866b3
+    try{
+      deleteObject(deleteRef).then(() => {
+        setImage(null);
+        setInterval(() => {
+          setloading(false);
+        }, 2000);
+      })
+    }catch(err){
+      console.log("errorอีกแหละ ไอสัส : " + err);
+    }
+  }
    
 
     return (
@@ -272,6 +355,31 @@ const form = ({ navigation , route }) => {
                     <View style={{width:"auto", height:'auto', marginTop:'10%',marginLeft:"5%" }}>
                         <Text>แนบหลักฐาน (ถ้ามี):</Text>
                         {/* อย่าลืมตอนทำทีหลัง marginTop: "5%" (คือmarginระหว่างตัวอักษรกับกล่อง) */}
+                        
+                        {!image ? (
+                          <>
+                            {isloading ? (
+                              <View style={{flex:1, backgroundColor:'cyan' , justifyContent:'center'}}>
+                                <ActivityIndicator color={"red"} animating size={"large"} />
+                              </View>
+                            ) : (
+                              <Button title="Pick Image" onPress={pickImage} />
+                            )}
+                          </>
+                        ) : (
+                          <>
+                          {image && (<View style={{flex:0.4, backgroundColor:'yellow' , justifyContent:'center' , width:"50%", alignItems:'center', height:'auto'}}>
+                              <Image style={{width:200, height:200}} source={{uri : image}} />
+                              <Text>งง</Text>
+                          </View>)}
+                          <Button title='deleteImage' onPress={deleteImage} />
+                          
+                          </>
+                        )}
+
+
+
+
                         <Text></Text>
                          
                     </View>
