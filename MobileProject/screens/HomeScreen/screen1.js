@@ -1,20 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image,TextInput,Button, SafeAreaView, ScrollView,StatusBar  } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
-import { putTEST } from "../../store/actions/myAction";
 
-import { storage } from '../../database/testDatabase';
-import { getDownloadURL ,uploadBytes, ref, deleteObject } from 'firebase/storage';
+
+
 
 
 const screen1 = ({navigation, route}) => {
-    const data = route.params.item;
+    // const data = route.params.item;
 
     const uri_image = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen1.jpg?alt=media&token=08358861-8ccf-4547-9a93-8f60f29546c3" 
     
- 
-   
-
      
     return (
         <SafeAreaView style={styles.container}>
@@ -23,9 +19,9 @@ const screen1 = ({navigation, route}) => {
                 <Text style={{fontSize:20, fontWeight:'bold', textAlign:'center'}}>ผู้บริโภคแจ้งยังพบวินมอไซค์เก็บค่าโดยสารเกินราคาจริงและขับรถหวาดเสียว</Text>
                 <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย เฟรม. </Text>
               </View>
-              <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}>
-                <Image style={{width:"100%", height:'100%'}} source={{uri : uri_image}} />
-              </View>
+              {/* <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}> */}
+                <Image style={{width:"100%", height:'40%'}} source={{uri : uri_image}} />
+              {/* </View> */}
               <View style={styles.content_below}>
                 <Text>  ปัญหาการใช้บริการรถโดยสารสาธารณะนับเป็นปัญหาที่เกิดขึ้นทุกวันกับผู้บริโภคที่ต้องใช้บริการ แต่ก็มีบางส่วนยอมที่ทนความยากลำบากเพื่อให้ถึงจุดหมายปลายทางที่รวดเร็วและตรงเวลาทำงาน ซึ่งก็ส่งผลกระทบการสภาพจิตใจในการทำงาน เช่น มีความหงุดหงิด มีความตื่นกลัว หรือ หดหู่กับสิ่งที่พบเจอ</Text>
                 <Text>  </Text>
@@ -71,20 +67,8 @@ const styles = StyleSheet.create({
     scrollView: {
       backgroundColor: '#EEEBEB',
     },
-    input: {
-      height: 40,
-      margin: 12,
-      padding: 10,
-      placeholderTextColor: 'gray',
-      borderBottomWidth: 1,
-      
-    },
-    title: {
-        flex:0.1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: 'Cochin', //ค่อยเปลี่ยน
-    },
+    
+    
   
   });
 
