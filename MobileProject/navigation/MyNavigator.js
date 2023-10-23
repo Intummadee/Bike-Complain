@@ -47,8 +47,11 @@ const authen = () => {
 
 const homeStack = () => { 
     return(
-        <Stack.Navigator screenOptions={{headerShown:false}}>
-            <Stack.Screen name='home' component={home} />
+        <Stack.Navigator screenOptions={{headerShown:true, 
+            headerTintColor: '#FF9770',
+            headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: '#FF9770'}  
+        }}>
+            <Stack.Screen name='home' component={home} options={{headerShown:false}} />
             <Stack.Screen name='screen1' component={screen1} 
                 options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true}) }   />
             {/* <Stack.Screen name='screen2' component={screen2} /> */}
@@ -105,7 +108,7 @@ const tab = () => {
 const MainNavigator = () => { 
     return(
         <NavigationContainer>
-            <Stack.Navigator  initialRouteName="authen" screenOptions={{headerShown:false}}>
+            <Stack.Navigator  initialRouteName="tab" screenOptions={{headerShown:false}}>
                 <Stack.Screen name="authen" component={authen} />
                 <Stack.Screen name='tab' component={tab} />
             </Stack.Navigator>

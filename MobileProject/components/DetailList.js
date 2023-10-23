@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView,Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, ScrollView } from 'react-native'
 import React from 'react'
 
 
@@ -64,7 +64,7 @@ const DetailList = (props) => {
     console.log("dataHistory.status ", dataHistory);
 
     return (
-        <View style={styles.list}>
+        <SafeAreaView style={styles.list}>
             <Text style={{fontSize:25, fontWeight:"bold", backgroundColor:'brown'}}>ประเภทคำร้อง :</Text>
             <View style={{height:'auto', marginTop:10, backgroundColor:'grey'}}>
                 <TouchableOpacity style={[styles.touchOpacity, {flexDirection:'row',width:"55%", justifyContent:'center', backgroundColor:dataHistory.status, }]} onPress={()=>{console.log("clickk!!");}}>
@@ -151,7 +151,7 @@ const DetailList = (props) => {
                 )}
             </View>
 
-        </View>
+        </SafeAreaView>
     )
 }
 
