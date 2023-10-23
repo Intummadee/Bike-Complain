@@ -10,7 +10,6 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import login from "../screens/login";
 import signup from "../screens/signup";
 import home from "../screens/home";
-import screen1 from "../screens/screen1";
 import listWin from "../screens/listWin";
 import detailWin from "../screens/detailWin";
 import form from "../screens/form";
@@ -18,6 +17,12 @@ import myProfile from "../screens/myProfile";
 import history from "../screens/history";
 import detailList from "../screens/detailList";
 import updateForm from "../screens/updateForm";
+
+
+import screen1 from "../screens/HomeScreen/screen1";
+import screen2 from '../screens/HomeScreen/screen2';
+import screen3 from '../screens/HomeScreen/screen3';
+
 
 // import Icon
 import { AntDesign } from '@expo/vector-icons'; 
@@ -54,7 +59,12 @@ const homeStack = () => {
             <Stack.Screen name='home' component={home} options={{headerShown:false}} />
             <Stack.Screen name='screen1' component={screen1} 
                 options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true}) }   />
-            {/* <Stack.Screen name='screen2' component={screen2} /> */}
+            <Stack.Screen name='screen2' component={screen2}
+                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true}) }
+            />
+            <Stack.Screen name='screen3' component={screen3}
+                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true}) }
+            />
         </Stack.Navigator>
     )
  }

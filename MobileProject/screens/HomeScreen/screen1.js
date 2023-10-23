@@ -1,36 +1,30 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image,TextInput,Button, SafeAreaView, ScrollView,StatusBar  } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
-import { putTEST } from "../store/actions/myAction";
+import { putTEST } from "../../store/actions/myAction";
+
+import { storage } from '../../database/testDatabase';
+import { getDownloadURL ,uploadBytes, ref, deleteObject } from 'firebase/storage';
+
 
 const screen1 = ({navigation, route}) => {
     const data = route.params.item;
-     
 
-    // const dispatch = useDispatch();
-    // dispatch( putTEST( 2 ) );
-     
-  
+    const uri_image = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen1.jpg?alt=media&token=08358861-8ccf-4547-9a93-8f60f29546c3" 
     
-    // console.log("finish", useSelector((state) => state.myReducer.finish)  );
-    // console.log("unfinish", useSelector((state) => state.myReducer.unfinish)  );
-    // console.log("name", useSelector((state) => state.myReducer.name)  );
-    // console.log("doc_name", useSelector((state) => state.myReducer.doc_name)  );
-    // console.log("user", useSelector((state) => state.myReducer.myUser)  );
-    
-    // console.log("test : ", useSelector((state) => state.myReducer.test)  );
-    // console.log("user_data", useSelector((state) => state.myReducer.user_data)  );
+ 
+   
 
-    console.log(data);
+     
     return (
         <SafeAreaView style={styles.container}>
           <ScrollView style={styles.scrollView}>
               <View style={styles.content_above}>
                 <Text style={{fontSize:20, fontWeight:'bold', textAlign:'center'}}>ผู้บริโภคแจ้งยังพบวินมอไซค์เก็บค่าโดยสารเกินราคาจริงและขับรถหวาดเสียว</Text>
-                <Text style={{color:'grey', fontSize:14, marginTop:5}}>เขียนโดย เฟรม. </Text>
+                <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย เฟรม. </Text>
               </View>
-              <View style={{height:'50%', backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}>
-                <Image style={{width:"95%", height:'100%'}} source={data.image} />
+              <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}>
+                <Image style={{width:"100%", height:'100%'}} source={{uri : uri_image}} />
               </View>
               <View style={styles.content_below}>
                 <Text>  ปัญหาการใช้บริการรถโดยสารสาธารณะนับเป็นปัญหาที่เกิดขึ้นทุกวันกับผู้บริโภคที่ต้องใช้บริการ แต่ก็มีบางส่วนยอมที่ทนความยากลำบากเพื่อให้ถึงจุดหมายปลายทางที่รวดเร็วและตรงเวลาทำงาน ซึ่งก็ส่งผลกระทบการสภาพจิตใจในการทำงาน เช่น มีความหงุดหงิด มีความตื่นกลัว หรือ หดหู่กับสิ่งที่พบเจอ</Text>
@@ -63,23 +57,19 @@ const styles = StyleSheet.create({
       paddingTop: StatusBar.currentHeight,
     },
     content_above:{
-      // flex: 1,
-      // height:'100%',
       height:'auto',
-      // justifyContent:'center',
-      // alignItems:'center',
-      backgroundColor:'blue',
+      backgroundColor:'#EEEBEB',
       marginTop:"5%"
     },
     content_below : {
       height:'auto',
       width:'100%',
       marginTop:'5%',
-      backgroundColor:'violet', 
-      paddingHorizontal:'2%'
+      backgroundColor:'#EEEBEB', 
+      paddingHorizontal:'4%'
     },
     scrollView: {
-      backgroundColor: 'green',
+      backgroundColor: '#EEEBEB',
     },
     input: {
       height: 40,

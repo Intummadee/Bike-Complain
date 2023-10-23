@@ -24,14 +24,15 @@ const dummyData = [
 const home = ({navigation}) => {
 
  
-  const counter = useSelector( (state) => state.myReducer.counter );
-  console.log("myReducer", counter);
+
 
 
     const renderMealItem = (itemData) => {     
+      const screen = "screen".concat(itemData.index+1) // จะได้ชื่อไฟล์มา screen1 , screen2 เพื่อเอาไป navigate ต่อ
+
         return (
             <View style={styles.mealItem}>
-                <TouchableOpacity style={{ }} onPress={() => { navigation.navigate("screen1", {item: itemData.item}) }}>
+                <TouchableOpacity style={{ }} onPress={() => { navigation.navigate(screen, {item: itemData.item}) }}>
                     <View style={{}}>
                         <View style={{ ...styles.mealRow, ...styles.mealHeader, }}>
                             <ImageBackground source={itemData.item.image} style={styles.bgImage}>
