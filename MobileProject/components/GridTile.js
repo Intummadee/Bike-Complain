@@ -2,11 +2,15 @@ import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Image } from "react-native";
 
 const GridTile = (props) => {
-    // console.log(props.dataItem);
+    // console.log("ข้อมูล card ", props.dataItem); 
+    // {win_url: 'https://' no: '18', license_url: 'url', license: 'MM00 กรุงเทพมหานคร', name: 'Pink Firebase',place: "วินคลอง 4 เขตลาดกระบัง"}
+
+    const service_point = props.service_point // ซอยเกกี1
+
     return (
         <TouchableOpacity style={styles.gridItem} onPress={() => {props.onSelect();}}  >
             <View style={styles.container}>
-                <Image source={props.dataItem.pic}
+                <Image source={{uri: props.dataItem.win_url}}
                 style={styles.pic} />
 
                 <Text style={styles.number}>
@@ -16,7 +20,7 @@ const GridTile = (props) => {
                     {props.dataItem.name}
                 </Text>
                 <Text style={{color:'grey', fontSize:10}}>
-                    {props.dataItem.place}
+                    {service_point}
                 </Text>
                 
             </View>

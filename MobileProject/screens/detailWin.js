@@ -8,6 +8,8 @@ import { AntDesign } from '@expo/vector-icons';
 const detailWin = ({ navigation, route }) => {
 
     const data = route.params.routeData;
+    // {name: 'Pink Firebase', license_url: 'url', win_url: 'https://firebasestorage', no: '18', license: 'MM00 กรุงเทพมหานคร',place: "วินคลอง 4 เขตลาดกระบัง"}
+    const service_point = route.params.point; // ซอยเกกี1
 
     return (
         <View style={styles.list}>
@@ -15,7 +17,7 @@ const detailWin = ({ navigation, route }) => {
                 <View style={styles.detail}> 
                     {/* กล่องชื่อของวิน */}
                     <View style={{width:'100%', justifyContent:'center', alignItems:'center', flexDirection:'row', }}>
-                        <Image source={require("../assets/raiden.jpg")} style={{width:"50%", height:"60%"}} /> 
+                        <Image source={{uri : data.win_url}} style={{width:"50%", height:"60%"}} /> 
                         <View style={{marginLeft:'10%', }}>
                             <Text>ชื่อ:</Text>
                             <Text>{data.name}</Text>

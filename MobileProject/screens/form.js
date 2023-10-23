@@ -33,17 +33,17 @@ import { storage } from '../database/testDatabase';
 import { getDownloadURL ,uploadBytes, ref, deleteObject } from 'firebase/storage';
 import * as ImagePicker from 'expo-image-picker';
 
-
+ 
 
 const data = [
     { label: 'พฤติกรรมการขับขี่', value: 'พฤติกรรมการขับขี่' },
     { label: 'วาจาไม่สุภาพ', value: 'วาจาไม่สุภาพ' },
     { label: 'พฤติกรรมไม่เหมาะสม', value: 'พฤติกรรมไไม่เหมาะสม' },
     { label: 'การเอาเปรียบราคา', value: 'การเอาเปรียบราคา' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
+    // { label: 'Item 5', value: '5' },
+    // { label: 'Item 6', value: '6' },
+    // { label: 'Item 7', value: '7' },
+    // { label: 'Item 8', value: '8' },
   ];
 
   const renderItem = item => {
@@ -272,10 +272,10 @@ const form = ({ navigation , route }) => {
                             </TouchableOpacity>
                             {showDatePicker && (
                                 <DateTimePicker
-                                value={date}
-                                mode={"date"}
-                                is24Hour={true}
-                                onChange={onChangeDate}
+                                  value={date}
+                                  mode={"date"}
+                                  is24Hour={true}
+                                  onChange={onChangeDate}
                                 />
                             )}
                         </View>
@@ -359,20 +359,47 @@ const form = ({ navigation , route }) => {
                         {!image ? (
                           <>
                             {isloading ? (
-                              <View style={{flex:1, backgroundColor:'cyan' , justifyContent:'center'}}>
+                              <View style={{flex:1, color:"#0000ff",marginTop: "5%" , justifyContent:'center'}}>
                                 <ActivityIndicator color={"red"} animating size={"large"} />
                               </View>
                             ) : (
-                              <Button title="Pick Image" onPress={pickImage} />
+                              <TouchableOpacity style={{borderWidth:1, 
+                              width:"50%",
+                              padding: 15,// แก้ขนาดปุ่ม
+                              borderRadius:10,
+                              marginTop:10,
+                              borderColor:'grey' , backgroundColor:'#D9D9D9'}} onPress={pickImage}>
+                                <Text style={{fontSize:12}}><AntDesign name="plus" size={16} color="black" />  อัพโหลดไฟล์</Text>
+                                
+                              </TouchableOpacity>
+                              // <Button title="Pick Image" onPress={pickImage} />
                             )}
                           </>
                         ) : (
                           <>
-                          {image && (<View style={{flex:0.4, backgroundColor:'yellow' , justifyContent:'center' , width:"50%", alignItems:'center', height:'auto'}}>
-                              <Image style={{width:200, height:200}} source={{uri : image}} />
-                              <Text>งง</Text>
-                          </View>)}
-                          <Button title='deleteImage' onPress={deleteImage} />
+                          {image && (
+                          <View style={{marginLeft:"5%", 
+                            flex:1, 
+                            marginTop: "5%",
+                            // backgroundColor:'yellow' , 
+                            alignItems:'flex-start', 
+                            height:'auto',
+                          }}>
+                              <Image style={{width:200, height:200, }} source={{uri : image}} />
+                          </View>
+                          )}
+                          <TouchableOpacity style={{borderWidth:1, 
+                              width:"50%",
+                              justifyContent:'center',
+                              alignItems:'center',
+                              padding: 15,// แก้ขนาดปุ่ม
+                              borderRadius:10,
+                              marginTop: "5%",
+                              borderColor:'grey' , backgroundColor:'#D9D9D9'}} onPress={deleteImage}>
+                                <Text style={{fontSize:12}}>เปลี่ยนรูป</Text>
+                                
+                            </TouchableOpacity>
+                          {/* <Button title='deleteImage' onPress={deleteImage} /> */}
                           
                           </>
                         )}
@@ -576,4 +603,3 @@ const styles = StyleSheet.create({
     });
     
 export default form
-

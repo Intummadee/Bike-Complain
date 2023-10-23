@@ -39,12 +39,15 @@ const dummyCost = [
       data={props.myWin} 
       renderItem={
         ({ item  ,index }) => (
+          
           <GridTile
             dataItem={item} // ส่ง props ชื่อ dataItem ไป
+            service_point={props.service_point}
             onSelect={() => {
-              props.navigation.navigate("detailWin", {routeData: item});
+              props.navigation.navigate("detailWin", {routeData: item, point: props.service_point});
             }}
           />
+
         )} 
       numColumns={2} 
     />
@@ -83,7 +86,8 @@ const listWin = ({ navigation }) => {
       { key: 'second', title: 'ราคา' },
     ]);
 
-    
+    // ไว้เก็บ จุดให้บริการ ที่ผู้ใช้เลือก
+    const [nameService_point, setnameService_point] = React.useState("")
     
     // FireBase
     const subjCollection = firebase.firestore().collection("Service_Points");
@@ -102,6 +106,7 @@ const listWin = ({ navigation }) => {
           if(res.id == "ซอยเกกี1"){
             res.data().winAll.forEach((item) => {
               all_data.push(item)
+              setnameService_point(res.id)
             })
             res.data().price.forEach((item) => {
               all_price.push(item)
@@ -140,7 +145,7 @@ const listWin = ({ navigation }) => {
         renderScene={
           // SceneMap = ฟังก์ชันที่ใช้สร้าง map ของ component ที่ควรแสดงในแต่ละ tab ของ TabView.
           SceneMap({
-            first: () => <FirstRoute foo={dummyData} myWin={subject_list} navigation={navigation} />,
+            first: () => <FirstRoute myWin={subject_list} navigation={navigation} service_point={nameService_point} />,
             second: () => <SecondRoute myPrice={price_list} /> ,
           })
         }
