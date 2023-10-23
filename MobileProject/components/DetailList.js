@@ -65,10 +65,10 @@ const DetailList = (props) => {
 
     return (
         <SafeAreaView style={styles.list}>
-            <Text style={{fontSize:25, fontWeight:"bold", backgroundColor:'brown'}}>ประเภทคำร้อง :</Text>
-            <View style={{height:'auto', marginTop:10, backgroundColor:'grey'}}>
+            <Text style={{fontSize:25, fontWeight:"bold",}}>ประเภทคำร้อง :</Text>
+            <View style={{height:'auto', marginTop:10, }}>
                 <TouchableOpacity style={[styles.touchOpacity, {flexDirection:'row',width:"55%", justifyContent:'center', backgroundColor:dataHistory.status, }]} onPress={()=>{console.log("clickk!!");}}>
-                    <Text style={{color:'white', fontWeight:"bold", height:"100%", fontSize:15, backgroundColor:'green' }}>
+                    <Text style={{color:'white', fontWeight:"bold", height:"100%", fontSize:15, }}>
                         { dataHistory.status=="green" ? "ดำเนินการสำเร็จ" : ""}
                         { dataHistory.status=="red" ? "ยังไม่ดำเนินการ" : ""}
                         { dataHistory.status=="orange" ? "กำลังดำเนินการ" : ""}
@@ -77,7 +77,7 @@ const DetailList = (props) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{marginTop:"7%", height:'auto', backgroundColor:'yellow'}}>
+            <View style={{marginTop:"7%", height:'auto', }}>
                 <Text style={[ styles.line ,{fontSize:16, } ]}><MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
                 <Text style={styles.textFront}>ผู้ถูกร้องเรียน: </Text>
                 <Text style={styles.textBack}>{dataHistory.nameWin}</Text>
@@ -120,7 +120,7 @@ const DetailList = (props) => {
 
 
             
-            <View style={[styles.line , {backgroundColor:'purple', flex:1 }]}>
+            <View style={[styles.line , { flex:1 }]}>
                 { dataHistory.status=="green" && (
                     <View style={[styles.line, {flex:0.2,}]}>
                         <Text style={{fontSize:20, fontWeight:"bold"}}>หมายเหตุ: </Text>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
         marginHorizontal:"5%",
-        backgroundColor:"cyan",
+        // backgroundColor:"cyan",
         marginTop:"5%"
     },
     touchOpacity: {

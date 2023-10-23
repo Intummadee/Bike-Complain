@@ -15,7 +15,7 @@ const screen2 = () => {
                     <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย เอิน. </Text>
                 </View>
                 {/* <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}> */}
-                    <Image style={{width:"100%", height:'30%',marginTop:'5%', paddingHorizontal:'4%'}} source={{uri : uri_image}} />
+                    <Image style={{width:"100%", height:'30%'}} source={{uri : uri_image}} />
                 {/* </View> */}
                 <View style={styles.content_below}>
                     <Text>  บรรดาสื่อต่างๆ มักใช้คำว่า "วิน จยย." หรือ "วินมอเตอร์ไซค์" หลายคนอาจจะสงสัย คำว่า "วิน" นั้น มาจากไหน? ทำไมถึงใช้คำนี้? "วิน" เป็นคำที่ใช้กันโดยทั่วไปและที่ปรากฏในสื่อมวลชนก็มีต่างๆ กันไป เช่น "วินมอเตอร์ไซค์" "วินรถจักรยานยนต์รับจ้าง" "วินรถตู้โดยสาร" "ผู้ขี่รถวิน" "เจ้าแม่วิน" "ผู้คุมวิน" "เจ้าของวิน" "เสื้อวิน" ฯลฯ</Text>
