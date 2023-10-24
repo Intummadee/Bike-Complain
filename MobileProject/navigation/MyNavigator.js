@@ -128,6 +128,7 @@ import Dashboard from "../screens/AdminScreen/dashboard"
 import Complaint from '../screens/AdminScreen/complaint';
 import WinService from '../screens/AdminScreen/winservice';
 import WinList from '../screens/AdminScreen/WinList';
+import Windetail from '../screens/AdminScreen/Windetail';
 
 
 const DashboardStack = () => {
@@ -144,7 +145,7 @@ const WinServiceStack = () => {
         <Stack.Navigator initialRouteName='จุดบริการมอเตอร์ไซค์รับจ้าง' screenOptions={{ headerShown: true}}>
             <Stack.Screen name='จุดบริการมอเตอร์ไซค์รับจ้าง' component={WinService} options={{ title: "จุดบริการมอเตอร์ไซค์รับจ้าง",}}/>
             <Stack.Screen name='WinList' component={WinList}/>
-            {/* <Stack.Screen name='WinDetail' component={Windetail}/> */}
+            <Stack.Screen name='WinDetail' component={Windetail}/>
         </Stack.Navigator>
     )
 }
