@@ -48,7 +48,7 @@ const testUpload = () => {
       // setImage(result.assets[0].uri);
       const uploadURL = await uploadImageAsync(result.assets[0].uri)
       setImage(uploadURL);
-      console.log("image => ",uploadURL);
+      console.log("image 🎋🎋 => ",uploadURL); // ได้ url มาตรงupload
       setInterval(() => {
         setloading(false)
       }, 1000);
