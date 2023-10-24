@@ -30,13 +30,19 @@ import { Feather } from '@expo/vector-icons';
 
 
 
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
 // testUpload
 import testUpload from "../screens/testUpload";
+
+
+
+// ของฝั่งadmin
+const Drawer = createDrawerNavigator();
+
+
+
 
 const authen = () => { 
     return(
