@@ -3,7 +3,6 @@ import React from 'react'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"; // v.6
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 // import screen
@@ -35,11 +34,6 @@ const Tab = createBottomTabNavigator();
 
 // testUpload
 import testUpload from "../screens/testUpload";
-
-
-
-// ของฝั่งadmin
-const Drawer = createDrawerNavigator();
 
 
 
@@ -121,12 +115,65 @@ const tab = () => {
 }
 
 
+// icon ฝั่ง admin
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+// ของฝั่งadmin
+import { createDrawerNavigator } from "@react-navigation/drawer";
+const Drawer = createDrawerNavigator();
+
+
+// screenฝั่งadmin
+import Dashboard from "../screens/AdminScreen/dashboard"
+import Complaint from '../screens/AdminScreen/complaint';
+import WinService from '../screens/AdminScreen/winservice';
+import WinList from '../screens/AdminScreen/WinList';
+
+
+const DashboardStack = () => {
+    return (
+        <Stack.Navigator initialRouteName='Dashboard' screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: "Dashboard",}}/>
+            <Stack.Screen name='Complaint' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน",}}/>
+        </Stack.Navigator>
+    )
+}
+
+const WinServiceStack = () => {
+    return(
+        <Stack.Navigator initialRouteName='จุดบริการมอเตอร์ไซค์รับจ้าง' screenOptions={{ headerShown: true}}>
+            <Stack.Screen name='จุดบริการมอเตอร์ไซค์รับจ้าง' component={WinService} options={{ title: "จุดบริการมอเตอร์ไซค์รับจ้าง",}}/>
+            <Stack.Screen name='WinList' component={WinList}/>
+            {/* <Stack.Screen name='WinDetail' component={Windetail}/> */}
+        </Stack.Navigator>
+    )
+}
+
+
+const admin = () => {
+    return(
+        <Drawer.Navigator initialRouteName="จุดบริการมอเตอร์ไซค์รับจ้าง" screenOptions={{ headerShown:false }} >
+            <Drawer.Screen name="Dashboard" component={DashboardStack}options={{drawerLabel: "Dashboard",drawerIcon: ({ color }) => {
+                return <MaterialCommunityIcons name="view-dashboard-outline" size={24} color={color} />;},
+            }}/>
+            <Drawer.Screen name="จุดบริการมอเตอร์ไซค์รับจ้าง" component={WinServiceStack} options={{ drawerLabel: "จุดบริการมอเตอร์ไซค์รับจ้าง", drawerIcon: ({ color }) => {
+                return <MaterialCommunityIcons name="map-marker-radius-outline" size={24} color={color} />;
+            },}}/>
+
+
+        </Drawer.Navigator>
+    )
+}
+
+
+
 const MainNavigator = () => { 
     return(
         <NavigationContainer>
-            <Stack.Navigator  initialRouteName="authen" screenOptions={{headerShown:false}}>
+            <Stack.Navigator  initialRouteName="admin" screenOptions={{headerShown:false}}>
                 <Stack.Screen name="authen" component={authen} />
                 <Stack.Screen name='tab' component={tab} />
+                <Stack.Screen name="admin" component={admin} />
             </Stack.Navigator>
         </NavigationContainer>
     )
