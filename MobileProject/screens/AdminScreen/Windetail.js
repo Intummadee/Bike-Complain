@@ -3,18 +3,69 @@ import { StyleSheet, View, TouchableOpacity, FlatList, Button, Text, Image,
     TextInput
 } from 'react-native';
 
+import Modal from "react-native-modal";
+
+
 // import icon
 import { AntDesign } from '@expo/vector-icons'; 
 
 
 const Windetail = ({ navigation, route }) => {
     const data = route.params.routeData; // {license: 'MM00 กรุงเทพมหานคร', no: '02', win_url: 'https://firebasestorage.', license_url: 'url', place: 'วินคลอง 4 เขตลาดกระบัง', name: "Blue Firebase"}
+    //  point: 'ซอยเกกี1', item: 0
+    const point = route.params.point;
+    const item = route.params.item;
 
     const licenseWin = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fimage.png?alt=media&token=89225b40-7817-421e-8f77-d2c439935aea";
 
     const [name, setName] = useState(data.name);
     const [regisNumber, setRegisNumber] = useState(data.license);
     const [queueNumber, setQueueNumber] = useState(data.no);
+
+    // modal
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    const [edit, setEdit] = useState(false)
+    const [buttonEditText, setbuttonEditText] = useState("แก้ไข")
+    const [colorButton, setcolorButton] = useState("rgba(255, 193, 7, 1)")
+
+
+    const subjCollection = firebase.firestore().collection("Service_Points").doc(point);
+    
+    const toggleModal = () => {
+        console.log("toggleModal");
+        setcolorButton("#FFD808")
+        setModalVisible(!isModalVisible);
+    };
+
+    const updateData = () => {
+        if(edit == false){
+            // แก้ไม่ได้ ให้แก้ได้
+            // console.log("แก้ไม่ได้ ให้แก้ได้");
+            setEdit(true)
+            setbuttonEditText("ยืนยันการเปลี่ยนแปลง")
+            setcolorButton("#05A56B")
+            
+            
+            
+        }
+        else{
+            // แก้ได้ ให้ไม่สามารถแก้ได้
+            setcolorButton("rgba(255, 193, 7, 1)")
+            setEdit(false)
+            setbuttonEditText("แก้ไข")
+            
+            
+
+
+
+
+            
+
+
+        }
+    }
+
 
     return (
         <View style={styles.list}>
@@ -41,6 +92,7 @@ const Windetail = ({ navigation, route }) => {
                                 style={styles.input}
                                 onChangeText={setName}
                                 value={name}
+                                editable={edit}
                             />
                             {/* <Text>{data.name}</Text> */}
                             <Text> </Text>
@@ -50,6 +102,7 @@ const Windetail = ({ navigation, route }) => {
                                 style={styles.input}
                                 onChangeText={setRegisNumber}
                                 value={regisNumber}
+                                editable={edit}
                             />
                             {/* <Text>{data.license}</Text> */}
                             
@@ -58,9 +111,11 @@ const Windetail = ({ navigation, route }) => {
                             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center' }} numColumns={2}>
                                 <Text style={{flexDirection:'row', width:'30%', fontSize:12, }}>เลขคิววิน: </Text>
                                 <TextInput
-                                        style={{width:"70%",height:35,backgroundColor:'white', borderRadius:50, paddingLeft:15, }}
-                                        onChangeText={setQueueNumber}
-                                        value={queueNumber}
+                                    style={{width:"70%",height:35,backgroundColor:'white', borderRadius:50, paddingLeft:15, }}
+                                    onChangeText={setQueueNumber}
+                                    value={queueNumber}
+                                    editable={edit}
+                                    keyboardType="numeric"
                                 />
                             </View>
                             
@@ -80,6 +135,7 @@ const Windetail = ({ navigation, route }) => {
                         borderRadius:10,
                         borderColor:'grey' , backgroundColor:'#D9D9D9',
                         alignSelf:'center', borderColor:'black',
+                        justifyContent:'center', alignItems:'center'
                         }}>
                         <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>
                     </TouchableOpacity>
@@ -93,12 +149,50 @@ const Windetail = ({ navigation, route }) => {
                             <Text style={{fontSize:12,color:'white' }}>ลบรายชื่อ</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={{borderRadius:10, width:"45%", marginLeft:10, flexDirection:'row', justifyContent:'center', padding:6,alignItems:'center' , marginBottom:15, backgroundColor:'#05A56B',paddingVertical:10}}
+                            style={{borderRadius:10, width:"45%", marginLeft:10, flexDirection:'row', justifyContent:'center', padding:6,alignItems:'center' , marginBottom:15, 
+                            backgroundColor:colorButton,paddingVertical:10}}
+                            onPress={()=>{
+                                updateData()
+                            }}
                         >
-                            <Text style={{fontSize:12, color:'white'}}>ยันยันการเปลี่ยนแปลง</Text>
+                            <Text style={{fontSize:12, color:'white'}}>{buttonEditText}</Text>
                         </TouchableOpacity>
                 </View>
             </View>
+            <Modal isVisible={isModalVisible}>
+                <View style={{backgroundColor:'white', 
+                    justifyContent:'center', alignSelf:'center', alignItems:'center',
+                    width:"90%", height:"40%", 
+                    
+                }}>
+                    <View style={{backgroundColor:'red'}}>
+                        <Text >ยืนยันการแก้ไขไหม</Text>
+                    </View>
+                    <View style={{backgroundColor:'cyan'}}>
+
+                        <TouchableOpacity
+                                style={{borderRadius:10, width:"45%",
+                                backgroundColor:"green", paddingVertical:10}}
+                                onPress={()=>{
+                                    toggleModal()
+                                }}
+                            >
+                                <Text style={{fontSize:12, color:'white'}}>ยืนยัน</Text>
+                        </TouchableOpacity>  
+                        <TouchableOpacity
+                                style={{borderRadius:10, width:"45%",
+                                backgroundColor:"green", paddingVertical:10}}
+                                onPress={()=>{
+                                    toggleModal()
+                                }}
+                            >
+                                <Text style={{fontSize:12, color:'white'}}>ยกเลิก</Text>
+                        </TouchableOpacity>  
+                    </View>
+                
+
+                </View>
+            </Modal>
         </View>
     )
 }

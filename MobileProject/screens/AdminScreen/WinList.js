@@ -85,6 +85,7 @@ const FirstRoute = (props) => {
                 props.navigation.navigate("WinDetail", {
                   routeData: item,
                   point: props.service_point,
+                  item: index
                 });
               }}
             />
