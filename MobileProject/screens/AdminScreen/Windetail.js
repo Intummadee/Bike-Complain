@@ -242,7 +242,7 @@ const Windetail = ({ navigation, route }) => {
             xhr.send(null);
         });
         try{
-            const storageRef = ref(storage, `Image/image-`+Date.now());
+            const storageRef = ref(storage, `Service_Points/Service_Points/-`+service_point+`/`+Date.now());
             //  uploadBytes เป็น ฟังชัน upload ไปยัง storage
             const result = await uploadBytes(storageRef, blob);
       
@@ -277,6 +277,24 @@ const Windetail = ({ navigation, route }) => {
         }
     } 
 
+    const deleteImage1 = async () => {
+        setloading(true);
+        const deleteRef = ref(storage, image);
+        try{
+          deleteObject(deleteRef)
+          .then(() => {
+            setImage(win_url_data);
+            setInterval(() => {
+              setloading(false);
+            }, 2000);
+
+          })
+        }catch(err){
+          console.log("errorอีกแหละ : " + err);
+        }
+    }
+
+    
 
     return (
         <View style={styles.list}>
@@ -284,30 +302,51 @@ const Windetail = ({ navigation, route }) => {
                 <View style={styles.detail}> 
                     {/* กล่องชื่อของวิน */}
                     <View style={{width:'100%', justifyContent:'center', alignItems:'center', flexDirection:'row', }}>
-                        <View style={{flex:1, width:"100%", height:"100%", justifyContent:'center', alignItems:'center',alignSelf:'center'}}>
-
+                        {/* viewด้านล่าง = รูปภาพของ วิน */}
+                        <View style={{flex:1,backgroundColor:'green', width:"100%", height:"100%", justifyContent:'center', alignItems:'center',alignSelf:'center'}}>
                             <Image source={{uri: image}} style={{width:"90%", height:"50%"}} /> 
-                            {isloading ? (
-                                <View style={{flex:0.2,position:'absolute', justifyContent:'center'}}>
-                                    <ActivityIndicator color={"red"} animating size={"large"} />
-                                </View>
-                            ) : (
-                                <TouchableOpacity style={{borderWidth:1, 
-                                    width:"90%",
-                                    padding: 10,// แก้ขนาดปุ่ม
-                                    borderRadius:10,
-                                    marginTop:10,
-                                    borderColor:'grey' , backgroundColor:'#D9D9D9',
-                                    borderColor:'black',
-                                  }}
-                                      onPress={()=>{
-                                        if(edit==true){
-                                            pickImage()
-                                        }
-                                    }}
-                                  >
-                                    <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>
-                                </TouchableOpacity>
+                            {image == win_url_data ? (
+                                    <>
+                                        {isloading ? (
+                                            <View style={{flex:0.2,position:'absolute', justifyContent:'center'}}>
+                                                <ActivityIndicator color={"red"} animating size={"large"} />
+                                            </View>
+                                        ) : (
+                                            <TouchableOpacity style={{borderWidth:1, 
+                                                width:"90%",
+                                                padding: 10,// แก้ขนาดปุ่ม
+                                                borderRadius:10,
+                                                marginTop:10,
+                                                borderColor:'grey' , backgroundColor:'#D9D9D9',
+                                                borderColor:'black',
+                                            }}
+                                                onPress={()=>{
+                                                    if(edit==true){
+                                                        pickImage()
+                                                    }
+                                                    else{
+                                                        alert("กรุณากดแก้ไขก่อน")
+                                                    }
+                                                }}
+                                            >
+                                                <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>
+                                            </TouchableOpacity>
+                                        )}
+                                    </>
+                                ) : (
+                                    <TouchableOpacity style={{borderWidth:1, 
+                                        width:"90%",
+                                        padding: 10,// แก้ขนาดปุ่ม
+                                        borderRadius:10,
+                                        marginTop:10,
+                                        borderColor:'grey' , backgroundColor:'#D9D9D9',
+                                        borderColor:'black',
+                                        }} 
+                                        onPress={deleteImage1}>
+                                          <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  เปลี่ยนรูป</Text>
+                                          
+                                      </TouchableOpacity>
+                                    
                             )}
 
                         </View>
@@ -370,6 +409,9 @@ const Windetail = ({ navigation, route }) => {
                             onPress={()=>{
                                 if(edit == true){
                                     pickImageLicense()
+                                }
+                                else{
+                                    alert("กรุณากดแก้ไขก่อน")
                                 }
                             }}>
                             <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>

@@ -99,7 +99,7 @@ const AddDataForm = ( props ) => {
         xhr.send(null);
     });
     try{
-        const storageRef = ref(storage, `Service_Points/-`+service_point+`/`+Date.now());
+        const storageRef = ref(storage, `Service_Points/Service_Points/-`+service_point+`/`+Date.now());
         //  uploadBytes เป็น ฟังชัน upload ไปยัง storage
         const result = await uploadBytes(storageRef, blob);
   

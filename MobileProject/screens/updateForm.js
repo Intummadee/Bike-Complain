@@ -188,16 +188,17 @@ const updateForm = ({ route }) => {
                 </View>
                 
 
-                <Text style={[styles.line]}>
+                <View style={[styles.line, {backgroundColor:'red'}]}>
                     <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
                     <Text style={styles.textFront}>สถานที่: </Text>
-                    {/* <Text style={styles.textBack}>{dataHistory.place}</Text> */}
-                    <TextInput
+                    <TextInput 
                         style={{borderWidth:1, backgroundColor:'red', width:"100%", height:"auto", padding: 10, marginTop:"6%",}}
                         onChangeText={setPlace}
                         value={place}
                     />
-                </Text>
+                     
+
+                </View>
 
                 <View style={[styles.line, {fontSize:13,}]}>
                     <Text style={styles.textFront}><Entypo name="list" size={20} color="black" />รายละเอียด: </Text> 
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
       marginTop: StatusBar.currentHeight || 0,
     },
     scrollView: {
-        // backgroundColor: 'pink',
+        backgroundColor: 'pink',
         marginHorizontal: 10,
       },
     list: {

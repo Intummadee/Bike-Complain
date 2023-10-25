@@ -367,6 +367,7 @@ const form = ({ navigation , route }) => {
                         {/* อย่าลืมตอนทำทีหลัง marginTop: "5%" (คือmarginระหว่างตัวอักษรกับกล่อง) */}
                         
                         {!image ? (
+                      // โค้ดนี้ใช้การเช็คว่า image มีค่าหรือไม่ ถ้าไม่มีค่า (เป็น falsy) แสดงว่าไม่มีรูปภาพที่ถูกเลือก. ในกรณีนี้, component จะแสดงปุ่ม "อัปโหลดไฟล์"
                           <>
                             {isloading ? (
                               <View style={{flex:1, color:"#0000ff",marginTop: "5%" , justifyContent:'center'}}>
@@ -386,6 +387,7 @@ const form = ({ navigation , route }) => {
                             )}
                           </>
                         ) : (
+                          // หาก image มีค่า (เป็น truthy), component จะแสดงรูปภาพที่ถูกเลือกและปุ่ม "เปลี่ยนรูป" (Change Image). เมื่อผู้ใช้กดปุ่ม "เปลี่ยนรูป", มันจะเรียกฟังก์ชัน deleteImage.บ
                           <>
                           {image && (
                           <View style={{marginLeft:"5%", 
