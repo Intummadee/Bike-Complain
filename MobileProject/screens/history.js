@@ -11,7 +11,7 @@ import { Dropdown } from 'react-native-element-dropdown'
 
 
 
-// Import AntDesign
+// Import Icon
 import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
@@ -32,15 +32,8 @@ const data = [
 
 
 
-
-// const dataUser = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: [
-//   {date:"12/11/2023", nameWin:"นายโยคี ขี่รุ้งพุ่งออกมา", numberWin:"05", place:"ซอยเกกี1", status:"green", time:"12:12", type:"วาจาไม่สุภาพ"},
-//   {date:"12/11/2023", nameWin:"นายโยคี ขี่รุ้งพุ่งออกมา", numberWin:"05", place:"ซอยเกกี1", status:"red", time:"12:12", type:"วาจาไม่สุภาพ"},
-//   {date:"12/11/2023", nameWin:"นายโยคี ขี่รุ้งพุ่งออกมา", numberWin:"05", place:"ซอยเกกี1", status:"orange", time:"12:12", type:"วาจาไม่สุภาพ"},
-// ]};
-
+// สำหรับ DropDown box
 const renderItem = item => {
-   
   return (
     <View style={styles.item}>
       <Text style={{flex: 1, fontSize: 16,}}>{item.label}</Text>
@@ -57,7 +50,6 @@ const renderItem = item => {
 };
 
 const renderList = ({ item, index }, props) => {
-  
   console.log("");
   console.log("item ใน Box :",item);
   return (
@@ -118,14 +110,14 @@ const history = ({ navigation }) => {
   
   
   
-  // dropdown
+  // dropdown 🍁
   const [value, setValue] = useState(""); //ค่า สถานะจาก dropdown ที่ถูกเลือก
   const [clickStatus, setclickStatus] = useState(false); //ค่า สถานะจาก dropdown ที่ถูกเลือก
   
   // เป็น array ที่เอาไว้แสดง ตาม สถานะ
   const [dataMockup, setdataMockup] = useState([]); // arrayที่ถูก sort ตามสถานะ จาก Onchange ใน dropDown
 
-  // คลิ๊กปุ่ม เรียงตาม วันที่
+  // คลิ๊กปุ่ม เรียงตาม วันที่ 🍁
   const [clickDate, setClickDate] = useState(false);
   const [historySort, sethistorySort] = useState([]); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
   const [countDate, setcountDate] = useState(1); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
@@ -193,14 +185,7 @@ const history = ({ navigation }) => {
         setClickDate(!clickDate);
         setcountDate(countDate+1)
       }
-    
-    
-    
-    
     sethistorySort(historySort);
-    
-    
- 
   }
  
 
@@ -257,6 +242,7 @@ const history = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+      {/* ด้านล่างเป็นส่วนของกล่องรายการร้องเรียน */}
       <View style={{ width:'100%', height:"100%", flexDirection:'row'}}>
         <SafeAreaView style={styles.container}>
           

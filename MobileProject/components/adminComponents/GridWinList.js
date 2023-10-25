@@ -19,7 +19,7 @@ const GridWinList = (props) => {
                     {props.dataItem.name}
                 </Text>
                 <Text style={{color:'grey', fontSize:10}}>
-                    {props.dataItem.place}
+                    {props.dataItem.zone}
                 </Text>
                 
             </View>

@@ -3,7 +3,7 @@ import { TouchableOpacity, View, Text, StyleSheet, Image } from "react-native";
 
 const GridTile = (props) => {
     // console.log("ข้อมูล card ", props.dataItem); 
-    // {win_url: 'https://' no: '18', license_url: 'url', license: 'MM00 กรุงเทพมหานคร', name: 'Pink Firebase',place: "วินคลอง 4 เขตลาดกระบัง"}
+    // {win_url: 'https://' no: '18', license_url: 'url', license: 'MM00 กรุงเทพมหานคร', name: 'Pink Firebase',zone: "วินคลอง 4 เขตลาดกระบัง"}
 
     const service_point = props.service_point // ซอยเกกี1
 
@@ -20,7 +20,7 @@ const GridTile = (props) => {
                     {props.dataItem.name}
                 </Text>
                 <Text style={{color:'grey', fontSize:10}}>
-                    {service_point}
+                    {props.dataItem.zone}
                 </Text>
                 
             </View>

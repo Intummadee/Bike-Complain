@@ -38,7 +38,7 @@ import * as ImagePicker from 'expo-image-picker';
 const data = [
     { label: 'พฤติกรรมการขับขี่', value: 'พฤติกรรมการขับขี่' },
     { label: 'วาจาไม่สุภาพ', value: 'วาจาไม่สุภาพ' },
-    { label: 'พฤติกรรมไม่เหมาะสม', value: 'พฤติกรรมไไม่เหมาะสม' },
+    { label: 'พฤติกรรมไม่เหมาะสม', value: 'พฤติกรรมไม่เหมาะสม' },
     { label: 'การเอาเปรียบราคา', value: 'การเอาเปรียบราคา' },
     // { label: 'Item 5', value: '5' },
     // { label: 'Item 6', value: '6' },

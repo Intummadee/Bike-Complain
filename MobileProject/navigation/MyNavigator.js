@@ -26,6 +26,7 @@ import screen3 from '../screens/HomeScreen/screen3';
 // import Icon
 import { AntDesign } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons';
 
 
 
@@ -135,7 +136,7 @@ const DashboardStack = () => {
     return (
         <Stack.Navigator initialRouteName='Dashboard' screenOptions={{ headerShown: false }}>
             <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: "Dashboard",}}/>
-            <Stack.Screen name='Complaint' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน",}}/>
+            {/* <Stack.Screen name='Complaint' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน",}}/> */}
         </Stack.Navigator>
     )
 }
@@ -150,16 +151,27 @@ const WinServiceStack = () => {
     )
 }
 
+const ComplaintStack = () => {
+    return(
+        <Stack.Navigator initialRouteName='complaint' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
+            <Stack.Screen name='รายการการร้องเรียน' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน",}} />
+        </Stack.Navigator>
+    )
+}
+
 
 const admin = () => {
     return(
-        <Drawer.Navigator initialRouteName="จุดบริการมอเตอร์ไซค์รับจ้าง" screenOptions={{ headerShown:false }} >
+        <Drawer.Navigator initialRouteName="รายการการร้องเรียน" screenOptions={{ headerShown:false }} >
             <Drawer.Screen name="Dashboard" component={DashboardStack}options={{drawerLabel: "Dashboard",drawerIcon: ({ color }) => {
                 return <MaterialCommunityIcons name="view-dashboard-outline" size={24} color={color} />;},
             }}/>
             <Drawer.Screen name="จุดบริการมอเตอร์ไซค์รับจ้าง" component={WinServiceStack} options={{ drawerLabel: "จุดบริการมอเตอร์ไซค์รับจ้าง", drawerIcon: ({ color }) => {
                 return <MaterialCommunityIcons name="map-marker-radius-outline" size={24} color={color} />;
             },}}/>
+            <Drawer.Screen name="รายการการร้องเรียน" component={ComplaintStack} options={{drawerLabel: "รายการการร้องเรียน", drawerIcon: ({ color }) => {
+                return <FontAwesome5 name="envelope" size={24} color={color} />;},
+            }}/>
 
 
         </Drawer.Navigator>
