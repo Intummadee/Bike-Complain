@@ -52,7 +52,7 @@ const FirstRoute = (props) => {
     setIsAddFormVisible(false);
   };
   // Filter items based on search text
-  const filteredWin = props.myWin.filter(item => {
+  const filteredWin = props.allWin.filter(item => {
     const searchTextLower = searchText.toLowerCase()
     return (
       item.name.toLowerCase().includes(searchTextLower) ||
@@ -71,8 +71,9 @@ const FirstRoute = (props) => {
         />
         <Button title="เพิ่มรายชื่อวิน" onPress={handleOpenAddForm} />
         <Modal visible={isAddFormVisible} style={styles.modalContainer} animationType="slide">
-        <AddDataForm onClose={handleCloseAddForm} />
-      </Modal>
+          {/* modal Formอยู่ตรงนี้ */}
+            <AddDataForm allPrice={props.allPrice} allWin={props.allWin} service_point={props.service_point}  onClose={handleCloseAddForm} />
+        </Modal>
       </View>
       {filteredWin.length > 0 ? ( // Conditional rendering based on search results
         <FlatList
@@ -196,7 +197,7 @@ const WinList = ({ navigation, route }) => {
         renderScene={
           // SceneMap = ฟังก์ชันที่ใช้สร้าง map ของ component ที่ควรแสดงในแต่ละ tab ของ TabView.
           SceneMap({
-            first: () => <FirstRoute myWin={subject_list} navigation={navigation} service_point={nameService_point} />,
+            first: () => <FirstRoute allWin={subject_list} allPrice={price_list}  navigation={navigation} service_point={nameService_point} />,
             second: () => <SecondRoute myPrice={price_list} /> ,
           })
         }

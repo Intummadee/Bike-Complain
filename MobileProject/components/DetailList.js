@@ -65,6 +65,7 @@ const DetailList = (props) => {
 
     return (
         <SafeAreaView style={styles.list}>
+        <ScrollView style={styles.scrollView}>
             <Text style={{fontSize:25, fontWeight:"bold",}}>ประเภทคำร้อง :</Text>
             <View style={{height:'auto', marginTop:10, }}>
                 <TouchableOpacity style={[styles.touchOpacity, {flexDirection:'row',width:"55%", justifyContent:'center', backgroundColor:dataHistory.status, }]} onPress={()=>{console.log("clickk!!");}}>
@@ -150,7 +151,7 @@ const DetailList = (props) => {
                     </View>
                 )}
             </View>
-
+        </ScrollView>
         </SafeAreaView>
     )
 }
@@ -161,10 +162,16 @@ const DetailList = (props) => {
 const styles = StyleSheet.create({
     list: {
         flex: 1,
-        marginHorizontal:"5%",
+        // marginHorizontal:"5%",
         // backgroundColor:"cyan",
-        marginTop:"5%"
     },
+    scrollView: {
+        // flex:1,
+        // backgroundColor: 'pink',
+        marginLeft:10,
+        marginRight:5,
+        top:-15,
+      },
     touchOpacity: {
         borderRadius: 10,
         width:"100%",
@@ -193,7 +200,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         alignItems:'center',
         alignSelf:'center',
-        paddingHorizontal:"3%",
+        paddingHorizontal:"2%",
         paddingVertical:'5%',
         borderRadius:10,
     },

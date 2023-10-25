@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView, StatusBar, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView , ScrollView , StatusBar, TextInput } from 'react-native'
 import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -82,10 +82,14 @@ const updateForm = ({ route }) => {
     const navigation = data1.navigation;
     const index = data1.index; // indexคือ ลำดับ history ใน array History ทั้งหมด
 
-     
+    console.log(dataHistory); 
+    console.log("dataHistory", dataHistory.place); 
+    console.log("dataHistory", dataHistory.nameWin); 
 
     // input ของ ฟอร์ม
     const [detail, setDetail] = useState(dataHistory.detail);
+
+    const [place, setPlace] = useState(dataHistory.place)
 
     // input ของ time
     const [time, setTime] = useState(new Date());
@@ -113,12 +117,13 @@ const updateForm = ({ route }) => {
 
 
   return (
-    <View style={styles.container}>
+<SafeAreaView style={styles.container}>
+    <ScrollView style={styles.scrollView}>
       <View style={styles.list}>
        
             <View style={{flex:0.15,}}>
                 <Text style={{fontSize:20, fontWeight:"bold"}}>ประเภทคำร้อง :</Text>
-                <TouchableOpacity style={[styles.touchOpacity, {width:"45%", justifyContent:'center', backgroundColor:dataHistory.status }]} onPress={()=>{console.log("clickk!!");}}>
+                <TouchableOpacity style={[styles.touchOpacity, {width:"45%", height:50, justifyContent:'center', backgroundColor:dataHistory.status }]} onPress={()=>{console.log("clickk!!");}}>
                     <Text style={{color:'white', fontWeight:"bold"}}>
                         { dataHistory.status=="green" ? "ดำเนินการสำเร็จ" : ""}
                         { dataHistory.status=="red" ? "ยังไม่ดำเนินการ" : ""}
@@ -128,7 +133,7 @@ const updateForm = ({ route }) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{marginTop:"5%", height:'auto',}}>
+            <View style={{marginTop:5, height:'auto',}}>
                 <Text style={[ styles.line ,{fontSize:16, } ]}><MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
                 <Text style={styles.textFront}>ผู้ถูกร้องเรียน: </Text>
                 <Text style={styles.textBack}>{dataHistory.nameWin}</Text>
@@ -184,9 +189,14 @@ const updateForm = ({ route }) => {
                 
 
                 <Text style={[styles.line]}>
-                <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
-                <Text style={styles.textFront}>สถานที่: </Text>
-                <Text style={styles.textBack}>{dataHistory.place}</Text>
+                    <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
+                    <Text style={styles.textFront}>สถานที่: </Text>
+                    {/* <Text style={styles.textBack}>{dataHistory.place}</Text> */}
+                    <TextInput
+                        style={{borderWidth:1, backgroundColor:'red', width:"100%", height:"auto", padding: 10, marginTop:"6%",}}
+                        onChangeText={setPlace}
+                        value={place}
+                    />
                 </Text>
 
                 <View style={[styles.line, {fontSize:13,}]}>
@@ -232,8 +242,8 @@ const updateForm = ({ route }) => {
             )}
 
         </View>
-
-    </View>
+        </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -244,16 +254,20 @@ const styles = StyleSheet.create({
       flex: 1,
       marginTop: StatusBar.currentHeight || 0,
     },
+    scrollView: {
+        // backgroundColor: 'pink',
+        marginHorizontal: 10,
+      },
     list: {
         flex: 1,
-        marginHorizontal:"5%",
+        // marginHorizontal:"5%",
         // backgroundColor:"cyan",
-        marginTop:"5%"
+        // marginTop:"5%"
     },
     touchOpacity: {
         borderRadius: 10,
         width:"100%",
-        padding: 10,// แก้ขนาดปุ่ม
+        padding: 15,// แก้ขนาดปุ่ม
         flexDirection:'row',
         // justifyContent:'center',
         marginTop:"3%"
@@ -283,7 +297,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
     },
     statusRedText: {
-        margin:"5%",
+        margin:"2.5%",
         paddingLeft:"5%"
     },
       

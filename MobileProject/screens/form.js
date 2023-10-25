@@ -123,7 +123,8 @@ const form = ({ navigation , route }) => {
     
     // ข้อมูลในฟอร์ม เอาไว้ส่ง
     const [detail, setDetail] = useState("");
-
+    
+    const [place, setPlace] = useState("");
 
     
 
@@ -144,7 +145,7 @@ const form = ({ navigation , route }) => {
       all_data.push({
         type: value1.label,
         status: "red",
-        place: routeData_DetailWin.place,
+        place: place,
         detail: detail,
         numberWin: routeData_DetailWin.no,
         nameWin: routeData_DetailWin.name,
@@ -310,7 +311,16 @@ const form = ({ navigation , route }) => {
                     <View style={{width:"auto", height:'10%', marginTop:'10%',marginLeft:"5%" }}>
                         <Text>สถานที่เกิดเหตุ</Text>
                         <View style={[styles.dropdown, {height:'80%', justifyContent:'center', marginTop:"5%"}]}>
-                          <Text style={{fontSize:16, marginLeft:'10%'}}>{routeData_DetailWin.place}</Text>
+                          <TextInput
+                              // editable
+                              // multiline
+                              // numberOfLines={1} //บรรทัดที่โชว์ ถ้ามากกว่านี้มันจะสไลด์ให้แทน
+                              // maxLength={200}
+                              style={[styles.detailInput, styles.shadowProp]}
+                              onChangeText={setPlace}
+                              value={place}
+                          />
+                          {/* <Text style={{fontSize:16, marginLeft:'10%'}}>{routeData_DetailWin.place}</Text> */}
                         </View>
                     </View> 
 

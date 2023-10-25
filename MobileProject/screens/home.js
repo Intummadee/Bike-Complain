@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     mealHeader: {
       backgroundColor:'black',
       // ตรงรูปภาพ background 
-      height: "80%",
+      height: "40%",
     },
   
     mealDetail: {

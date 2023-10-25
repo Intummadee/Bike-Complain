@@ -171,7 +171,7 @@ const admin = () => {
 const MainNavigator = () => { 
     return(
         <NavigationContainer>
-            <Stack.Navigator  initialRouteName="admin" screenOptions={{headerShown:false}}>
+            <Stack.Navigator  initialRouteName="authen" screenOptions={{headerShown:false}}>
                 <Stack.Screen name="authen" component={authen} />
                 <Stack.Screen name='tab' component={tab} />
                 <Stack.Screen name="admin" component={admin} />

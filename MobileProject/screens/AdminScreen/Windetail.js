@@ -28,9 +28,9 @@ const Windetail = ({ navigation, route }) => {
     const win_url_data = data.win_url
     const point = route.params.point;
     const item = route.params.item;
+    
+    
     const subjCollection = firebase.firestore().collection("Service_Points");
-
-
     const [all_price , setAll_price] = useState([]);
     const [all_winAll , setAll_winAll] = useState([]);
 
@@ -273,7 +273,7 @@ const Windetail = ({ navigation, route }) => {
                 }, 2000);
             })
         }catch(err){
-            console.log("errorอีกแหละ ไอสัส : " + err);
+            console.log(err);
         }
     } 
 
@@ -306,8 +306,8 @@ const Windetail = ({ navigation, route }) => {
                                         }
                                     }}
                                   >
-                                      <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>
-                                    </TouchableOpacity>
+                                    <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>
+                                </TouchableOpacity>
                             )}
 
                         </View>
