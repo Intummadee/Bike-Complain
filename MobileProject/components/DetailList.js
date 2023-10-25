@@ -65,93 +65,96 @@ const DetailList = (props) => {
 
     return (
         <SafeAreaView style={styles.list}>
-        <ScrollView style={styles.scrollView}>
-            <Text style={{fontSize:25, fontWeight:"bold",}}>ประเภทคำร้อง :</Text>
-            <View style={{height:'auto', marginTop:10, }}>
-                <TouchableOpacity style={[styles.touchOpacity, {flexDirection:'row',width:"55%", justifyContent:'center', backgroundColor:dataHistory.status, }]} onPress={()=>{console.log("clickk!!");}}>
-                    <Text style={{color:'white', fontWeight:"bold", height:"100%", fontSize:15, }}>
-                        { dataHistory.status=="green" ? "ดำเนินการสำเร็จ" : ""}
-                        { dataHistory.status=="red" ? "ยังไม่ดำเนินการ" : ""}
-                        { dataHistory.status=="orange" ? "กำลังดำเนินการ" : ""}
+            <ScrollView style={styles.scrollView}>
+                <Text style={{fontSize:25, fontWeight:"bold",}}>ประเภทคำร้อง :</Text>
+                <View style={{height:'auto', marginTop:10, }}>
+                    <TouchableOpacity style={[styles.touchOpacity, {flexDirection:'row',width:"55%", justifyContent:'center', backgroundColor:dataHistory.status, }]} onPress={()=>{console.log("clickk!!");}}>
+                        <Text style={{color:'white', fontWeight:"bold", height:"100%", fontSize:15, }}>
+                            { dataHistory.status=="green" ? "ดำเนินการสำเร็จ" : ""}
+                            { dataHistory.status=="red" ? "ยังไม่ดำเนินการ" : ""}
+                            { dataHistory.status=="orange" ? "กำลังดำเนินการ" : ""}
 
-                    </Text>
-                </TouchableOpacity>
-            </View>
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
-            <View style={{marginTop:"7%", height:'auto', }}>
-                <Text style={[ styles.line ,{fontSize:16, } ]}><MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
-                <Text style={styles.textFront}>ผู้ถูกร้องเรียน: </Text>
-                <Text style={styles.textBack}>{dataHistory.nameWin}</Text>
-                </Text>
-
-
-                <View style={[styles.line , { flexDirection:'row', justifyContent:'space-between'}]}>
-                    <Text style={{fontSize:16 }}>
-                        <Feather name="calendar" size={20} color="black" /> 
-                        <Text style={styles.textFront}>วันที่: </Text>
-                        <Text style={styles.textBack}>{dataHistory.date}</Text>
-                    </Text>
-                    <Text style={{fontSize:13, }}>
+                <View style={{marginTop:"7%", height:'auto', }}>
+                    <Text style={[ styles.line ,{fontSize:16, } ]}>
                         <MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
-                        <Text style={styles.textFront}>เวลา: </Text>
-                        <Text style={styles.textBack}>{dataHistory.time}</Text>
+                        <Text style={styles.textFront}>ผู้ถูกร้องเรียน: </Text>
+                        <Text style={styles.textBack}>
+                            {dataHistory.nameWin}
+                        </Text>
                     </Text>
-                </View>
-                
 
-                <Text style={[styles.line, {fontSize:13,}]}>
-                    <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
-                    <Text style={styles.textFront}>สถานที่: </Text>
-                    <Text style={styles.textBack}>{dataHistory.place}</Text>
-                </Text>
 
-                <View style={[styles.line, {fontSize:13,}]}>
-                    <Text style={styles.textFront}><Entypo name="list" size={20} color="black" />รายละเอียด: </Text> 
-                    <Text style={[styles.textBack, {marginTop:"3%"}]}>{dataHistory.detail}
+                    <View style={[styles.line , { flexDirection:'row', justifyContent:'space-between'}]}>
+                        <Text style={{fontSize:16 }}>
+                            <Feather name="calendar" size={20} color="black" /> 
+                            <Text style={styles.textFront}>วันที่: </Text>
+                            <Text style={styles.textBack}>{dataHistory.date}</Text>
+                        </Text>
+                        <Text style={{fontSize:13, }}>
+                            <MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
+                            <Text style={styles.textFront}>เวลา: </Text>
+                            <Text style={styles.textBack}>{dataHistory.time}</Text>
+                        </Text>
+                    </View>
+                    
+
+                    <Text style={[styles.line, {fontSize:13,}]}>
+                        <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
+                        <Text style={styles.textFront}>สถานที่: </Text>
+                        <Text style={styles.textBack}>{dataHistory.place}</Text>
                     </Text>
+
+                    <View style={[styles.line, {fontSize:13,}]}>
+                        <Text style={styles.textFront}><Entypo name="list" size={20} color="black" />รายละเอียด: </Text> 
+                        <Text style={[styles.textBack, {marginTop:"3%"}]}>{dataHistory.detail}
+                        </Text>
+                    </View>
+                    
+                    <View style={[styles.line, {fontSize:13,}]}>
+                        <Text style={styles.textFront}><AntDesign name="picture" size={20} color="black" />ภาพหลักฐาน: </Text> 
+                        <Image style={{width:200, height:200}} source={{uri : dataHistory.url}} />
+                    </View>
+
                 </View>
+
+
+
                 
-                <View style={[styles.line, {fontSize:13,}]}>
-                    <Text style={styles.textFront}><AntDesign name="picture" size={20} color="black" />ภาพหลักฐาน: </Text> 
-                    <Image style={{width:200, height:200}} source={{uri : dataHistory.url}} />
-                </View>
-
-            </View>
-
-
-
-            
-            <View style={[styles.line , { flex:1 }]}>
-                { dataHistory.status=="green" && (
-                    <View style={[styles.line, {flex:0.2,}]}>
-                        <Text style={{fontSize:20, fontWeight:"bold"}}>หมายเหตุ: </Text>
-                        <View style={[styles.touchOpacity, {backgroundColor:'white', }]} >
-                        <Text style={styles.textBack}>Oh, now that guy has a head full of grandiose plans fueled by raw ambition. I don't understand a word he says once he starts talking about his theories... Eh, but as long as he keeps our cash reserves stocked up, I'm not complaining.</Text>
+                <View style={[styles.line , { flex:1 }]}>
+                    { dataHistory.status=="green" && (
+                        <View style={[styles.line, {flex:0.2,}]}>
+                            <Text style={{fontSize:20, fontWeight:"bold"}}>หมายเหตุ: </Text>
+                            <View style={[styles.touchOpacity, {backgroundColor:'white', }]} >
+                            <Text style={styles.textBack}>Oh, now that guy has a head full of grandiose plans fueled by raw ambition. I don't understand a word he says once he starts talking about his theories... Eh, but as long as he keeps our cash reserves stocked up, I'm not complaining.</Text>
+                        </View>
                     </View>
+                    )}
+
+
+                    { dataHistory.status=="red" && (
+                        <View style={[styles.line, {flex:1, justifyContent:'center', alignContent:'space-around', flexDirection:'row'}]}>
+                            <TouchableOpacity style={[styles.statusRedButton,{}]}
+                                onPress={()=>{
+                                    navigation.navigate("updateForm", {data : props})
+                                }}
+                            >
+                                <AntDesign name="select1" size={20} color="black" />
+                                <Text style={styles.statusRedText}>แก้ไขการร้องเรียน</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>{
+                                    updateStore(id, dataHistory, dataUser, index, navigation);
+                                }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
+                                <AntDesign name="delete" size={20} color="black" />
+                                <Text style={styles.statusRedText}>ลบรายการร้องเรียน</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </View>
-                )}
-
-
-                { dataHistory.status=="red" && (
-                    <View style={[styles.line, {flex:1, justifyContent:'center', alignContent:'space-around', flexDirection:'row'}]}>
-                        <TouchableOpacity style={[styles.statusRedButton,{}]}
-                            onPress={()=>{
-                                navigation.navigate("updateForm", {data : props})
-                            }}
-                        >
-                            <AntDesign name="select1" size={20} color="black" />
-                            <Text style={styles.statusRedText}>แก้ไขการร้องเรียน</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>{
-                                updateStore(id, dataHistory, dataUser, index, navigation);
-                            }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
-                            <AntDesign name="delete" size={20} color="black" />
-                            <Text style={styles.statusRedText}>ลบรายการร้องเรียน</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
-            </View>
-        </ScrollView>
+            </ScrollView>
         </SafeAreaView>
     )
 }

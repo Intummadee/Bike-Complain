@@ -16,6 +16,8 @@ const Box = (props) => {
  
   const data = props.data; // data = {date: '12/11/2023', nameWin: 'นายโยคี ขี่รุ้งพุ่งออกมา', numberWin: '05', place: 'ซอยเกกี1', status: 'green', time: "12:12" ,type: "วาจาไม่สุภาพ"}
   // ถ้าเป็นฝั่ง admin จะได้รายการ History = {url: 'https://firebasestorage', date: '18/10/2023', numberWin: '34', time: '05:25', place: 'ข้างๆหมา', detail: "เซ็งอะ", nameWin: "สิริชัย เจริญ", status: "red", }
+
+  
   return (
     <TouchableOpacity
       style={styles.container}

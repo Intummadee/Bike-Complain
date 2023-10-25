@@ -79,9 +79,8 @@ const dummyCost = [
 
 const listWin = ({ navigation, route }) => {
 
-  const service_point_maps = route.params.title;
-  console.log("💄💄💄 ",service_point_maps);
-
+  const service_point_maps = route.params.title // {"title": "วินสี่แยก"}
+  console.log("service_point_maps 💄💄",service_point_maps);
     const layout = useWindowDimensions();
 
     const [index, setIndex] = React.useState(0);

@@ -98,7 +98,7 @@ const complaint = ({ navigation }) => {
               <Box 
                 data={historyItem}
                 onSelect={()=>{
-                  // navigation.navigate("detailList")
+                  navigation.navigate("รายละเอียดการร้องเรียน", {data: historyItem, userName:item.userName, navigation:navigation })
                 }}
               />
             )}

@@ -152,6 +152,7 @@ const form = ({ navigation , route }) => {
         time: formattedTime,
         date: date.toLocaleDateString(),
         url: image,
+        // service_point: routeData_DetailWin.,
       }) 
       console.log("UserData.email", UserData.email);
       console.log("UserData.name", UserData.name);
