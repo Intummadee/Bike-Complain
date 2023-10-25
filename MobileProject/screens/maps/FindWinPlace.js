@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Button, TouchableOpacity, Text } from "react-native";
 
-// import MapView from 'react-native-maps';
+
 import MapView, { Marker } from 'react-native-maps';
-
-
-
-// import MapView, { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
+
 
 // Firebase
 import firebase from "../../database/firebaseDB";
 
-const FindWinPlace = () => {
+// Import Icon
+import { Ionicons } from '@expo/vector-icons'; 
+
+
+const FindWinPlace = ({ navigation }) => {
 
   //พิกัดล็อกจอ default
   const [mapRegion, setmapRegion] = useState({
@@ -50,19 +51,27 @@ const FindWinPlace = () => {
         region={mapRegion}
       >
         
-        <Marker coordinate={{ latitude: 13.72867889245462, longitude: 100.77810841657259 }} title="วินวิทยา" />
-        <Marker coordinate={{ latitude: 13.727983692875426, longitude: 100.77757211311763 }} title="วินสี่แยก" />
-        <Marker coordinate={{ latitude: 13.728072751164596, longitude: 100.77321225463284 }} title="วินหน้าวิศวะ" />
-        <Marker coordinate={{ latitude: 13.727950020561163, longitude: 100.7706408695449 }} title="วินเกกี 1" />
-        <Marker coordinate={{ latitude: 13.727978898357103, longitude: 100.77018010113943 }} title="วินเกกี 3" />
-        <Marker coordinate={{ latitude: 13.727923144677993, longitude: 100.76640170651164 }} title="วินวิดวะการ์เด้น" />
-        <Marker coordinate={{ latitude: 13.727898608280542, longitude: 100.76441474983417 }} title="วิน RNP" />
-        <Marker coordinate={{ latitude: 13.721944366544147, longitude: 100.76887698325939 }} title="วินวัดปลูก" />
-        <Marker coordinate={{ latitude: 13.72290424568357, longitude: 100.78030723198673 }} title="วิน FBT" />
-        <Marker coordinate={{ latitude: 13.726569543185796, longitude: 100.77818240236152 }} title="วินหน้าถาปัต"/>
-        
-
+        <Marker coordinate={{ latitude: 13.72867889245462, longitude: 100.77810841657259 }} title="วินวิทยา" onPress={()=>{navigation.navigate("listWin", {title: "วินวิทยา"})}} />
+        <Marker coordinate={{ latitude: 13.727983692875426, longitude: 100.77757211311763 }} title="วินสี่แยก" onPress={()=>{navigation.navigate("listWin", {title: "วินสี่แยก"})}} />
+        <Marker coordinate={{ latitude: 13.728072751164596, longitude: 100.77321225463284 }} title="วินหน้าวิศวะ"  onPress={()=>{navigation.navigate("listWin", {title: "วินหน้าวิศวะ"})}} />
+        <Marker coordinate={{ latitude: 13.727950020561163, longitude: 100.7706408695449 }} title="วินเกกี 1" 
+          onPress={()=>{
+            navigation.navigate("listWin", {title:"วินเกกี 1"})
+          }}
+        />
+        <Marker coordinate={{ latitude: 13.727978898357103, longitude: 100.77018010113943 }} title="วินเกกี 3" onPress={()=>{navigation.navigate("listWin", {title: "วินเกกี 3"})}} />
+        <Marker coordinate={{ latitude: 13.727923144677993, longitude: 100.76640170651164 }} title="วินวิดวะการ์เด้น" onPress={()=>{navigation.navigate("listWin", {title: "วินวิดวะการ์เด้น"})}} />
+        <Marker coordinate={{ latitude: 13.727898608280542, longitude: 100.76441474983417 }} title="วิน RNP" onPress={()=>{navigation.navigate("listWin", {title: "วิน RNP"})}} />
+        <Marker coordinate={{ latitude: 13.721944366544147, longitude: 100.76887698325939 }} title="วินวัดปลูก" onPress={()=>{navigation.navigate("listWin", {title: "วินวัดปลูก"})}} />
+        <Marker coordinate={{ latitude: 13.72290424568357, longitude: 100.78030723198673 }} title="วิน FBT" onPress={()=>{navigation.navigate("listWin", {title: "วิน FBT"})}} />
+        <Marker coordinate={{ latitude: 13.726569543185796, longitude: 100.77818240236152 }} title="วินหน้าถาปัต"onPress={()=>{navigation.navigate("listWin", {title: "วินหน้าถาปัต"})}} />
       </MapView>
+      {/* <Button title='Get Location' onPress={userLocation} /> */}
+      <TouchableOpacity
+        style={{position:'absolute', bottom:10, right:10,}}
+      >
+        <Ionicons name="navigate-circle-outline" size={45} color="black" />
+      </TouchableOpacity>
     </View>
   );
 };

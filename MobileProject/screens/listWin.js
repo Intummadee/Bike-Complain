@@ -77,7 +77,11 @@ const dummyCost = [
   
 
 
-const listWin = ({ navigation }) => {
+const listWin = ({ navigation, route }) => {
+
+  const service_point_maps = route.params.title;
+  console.log("💄💄💄 ",service_point_maps);
+
     const layout = useWindowDimensions();
 
     const [index, setIndex] = React.useState(0);
