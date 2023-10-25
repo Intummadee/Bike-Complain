@@ -1,6 +1,7 @@
 import React from "react";
 import 'react-native-gesture-handler';
 
+
 import MyNavigator from "./navigation/MyNavigator"
 
 

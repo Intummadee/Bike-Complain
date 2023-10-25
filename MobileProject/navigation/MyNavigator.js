@@ -70,10 +70,14 @@ const homeStack = () => {
     )
  }
 
+
+// Import map
+import FindWinPlace from "../screens/maps/FindWinPlace"
+
 const map = () => { 
     return(
-        <Stack.Navigator initialRouteName='listWin' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
-            {/* <Stack.Screen name='map' component={map}/> */}
+        <Stack.Navigator initialRouteName='FindWinPlace' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
+            <Stack.Screen name='FindWinPlace' component={FindWinPlace}/>
             <Stack.Screen name='listWin' component={listWin}  />
             <Stack.Screen name='detailWin' component={detailWin}/>
             <Stack.Screen name='form' component={form}/>
@@ -131,6 +135,7 @@ import WinService from '../screens/AdminScreen/winservice';
 import WinList from '../screens/AdminScreen/WinList';
 import Windetail from '../screens/AdminScreen/Windetail';
 
+import detailComplaint from '../screens/AdminScreen/detailComplaint';
 
 const DashboardStack = () => {
     return (
@@ -155,6 +160,7 @@ const ComplaintStack = () => {
     return(
         <Stack.Navigator initialRouteName='complaint' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
             <Stack.Screen name='รายการการร้องเรียน' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน",}} />
+            <Stack.Screen name='รายละเอียดการร้องเรียน' component={detailComplaint}  />
         </Stack.Navigator>
     )
 }
@@ -183,7 +189,7 @@ const admin = () => {
 const MainNavigator = () => { 
     return(
         <NavigationContainer>
-            <Stack.Navigator  initialRouteName="admin" screenOptions={{headerShown:false}}>
+            <Stack.Navigator  initialRouteName="tab" screenOptions={{headerShown:false}}>
                 <Stack.Screen name="authen" component={authen} />
                 <Stack.Screen name='tab' component={tab} />
                 <Stack.Screen name="admin" component={admin} />

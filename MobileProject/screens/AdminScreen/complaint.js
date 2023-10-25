@@ -88,8 +88,6 @@ const complaint = ({ navigation }) => {
 
   
   const renderList = ({ item, index }, props) => {
-    console.log("");
-    console.log("item ใน Box :",item.allhistoryForEachUser);
     return(
       <View style={{flex:1, backgroundColor:"lime"}}>
         <Text>User Name: {item.userName}</Text>
@@ -97,12 +95,14 @@ const complaint = ({ navigation }) => {
         <FlatList
             data={item.allhistoryForEachUser}
             renderItem={({ item: historyItem }) => (
-              // <Box>{historyItem.numberWin}</Box>
               <Box 
                 data={historyItem}
+                onSelect={()=>{
+                  // navigation.navigate("detailList")
+                }}
               />
             )}
-            keyExtractor={(historyItem) => historyItem.toString()}
+            keyExtractor={(historyItem, index) => index.toString()}
         />
 
       </View>
@@ -182,7 +182,7 @@ const complaint = ({ navigation }) => {
               // renderList(item, { navigation, id, dataUser })
             } 
             numColumns={1} 
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(item, index) => item.userName}
           />
           
           {/* {(clickStatus==true || clickDate==true) ? (
