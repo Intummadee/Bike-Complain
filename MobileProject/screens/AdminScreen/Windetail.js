@@ -70,8 +70,8 @@ const Windetail = ({ navigation, route }) => {
       
       // image
       const [image, setImage] = useState(win_url_data)
-      const licenseWin = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fimage.png?alt=media&token=89225b40-7817-421e-8f77-d2c439935aea";
-      const [imageLicense, setImageLicense] = useState(licenseWin)
+      const defaultLicenseWin = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fimage.png?alt=media&token=89225b40-7817-421e-8f77-d2c439935aea";
+      const [imageLicense, setImageLicense] = useState(defaultLicenseWin)
     
     const toggleModal = () => {
         console.log("toggleModal");
@@ -112,7 +112,7 @@ const Windetail = ({ navigation, route }) => {
                     console.log('Cancel Pressed')
                     deleteImage()
                     setImage(win_url_data)
-                    setImageLicense(licenseWin)
+                    setImageLicense(defaultLicenseWin)
     
                 },
                   style: 'cancel',
@@ -143,9 +143,9 @@ const Windetail = ({ navigation, route }) => {
               text: 'Cancel',
               onPress: () => {
                 console.log('Cancel Pressed')
-                deleteImage()
+                // deleteImageFromCancleAlert()
                 setImage(win_url_data)
-                setImageLicense(licenseWin)
+                setImageLicense(defaultLicenseWin)
             },
               style: 'cancel',
             },
@@ -221,7 +221,7 @@ const Windetail = ({ navigation, route }) => {
         }
         else{
             console.log("ทำไม");
-            setImageLicense(licenseWin)
+            setImageLicense(defaultLicenseWin)
             setInterval(()=>{
                 setloadingLicense(false);
             },2000);
@@ -242,11 +242,11 @@ const Windetail = ({ navigation, route }) => {
             xhr.send(null);
         });
         try{
-            const storageRef = ref(storage, `Service_Points/Service_Points/-`+service_point+`/`+Date.now());
+            // const storageRef = ref(storage, `Service_Points/Service_Points/-`+service_point+`/`+Date.now());
+            const storageRef = ref(storage, `Image/image-`+Date.now());
             //  uploadBytes เป็น ฟังชัน upload ไปยัง storage
             const result = await uploadBytes(storageRef, blob);
-      
-            // We're done with the blob, close and release it
+            
             blob.close();
             return await getDownloadURL(storageRef);
       
@@ -260,10 +260,10 @@ const Windetail = ({ navigation, route }) => {
         setloadingLicense(true)
         const deleteRef = ref(storage, image);
         const deleteRef1 = ref(storage, imageLicense); // ลบรูปของlicense
-        // image = https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Image%2Fimage-1697881800366?alt=media&token=82981114-0602-4fe8-a76d-a3507a1866b3
+      
         try{
             deleteObject(deleteRef1).then(() => {
-                // setImageLicense(licenseWin)
+                // setImageLicense(defaultLicenseWin)
                 setloadingLicense(false)
             })
             deleteObject(deleteRef).then(() => {
@@ -277,6 +277,28 @@ const Windetail = ({ navigation, route }) => {
         }
     } 
 
+    const deleteImageFromCancleAlert = async () => {
+        const deleteRef = ref(storage, image);
+        const deleteRef1 = ref(storage, imageLicense); // ลบรูปของlicense
+        try{
+            deleteObject(deleteRef1).then(() => {
+                setloadingLicense(false)
+            })
+            deleteObject(deleteRef).then(() => {
+                // setImage(win_url_data);
+                setInterval(() => {
+                    setloading(false);
+                }, 2000);
+            })
+        }catch(err){
+            console.log(err);
+        }
+    } 
+
+    
+
+
+    // เปลี่ยนกลับเป็นรูปเดิมสำหรับ รูปหน้าวิน
     const deleteImage1 = async () => {
         setloading(true);
         const deleteRef = ref(storage, image);
@@ -294,6 +316,24 @@ const Windetail = ({ navigation, route }) => {
         }
     }
 
+    // เปล่ี่ยนกลับเป็นรูปเดิมสำหรับ ใบขับขี่วิน
+    const deleteImage2 = async () => {
+        setloadingLicense(true);
+        const deleteRef = ref(storage, imageLicense);
+        try{
+          deleteObject(deleteRef)
+          .then(() => {
+            setImageLicense(defaultLicenseWin);
+            setInterval(() => {
+              setloadingLicense(false);
+            }, 2000);
+
+          })
+        }catch(err){
+          console.log("errorอีกแหละ : " + err);
+        }
+    }
+
     
 
     return (
@@ -303,7 +343,7 @@ const Windetail = ({ navigation, route }) => {
                     {/* กล่องชื่อของวิน */}
                     <View style={{width:'100%', justifyContent:'center', alignItems:'center', flexDirection:'row', }}>
                         {/* viewด้านล่าง = รูปภาพของ วิน */}
-                        <View style={{flex:1,backgroundColor:'green', width:"100%", height:"100%", justifyContent:'center', alignItems:'center',alignSelf:'center'}}>
+                        <View style={{flex:1, width:"100%", height:"100%", justifyContent:'center', alignItems:'center',alignSelf:'center'}}>
                             <Image source={{uri: image}} style={{width:"90%", height:"50%"}} /> 
                             {image == win_url_data ? (
                                     <>
@@ -343,7 +383,7 @@ const Windetail = ({ navigation, route }) => {
                                         borderColor:'black',
                                         }} 
                                         onPress={deleteImage1}>
-                                          <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  เปลี่ยนรูป</Text>
+                                          <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  เปลี่ยนรูปเดิม</Text>
                                           
                                       </TouchableOpacity>
                                     
@@ -391,12 +431,35 @@ const Windetail = ({ navigation, route }) => {
             <View style={styles.licenseBox}>
                 <View style={{justifyContent:'space-evenly', alignSelf:'center', flex:1, }}>
                     <Text style={{fontWeight:'bold'}}>ใบอนุญาตขับรถจักรยานยนต์สาธารณะ</Text>
-                    <Image source={{uri: imageLicense}} 
-                    style={{width:"auto", height:"50%"}} /> 
-                    {isloadingLicense ? (
-                        <View style={{height:"90%",flex:1,position:'absolute', justifyContent:'center', alignItems:'center', alignSelf:'center'}}>
-                        <ActivityIndicator color={"red"} animating size={"large"} />
-                        </View>
+                    {/* viewด้านล่าง = รูปภาพของ ใบขับขี่วิน */}
+                    <Image source={{uri: imageLicense}} style={{width:"auto", height:"50%",}} /> 
+                    {imageLicense == defaultLicenseWin ? (
+                        <>
+                            {isloadingLicense ? (
+                                <View style={{height:"90%",flex:1,position:'absolute', justifyContent:'center', alignItems:'center', alignSelf:'center'}}>
+                                <ActivityIndicator color={"red"} animating size={"large"} />
+                                </View>
+                            ) : (
+                                <TouchableOpacity style={{borderWidth:1, 
+                                    width:"90%",
+                                    padding: 10,// แก้ขนาดปุ่ม
+                                    borderRadius:10,
+                                    borderColor:'grey' , backgroundColor:'#D9D9D9',
+                                    alignSelf:'center', borderColor:'black',
+                                    justifyContent:'center', alignItems:'center'
+                                    }}
+                                    onPress={()=>{
+                                        if(edit == true){
+                                            pickImageLicense()
+                                        }
+                                        else{
+                                            alert("กรุณากดแก้ไขก่อน")
+                                        }
+                                    }}>
+                                    <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>
+                                </TouchableOpacity>
+                            )}
+                        </>
                     ) : (
                         <TouchableOpacity style={{borderWidth:1, 
                             width:"90%",
@@ -406,17 +469,11 @@ const Windetail = ({ navigation, route }) => {
                             alignSelf:'center', borderColor:'black',
                             justifyContent:'center', alignItems:'center'
                             }}
-                            onPress={()=>{
-                                if(edit == true){
-                                    pickImageLicense()
-                                }
-                                else{
-                                    alert("กรุณากดแก้ไขก่อน")
-                                }
-                            }}>
-                            <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  อัพโหลดไฟล์</Text>
+                            onPress={deleteImage2}>
+                            <Text style={{fontSize:12}}><AntDesign name="plus" size={10} color="black" />  เปลี่ยนรูปเดิม</Text>
                         </TouchableOpacity>
                     )}
+                    
                     
                     
                 </View>
@@ -440,42 +497,6 @@ const Windetail = ({ navigation, route }) => {
                         </TouchableOpacity>
                 </View>
             </View>
-
-
-            <Modal isVisible={isModalVisible}>
-                <View style={{backgroundColor:'white', 
-                    justifyContent:'center', alignSelf:'center', alignItems:'center',
-                    width:"90%", height:"40%", 
-                    
-                }}>
-                    <View style={{backgroundColor:'red'}}>
-                        <Text >ยืนยันการแก้ไขไหม</Text>
-                    </View>
-                    <View style={{backgroundColor:'cyan'}}>
-
-                        <TouchableOpacity
-                                style={{borderRadius:10, width:"45%",
-                                backgroundColor:"green", paddingVertical:10}}
-                                onPress={()=>{
-                                    toggleModal()
-                                }}
-                            >
-                                <Text style={{fontSize:12, color:'white'}}>ยืนยัน</Text>
-                        </TouchableOpacity>  
-                        <TouchableOpacity
-                                style={{borderRadius:10, width:"45%",
-                                backgroundColor:"green", paddingVertical:10}}
-                                onPress={()=>{
-                                    toggleModal()
-                                }}
-                            >
-                                <Text style={{fontSize:12, color:'white'}}>ยกเลิก</Text>
-                        </TouchableOpacity>  
-                    </View>
-                
-
-                </View>
-            </Modal>
         </View>
     )
 }

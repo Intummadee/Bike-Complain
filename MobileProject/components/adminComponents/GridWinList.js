@@ -3,6 +3,9 @@ import { TouchableOpacity, View, Text, StyleSheet, Image } from "react-native";
 
 const GridWinList = (props) => {
     const data = props.dataItem; // {"license": "MM11 กรุงเทพมหานคร", "license_url": "", "name": "โมริ โคโกโร่", "no": "11", "win_url": "https://firebasestorage"}
+
+    console.log("data ใน GridWinList",data);
+
     return (
         <TouchableOpacity style={styles.gridItem} onPress={() => {props.onSelect();}}  >
             <View style={styles.container}>

@@ -18,23 +18,6 @@ import GridWinList from "../../components/adminComponents/GridWinList";
 import AddDataForm from './AddForm';
 
 
-
-// const dummyData = [
-//   {number: 1, name: "นายโยคี ขี่", place:"วินคลอง" , pic: require('../assets/raiden.jpg') },
-//   {number: 1, name: "นายโยคี ขี่", place:"วินคลอง" , pic: require('../assets/raiden.jpg') },
-//   {number: 1, name: "นายโยคี ขี่", place:"วินคลอง" , pic: require('../assets/raiden.jpg') },
-//   {number: 1, name: "งงอะ", place:"วินคลอง" , pic: require('../assets/raiden.jpg')},
-//   {number: 1, name: "งงอะ", place:"วินคลอง" , pic: require('../assets/raiden.jpg')},
-//   {number: 1, name: "งงอะ", place:"วินคลอง" , pic: require('../assets/raiden.jpg')},
-// ]
-
-const dummyCost = [
-  {des: "วิศวะ/ตึกพระเทพ" , cost: "15"},
-  {des: "FBT", cost: "30"},
-  {des: "RNP", cost: "40"},
-  {des: "โรบินสัน", cost: "50"},
-  
-] 
     
 
 const FirstRoute = (props) => {
@@ -151,8 +134,8 @@ const WinList = ({ navigation, route }) => {
       const all_data = [];
       const all_price = [];
       querySnapshot.forEach((res) => {
-          console.log("res: ", res.id); // จะได้ชื่อ documentมา เช่น  ซอยเกกี1, ซอยเกกี 3
-          console.log("res.data() : ", res.data()); // res.data().ซอยเกกี1 = {price : [], winAll : []} 
+          // console.log("res: ", res.id); // จะได้ชื่อ documentมา เช่น  ซอยเกกี1, ซอยเกกี 3
+          // console.log("res.data() : ", res.data()); // res.data().ซอยเกกี1 = {price : [], winAll : []} 
           
           if(res.id == data){
             res.data().winAll.forEach((item) => {

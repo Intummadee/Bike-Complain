@@ -29,7 +29,10 @@ const AddDataForm = ( props ) => {
   const [isloading, setloading] = useState(false)
   const [isloadingLicense, setloadingLicense] = useState(false)
 
-  const defaultImage = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fmr-anonymous.png?alt=media&token=dcf6f7bb-6940-434e-8aae-8e9aee445bf1"
+
+
+  const defaultImageWin = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fmr-anonymous.png?alt=media&token=dcf6f7bb-6940-434e-8aae-8e9aee445bf1"
+  const defaultImageLicense = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fimage.png?alt=media&token=a558abe7-1545-4493-b79a-cda2c8bbd871"
 
   const pickImage = async () => {
     console.log("pickImage 🟢🟢🟢");
@@ -99,11 +102,10 @@ const AddDataForm = ( props ) => {
         xhr.send(null);
     });
     try{
-        const storageRef = ref(storage, `Service_Points/Service_Points/-`+service_point+`/`+Date.now());
+        const storageRef = ref(storage, `Image/image-`+Date.now());
         //  uploadBytes เป็น ฟังชัน upload ไปยัง storage
         const result = await uploadBytes(storageRef, blob);
   
-        // We're done with the blob, close and release it
         blob.close();
         return await getDownloadURL(storageRef);
   
@@ -138,24 +140,32 @@ const AddDataForm = ( props ) => {
   // console.log(props);
   
   const subjCollection = firebase.firestore().collection("Service_Points");
-  const [all_price , setAll_price] = useState([]);
-  const [all_winAll , setAll_winAll] = useState([]);
+
 
   const updateStore = () => {
     console.log("🍯🍯 updateStore");
     let newWinAll = [...props.allWin];
-    if(win_url == null){
-      setImage(defaultImage);
+    let setNewWin_url = ""
+    let setNewLicense_url = ""
+
+    if(image == null){
+      setNewWin_url = defaultImageWin;
     }
-    if(license_url == null){
-      setImageLicense(defaultImage);
+    else{
+      setNewWin_url = image
+    }
+    if(imageLicense == null){
+      setNewLicense_url = defaultImageLicense
+    }
+    else{
+      setNewLicense_url = imageLicense;
     }
     newWinAll.push({
       license:license,
-      license_url:imageLicense,
+      license_url:setNewLicense_url,
       name: name,
       no: no,
-      win_url: image,
+      win_url: setNewWin_url,
     })
     console.log(newWinAll);
 
