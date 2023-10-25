@@ -48,7 +48,14 @@ const login = ({navigation}) => {
                     // dispatch( putDocumentName(res.id) ); // judas
 
                     setIncorrectPassword(false)
-                    navigation.navigate("tab"); // 
+                    if(res.data().role == "Admin"){
+                        console.log("🥞🥞 role", res.data().role);
+                        navigation.navigate("admin"); // 
+                    }
+                    else{
+                        console.log("User role : ", res.data().role);
+                        navigation.navigate("tab"); // 
+                    }
                 }
                     else{ //กรณีพาสเวิร์ดผิด
                         setIncorrectPassword(true)

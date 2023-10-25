@@ -21,9 +21,11 @@ const detailWin = ({ navigation, route }) => {
                         <View style={{marginLeft:'10%', }}>
                             <Text>ชื่อ:</Text>
                             <Text>{data.name}</Text>
+                            <Text> </Text>
                             {/* <br /> */}
                             <Text>เลขทะเบียนรถจักรยานยนต์:</Text>
                             <Text>MM00 กรุงเทพมหานคร</Text>
+                            <Text> </Text>
                             {/* <br /> */}
                             <Text>เลขคิววิน: {data.no}</Text>
                         </View>
@@ -34,12 +36,12 @@ const detailWin = ({ navigation, route }) => {
             <View style={styles.licenseBox}>
                 <View style={{justifyContent:'space-evenly', alignSelf:'center', flex:1}}>
                     <Text style={{fontWeight:'bold'}}>ใบอนุญาตขับรถจักรยานยนต์สาธารณะ</Text>
-                    <Image source={require("../assets/raiden.jpg")} style={{width:"auto", height:"50%"}} /> 
+                    <Image source={{uri:data.license_url}} style={{width:"auto", height:"50%"}} /> 
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
                             console.log("ร้องเรียน");
-                            navigation.navigate("form", {routeData: data})
+                            navigation.navigate("form", {routeData: data, service_point:service_point})
                         }}>
                             <View style={{flex:1, flexDirection:'row', width:'auto', justifyContent:'center', alignSelf:'center' }}>
                                 <AntDesign name="notification" size={18} color="white" />

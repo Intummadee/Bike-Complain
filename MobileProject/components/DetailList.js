@@ -12,6 +12,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 // Firebase
 import firebase from "../database/firebaseDB";
+import { useState } from 'react';
 
 
 // dataUser = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: []}
@@ -30,7 +31,7 @@ const updateStore = (id, dataHistory, dataUser, index, navigation ) => {
 
     // ลบ history นี้ออกจาก บรรดาhistoryทั้งหมดของ User
     dataUser.history.splice(dataIndex, 1)
-    
+
 
 
 
@@ -62,6 +63,11 @@ const DetailList = (props) => {
     const navigation = props.navigation;
     const index = props.index; // indexคือ ลำดับ history ใน array History ทั้งหมด
     console.log("dataHistory.status ", dataHistory);
+
+    const [note , setNote] = useState("ไม่มีหมายเหตุ")
+    if(dataHistory.note != undefined){
+        setNote(dataHistory.note)
+    }
 
     return (
         <SafeAreaView style={styles.list}>
@@ -129,7 +135,7 @@ const DetailList = (props) => {
                         <View style={[styles.line, {flex:0.2,}]}>
                             <Text style={{fontSize:20, fontWeight:"bold"}}>หมายเหตุ: </Text>
                             <View style={[styles.touchOpacity, {backgroundColor:'white', }]} >
-                            <Text style={styles.textBack}>Oh, now that guy has a head full of grandiose plans fueled by raw ambition. I don't understand a word he says once he starts talking about his theories... Eh, but as long as he keeps our cash reserves stocked up, I'm not complaining.</Text>
+                            <Text style={styles.textBack}>{note}</Text>
                         </View>
                     </View>
                     )}

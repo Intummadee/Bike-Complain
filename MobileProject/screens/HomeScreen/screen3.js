@@ -14,7 +14,7 @@ const screen3 = ({route}) => {
             <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย อุ้ม. </Text>
           </View>
           {/* <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}> */}
-              <Image style={{width:"100%", height:'40%'}} source={{uri : uri_image}} />
+              <Image style={{width:"100%", height:'16%'}} source={{uri : uri_image}} />
           {/* </View> */}
           <View style={styles.content_below}>
             
@@ -24,7 +24,7 @@ const screen3 = ({route}) => {
             <Text>  </Text>
             <Text style={{fontWeight:'bold', fontSize:25, }}>  ด้านผู้ขับขี่</Text>
             <Text>  </Text>
-            <Image style={{width:"100%", height:'100%'}} source={{uri : uri_image1}} />
+            <Image style={{width:"100%", height:'20%'}} source={{uri : uri_image1}} />
             <Text>  </Text>
             <Text>  1.ต้องมีใบอนุญาตขับรถจักรยานยนต์สาธารณะ (ไม่สิ้นอายุ)</Text>
             <Text>  2.ต้องแต่งกายตามระเบียบที่ทางราชการกำหนด สวมเสื้อวินที่แสดงบัตรประจำตัวและหมายเลขประจำตัวที่ถูกต้องตรงกัน</Text>

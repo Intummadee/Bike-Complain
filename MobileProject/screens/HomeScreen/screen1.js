@@ -20,7 +20,7 @@ const screen1 = ({navigation, route}) => {
                 <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย เฟรม. </Text>
               </View>
               {/* <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}> */}
-                <Image style={{width:"100%", height:'40%'}} source={{uri : uri_image}} />
+                <Image style={{width:"100%", height:'20%'}} source={{uri : uri_image}} />
               {/* </View> */}
               <View style={styles.content_below}>
                 <Text>  ปัญหาการใช้บริการรถโดยสารสาธารณะนับเป็นปัญหาที่เกิดขึ้นทุกวันกับผู้บริโภคที่ต้องใช้บริการ แต่ก็มีบางส่วนยอมที่ทนความยากลำบากเพื่อให้ถึงจุดหมายปลายทางที่รวดเร็วและตรงเวลาทำงาน ซึ่งก็ส่งผลกระทบการสภาพจิตใจในการทำงาน เช่น มีความหงุดหงิด มีความตื่นกลัว หรือ หดหู่กับสิ่งที่พบเจอ</Text>

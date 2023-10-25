@@ -106,7 +106,7 @@ const listWin = ({ navigation, route }) => {
           console.log("res: ", res.id); // จะได้ชื่อ documentมา เช่น  ซอยเกกี1, ซอยเกกี 3
           console.log("res.data() : ", res.data()); // res.data().ซอยเกกี1 = {price : [], winAll : []} 
           
-          if(res.id == "ซอยเกกี1"){
+          if(res.id == service_point_maps){
             res.data().winAll.forEach((item) => {
               all_data.push(item)
               setnameService_point(res.id)

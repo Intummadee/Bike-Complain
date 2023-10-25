@@ -57,10 +57,13 @@ const complaint = ({ navigation }) => {
 
   
   const [AllUser_FromDB, setAllUser_FromDB] = useState([]);
+  const [dataUserHistory, setdataUserHistory] = useState([]);
+
 
   const subjCollection = firebase.firestore().collection("Users");
   const getCollection = (querySnapshot) => {
     let AllUser_FromDB = []; // อยากได้โครงสร้างแบบนี้ ->  [{allhistoryForEachUser:[{}, {}, {}], userName:""}] 
+    // let allHistory = []; // อยากได้โครงสร้างแบบนี้ ->  [{allhistoryForEachUser:[{}, {}, {}], userName:""}] 
     querySnapshot.forEach((res) => {
 
       // res.data() ได้ข้อมูลUserมาแต่ละคร ตัวอย่าง 1 ใน user เช่น = {name: 'judas', email: '64070257@kmitl.ac.th', history: Array(1), password: '1111'}
@@ -107,19 +110,34 @@ const complaint = ({ navigation }) => {
 
       </View>
     )
-    
-    // return (
-    //   <Box
-    //       data={item}
-    //       index={index}
-    //       onSelect={() => {
-    //         console.log("click list ");
-    //         props.navigation.navigate("detailList", {data: item, id : props.id, dataUser: props.dataUser, index: index})
-    //       }}
-    //   />
-    // );
   };
 
+  // ฟังชันที่เอาไว้ sort รายการร้องเรียน 🍁
+  const renderSort = (statusClick_input, clickDate_input, countDate_input) => {
+    let sortArray = [];
+    let historySort = [];
+    let clickStatus_1 = false
+
+    // ถ้ามีคลิ๊กที่ สถานะ จะsetให้สถานะเป็น true
+    if(statusClick_input != "" || clickStatus == true){
+      clickStatus_1 = true
+    }
+    // ถ้ามีการเลือก สถานะ
+    if(clickStatus_1 == true){
+      // ถ้าเลือก สถานะ ทั้งหมด
+      if(statusClick_input == "all"){
+        sortArray = [...AllUser_FromDB ]
+        // console.log("ถ้าเลือก สถานะ ทั้งหมด", sortArray);
+      }
+      else{
+        const filteredDataUser = AllUser_FromDB.history.filter(x => x.status == statusClick_input);
+        sortArray = [...filteredDataUser]
+        console.log("ถ้าเลือก สถานะ อย่างอื่น", sortArray);
+      }
+      
+    }
+
+  }
 
 
   return (

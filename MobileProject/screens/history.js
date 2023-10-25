@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView,FlatList, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView,FlatList, StatusBar, ScrollView } from 'react-native'
 
 
 // Redux
@@ -21,6 +21,7 @@ import Box from "../components/Box";
 
 // Import Firebase
 import firebase from "../database/firebaseDB";
+// import { ScrollView } from 'react-native-gesture-handler';
 
 
 const data = [
@@ -37,14 +38,6 @@ const renderItem = item => {
   return (
     <View style={styles.item}>
       <Text style={{flex: 1, fontSize: 16,}}>{item.label}</Text>
-      {/* {item.value === value && (
-        <AntDesign
-          style={styles.icon}
-          color="black"
-          name="Safety"
-          size={20}
-        />
-      )} */}
     </View>
   );
 };
@@ -88,6 +81,7 @@ const history = ({ navigation }) => {
       if(res.id == documentName){
         setId(res.id);
         all_data = {...res.data()}
+        console.log("all_data ",all_data);
         setdataUser(all_data);  
          
       }
@@ -123,7 +117,7 @@ const history = ({ navigation }) => {
   const [countDate, setcountDate] = useState(1); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
 
 
-  // ฟังชันที่เอาไว้ sort รายการร้องเรียน
+  // ฟังชันที่เอาไว้ sort รายการร้องเรียน 🍁
   const renderSort = (statusClick_input, clickDate_input, countDate_input) => {
     console.log("clickDate", clickDate);
     let sortArray = [];
@@ -158,12 +152,7 @@ const history = ({ navigation }) => {
       sortArray = [...dataUser.history ]
       console.log("ถ้าไม่เลือกสถานะ ", sortArray);
       console.log("");
-    } 
-    
-    // เอา sortArray มาเรียงตามวันที่ ถ้าไม่มีการคลิ๊กก็ไม่ต้องเข้า condition เรียงอันนี้
-    // if(clickDate_input == true){
-      
-   
+    }    
       if((countDate_input) % 2 == 0 ){
           // จะเรียงวันที่เลย ถ้า มันยังเป็นเลขคู่อยู่
           historySort = [...sortArray];
@@ -243,39 +232,39 @@ const history = ({ navigation }) => {
         </View>
       </View>
       {/* ด้านล่างเป็นส่วนของกล่องรายการร้องเรียน */}
-      <View style={{ width:'100%', height:"100%", flexDirection:'row'}}>
+      {/* <View style={{ width:'100%', height:"100%", flexDirection:'row'}}> */}
         <SafeAreaView style={styles.container}>
+          <ScrollView style={styles.scrollView}>
+            {(clickStatus==true || clickDate==true) ? (
+                <FlatList 
+                  navigation={navigation} 
+                  data={historySort}
+                  renderItem={(item) => 
+                    renderList(item, { navigation, id, dataUser })
+                  } 
+                  numColumns={1} 
+                  keyExtractor={(item, index) => index.toString()}
+                />
+              ) : (
+                <FlatList 
+                  navigation={navigation} 
+                  data={dataUser.history}
+                  renderItem={(item) => 
+                    renderList(item, { navigation, id, dataUser })
+                  } 
+                  numColumns={1} 
+                  keyExtractor={(item, index) => index.toString()}
+                />
+              )
+            }
           
-          
-
-          {(clickStatus==true || clickDate==true) ? (
-              <FlatList 
-                navigation={navigation} 
-                data={historySort}
-                renderItem={(item) => 
-                  renderList(item, { navigation, id, dataUser })
-                } 
-                numColumns={1} 
-                keyExtractor={(item, index) => index.toString()}
-              />
-            ) : (
-              <FlatList 
-                navigation={navigation} 
-                data={dataUser.history}
-                renderItem={(item) => 
-                  renderList(item, { navigation, id, dataUser })
-                } 
-                numColumns={1} 
-                keyExtractor={(item, index) => index.toString()}
-              />
-            )
-          }
 
 
 
 
+          </ScrollView>
         </SafeAreaView>
-      </View>
+      {/* </View> */}
     </View>
   )
 }
@@ -285,6 +274,11 @@ const styles = StyleSheet.create({
         flex: 1,
         // backgroundColor:"grey",
         marginLeft:"5%"
+    },
+    scrollView: {
+      // backgroundColor: 'pink',
+      // marginHorizontal: 20,
+      flex: 1,
     },
     dropdown: {
       width:"80%",

@@ -152,7 +152,7 @@ const form = ({ navigation , route }) => {
         time: formattedTime,
         date: date.toLocaleDateString(),
         url: image,
-        // service_point: routeData_DetailWin.,
+        service_point: route.params.service_point,
       }) 
       console.log("UserData.email", UserData.email);
       console.log("UserData.name", UserData.name);
@@ -268,7 +268,8 @@ const form = ({ navigation , route }) => {
                                 setShowDatePicker(true)
                             }}>
                                 <View style={styles.dateAndTime}>
-                                    <Text style={styles.dateAndTime_Text}><FontAwesome name="calendar" size={20} color="grey"  style={{marginLeft:"10%"}} /> {moment().format('DD/MM/YYYY')}</Text>
+                                  {/* แก้จาก moment().format -> moment(date).format */}
+                                    <Text style={styles.dateAndTime_Text}><FontAwesome name="calendar" size={20} color="grey"  style={{marginLeft:"10%"}} /> {moment(date).format('DD/MM/YYYY')}</Text>
                                   
                                 </View>
                             </TouchableOpacity>
@@ -284,13 +285,13 @@ const form = ({ navigation , route }) => {
                         <View style={{width:"50%", }}>
                          
 
-                            <Text>เวลา</Text>
+                            <Text>เวลา:</Text>
                             <TouchableOpacity style={styles.touch_dateAndTime} onPress={()=>{
                                 console.log("Click Time");
                                 setShowTimePicker(true)
                             }}> 
                                 <View style={styles.dateAndTime}>
-                                    <Text style={styles.dateAndTime_Text}><Ionicons name="ios-time-outline" size={20} color="grey"  style={{marginLeft:"10%"}} /> 00:00</Text>
+                                    <Text style={styles.dateAndTime_Text}><Ionicons name="ios-time-outline" size={20} color="grey"  style={{marginLeft:"10%"}} /> {moment(time).format('hh:mm')}</Text>
                                   
                                 </View>
                             </TouchableOpacity>
@@ -440,15 +441,14 @@ const form = ({ navigation , route }) => {
                     </View>
 
                     <View style={{width:"auto", height:'auto', marginTop:'10%', justifyContent:'center', alignItems:'center' }}>
-                    <Text style={styles.text}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum.
-                      </Text>
+                      <Text> </Text>
+                      <Text> </Text>
+                      <Text> </Text>
+                      <Text> </Text>
+                      <Text> </Text>
+                      <Text> </Text>
+                      <Text> </Text>
+                      <Text> </Text>
                     </View>
 
                 </View>
@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
         width: '86%',
         height: '100%',
         // backgroundColor: '#FF724C',
-        backgroundColor: 'lightpink',
+        backgroundColor: '#FF9770',
         position: 'absolute',
         marginTop: '15%',
         borderTopLeftRadius: 20,
