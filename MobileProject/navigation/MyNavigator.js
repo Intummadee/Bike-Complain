@@ -140,7 +140,7 @@ import detailComplaint from '../screens/AdminScreen/detailComplaint';
 const DashboardStack = () => {
     return (
         <Stack.Navigator initialRouteName='Dashboard' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
-            <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: "Dashboard",}}/>
+            <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: "Dashboard", headerShown:false}}/>
             {/* <Stack.Screen name='Complaint' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน",}}/> */}
         </Stack.Navigator>
     )
@@ -159,8 +159,8 @@ const WinServiceStack = () => {
 const ComplaintStack = () => {
     return(
         <Stack.Navigator initialRouteName='complaint' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
-            <Stack.Screen name='รายการการร้องเรียน' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน", headerShown:false}} />
-            <Stack.Screen name='รายละเอียดการร้องเรียน' component={detailComplaint}  />
+            <Stack.Screen name='รายการการร้องเรียน' component={Complaint} options={{ headerTitle: "รายการร้องเรียน", headerShown:true}} />
+            <Stack.Screen name='รายละเอียดการร้องเรียน' component={detailComplaint} options={{headerShown:true, headerTitle:"รายละเอียดการร้องเรียน"}}  />
         </Stack.Navigator>
     )
 }
@@ -168,8 +168,10 @@ const ComplaintStack = () => {
 
 const admin = () => {
     return(
-        <Drawer.Navigator initialRouteName="Dashboard" screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'} , }} >
-            <Drawer.Screen name="Dashboard" component={DashboardStack}options={{ headerShown:false , drawerLabel: "Dashboard",drawerIcon: ({ color }) => {
+        <Drawer.Navigator initialRouteName="Dashboard" screenOptions={{headerShown:false ,headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'},
+         color:'white'
+        }} >
+            <Drawer.Screen name="Dashboard" component={DashboardStack}options={{ headerShown:true , drawerLabel: "Dashboard",drawerIcon: ({ color }) => {
                 return <MaterialCommunityIcons name="view-dashboard-outline" size={24} color={color} />;},
             }}/>
             <Drawer.Screen name="จุดบริการมอเตอร์ไซค์รับจ้าง" component={WinServiceStack} options={{ drawerLabel: "จุดบริการมอเตอร์ไซค์รับจ้าง", drawerIcon: ({ color }) => {

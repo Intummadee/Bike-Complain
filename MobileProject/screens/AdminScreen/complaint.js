@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView,FlatList, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView,FlatList, StatusBar, Divider } from 'react-native'
 
 
 // import dropdown
@@ -57,14 +57,12 @@ const complaint = ({ navigation }) => {
 
   
   const [AllUser_FromDB, setAllUser_FromDB] = useState([]);
-  const [dataUserHistory, setdataUserHistory] = useState([]);
-
 
   const subjCollection = firebase.firestore().collection("Users");
   const getCollection = (querySnapshot) => {
     let AllUser_FromDB = []; // อยากได้โครงสร้างแบบนี้ ->  [{allhistoryForEachUser:[{}, {}, {}], userName:""}] 
-    // let allHistory = []; // อยากได้โครงสร้างแบบนี้ ->  [{allhistoryForEachUser:[{}, {}, {}], userName:""}] 
     querySnapshot.forEach((res) => {
+      console.log("🐸🐸🐸",res.data());
 
       // res.data() ได้ข้อมูลUserมาแต่ละคร ตัวอย่าง 1 ใน user เช่น = {name: 'judas', email: '64070257@kmitl.ac.th', history: Array(1), password: '1111'}
       let newObj = {
@@ -72,11 +70,13 @@ const complaint = ({ navigation }) => {
         userName: res.data().name,
       };
       
-      res.data().history.forEach((element) => {
-        // element เป็นแต่ละHistoryของuser = {url: 'https://firebasestorage', date: '18/10/2023', numberWin: '34', time: '05:25', place: 'ข้างๆหมา', detail: "เซ็งอะ", nameWin: "สิริชัย เจริญ", status: "red", }
-        newObj.allhistoryForEachUser.push(element)
-      })
-      AllUser_FromDB.push(newObj);
+      if(res.data().role != "Admin"){
+        res.data().history.forEach((element) => {
+          // element เป็นแต่ละHistoryของuser = {url: 'https://firebasestorage', date: '18/10/2023', numberWin: '34', time: '05:25', place: 'ข้างๆหมา', detail: "เซ็งอะ", nameWin: "สิริชัย เจริญ", status: "red", }
+          newObj.allhistoryForEachUser.push(element)
+        })
+        AllUser_FromDB.push(newObj);
+      }
     });
     setAllUser_FromDB(AllUser_FromDB);
     console.log(AllUser_FromDB);
@@ -107,46 +107,28 @@ const complaint = ({ navigation }) => {
             )}
             keyExtractor={(historyItem, index) => index.toString()}
         />
-
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          <View>
+            <Text style={{width: 30, textAlign: 'center'}}></Text>
+          </View>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        </View>
       </View>
     )
+    
+    
   };
 
-  // ฟังชันที่เอาไว้ sort รายการร้องเรียน 🍁
-  const renderSort = (statusClick_input, clickDate_input, countDate_input) => {
-    let sortArray = [];
-    let historySort = [];
-    let clickStatus_1 = false
-
-    // ถ้ามีคลิ๊กที่ สถานะ จะsetให้สถานะเป็น true
-    if(statusClick_input != "" || clickStatus == true){
-      clickStatus_1 = true
-    }
-    // ถ้ามีการเลือก สถานะ
-    if(clickStatus_1 == true){
-      // ถ้าเลือก สถานะ ทั้งหมด
-      if(statusClick_input == "all"){
-        sortArray = [...AllUser_FromDB ]
-        // console.log("ถ้าเลือก สถานะ ทั้งหมด", sortArray);
-      }
-      else{
-        const filteredDataUser = AllUser_FromDB.history.filter(x => x.status == statusClick_input);
-        sortArray = [...filteredDataUser]
-        console.log("ถ้าเลือก สถานะ อย่างอื่น", sortArray);
-      }
-      
-    }
-
-  }
 
 
   return (
     <View style={styles.list}>
       <View style={{width:'100%', height:"17%", flexDirection:'column', marginTop:"10%"}}>
         <View>
-          <Text style={{fontSize:16, color:'#004466', fontWeight:'600'}}>สถานะการร้องเรียน:</Text>
+          <Text style={{fontSize:20, color:'#004466', fontWeight:'600'}}>สถานะการร้องเรียน:</Text>
         </View>
-        <View style={{flexDirection:'row', marginTop:"4%"}}>
+        {/* <View style={{flexDirection:'row', marginTop:"4%"}}>
           <Dropdown
               style={styles.dropdown}
               placeholderStyle={{fontSize: 16, color:'grey', paddingLeft:"34%", }} // ขนาดplaceholderอยู่ตรงกลางประมาณ 35% แต่ดูจากเว็บตอนนี้ด้วยตามันเหมือนจะ34 (ไม่มั่นใจแหะ)
@@ -179,15 +161,11 @@ const complaint = ({ navigation }) => {
                 renderSort(value, true, countDate+1)
               }}>
               <View style={{ width:'100%',  justifyContent:'center',alignItems:'center', flexDirection:'column' }}>
-                  {/* <View style={{flexDirection:'row' , backgroundColor:'green', }}>
-                    <AntDesign name="arrowup" size={20} color="black" />
-                    <AntDesign name="arrowdown" size={20} color="black" />
-                  </View> */}
                   <FontAwesome name="sort" size={20} color="#004466" />
                   <Text style={{color:'#004466', paddingLeft:'5%', fontSize:13, fontWeight:'bold'}}>วันที่</Text>
               </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
       {/* ด้านล้างเป็นโซนของ รายการร้องเรียน */}
       <View style={{ width:'100%', height:"100%", flexDirection:'row'}}>
@@ -197,6 +175,7 @@ const complaint = ({ navigation }) => {
             data={AllUser_FromDB}
             renderItem={(item) => 
               renderList(item, { navigation })
+              
               // renderList(item, { navigation, id, dataUser })
             } 
             numColumns={1} 
@@ -237,8 +216,8 @@ const complaint = ({ navigation }) => {
 const styles = StyleSheet.create({
   list: {
     flex: 1,
-    backgroundColor:"grey",
-    marginLeft:"5%"
+    backgroundColor:"#E3E1F3",
+    paddingLeft:"5%"
   },
   dropdown: {
     width:"80%",
@@ -268,6 +247,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    top:-70
+    
   },
 
 });

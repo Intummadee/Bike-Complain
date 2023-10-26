@@ -106,9 +106,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     //backgroundColor: 'green',
-
+    backgroundColor:"#E3E1F3",
     paddingHorizontal: 20,
-    marginTop: 50,
+    paddingTop: 40,
     marginBottom: 10
   },
   allComplaintContainer: {
