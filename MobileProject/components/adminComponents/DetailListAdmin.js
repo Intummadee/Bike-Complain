@@ -27,7 +27,7 @@ const data = [
 const renderItem = item => {
     return (
       <View style={styles.item}>
-        <Text style={{flex: 1, fontSize: 16,}}>{item.label}</Text>
+        <Text style={{flex: 1, fontSize: 16, color:'black'}}>{item.label}</Text>
       </View>
     );
 };
@@ -48,7 +48,8 @@ const DetailListAdmin = (props) => {
     const [arrayIndex, setArrayIndex] = useState(0);
 
     // สำหรับ หมายเหตุ ในฝั่ง admin
-    const [note, setNote] = useState("");
+    const [note, setNote] = useState("ไม่มีหมายเหตุ");
+    
 
     const subjCollection = firebase.firestore().collection("Users");
     const getCollection = (querySnapshot) => {
@@ -71,6 +72,11 @@ const DetailListAdmin = (props) => {
         });
         console.log("Index ของ data ใน dataUser:", dataIndex); //index ของhistoryที่จะลบ
         setArrayIndex(dataIndex)
+
+        if(dataHistory.note != undefined){
+            setNote(dataHistory.note)
+        }
+
     }
     useEffect(() => {
         const unsubscribe = subjCollection.onSnapshot(getCollection);
@@ -144,6 +150,8 @@ const DetailListAdmin = (props) => {
     const updateNoteInStatusGreen = () => {
         allHistory[arrayIndex].status = "green"
         allHistory[arrayIndex].note = note
+        console.log(allHistory[arrayIndex]);
+        console.log(allHistory[arrayIndex].note);
         let setNewHistory = [...allHistory]
         Alert.alert('Confirm', 'ยืนยันการแก้ไขไหม', [
             {
@@ -178,15 +186,16 @@ const DetailListAdmin = (props) => {
         <SafeAreaView style={styles.list}>
             <ScrollView style={styles.scrollView}>
                 <Text style={{fontSize:25, fontWeight:"bold",}}>ประเภทคำร้อง :</Text>
-                <View style={[styles.line , { flexDirection:'row', justifyContent:'space-between'}]}>
+                <View style={[styles.line , { flexDirection:'row', justifyContent:'space-between', }]}>
                     <Dropdown
-                        style={[styles.touchOpacity, {flexDirection:'row',width:"55%", justifyContent:'center', 
+                        style={[styles.dropdown, { 
                             backgroundColor: dropDownValue, 
                         }]}
-                        placeholderStyle={{fontSize: 16, color:'grey', paddingLeft:"34%", }} // ขนาดplaceholderอยู่ตรงกลางประมาณ 35% แต่ดูจากเว็บตอนนี้ด้วยตามันเหมือนจะ34 (ไม่มั่นใจแหะ)
+                        placeholderStyle={{fontSize: 16, color:'grey', paddingLeft:"34%", width:20, }} // ขนาดplaceholderอยู่ตรงกลางประมาณ 35% แต่ดูจากเว็บตอนนี้ด้วยตามันเหมือนจะ34 (ไม่มั่นใจแหะ)
                         placeholder="ทั้งหมด"
-                        selectedTextStyle={{ fontSize: 16, paddingLeft:"35%", }} // styleของtextที่ถูกเลือก
-                        iconStyle={{width: 20, height: 20,}}
+                        selectedTextStyle={{ fontSize: 16, paddingLeft:"10%",color:"white" }} // styleของtextที่ถูกเลือก
+                        iconStyle={{width: 10, height: 20, }}
+                        iconColor={'white'}
                         data={data}
                         maxHeight={300}
                         labelField="label"
@@ -197,9 +206,9 @@ const DetailListAdmin = (props) => {
                             setDropDownValue(item.value);
                         }}
                         
-                        renderLeftIcon={() => (
-                            <AntDesign name="folder1" size={20} color="grey" style={{}} />
-                            )}
+                        // renderLeftIcon={() => (
+                        //     <AntDesign name="folder1" size={20} color="white" style={{}} />
+                        //     )}
                         renderItem={renderItem}
                     />
                     <View style={{}}>
@@ -250,53 +259,52 @@ const DetailListAdmin = (props) => {
                     </View>
                 </View>
 
-                <View style={[styles.line , { flex:1 }]}>
+                <View style={[styles.line , { flex:1,}]}>
                     { dataHistory.status=="green" && (
-                        <View style={[styles.line, {flex:0.2,}]}>
+                        <View style={[styles.line, {flex:0.2,marginTop:20}]}>
                             <Text style={{fontSize:20, fontWeight:"bold"}}>หมายเหตุ: </Text>
                             <View style={[styles.touchOpacity, {backgroundColor:'white', }]} >
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={3} //บรรทัดที่โชว์ ถ้ามากกว่านี้มันจะสไลด์ให้แทน
-                                maxLength={200}
-                                style={[styles.detailInput, styles.shadowProp]}
-                                onChangeText={setNote}
-                                value={note}
-                            />
+                                <TextInput
+                                    editable
+                                    multiline
+                                    numberOfLines={3} //บรรทัดที่โชว์ ถ้ามากกว่านี้มันจะสไลด์ให้แทน
+                                    maxLength={200}
+                                    style={[styles.detailInput, styles.shadowProp]}
+                                    onChangeText={setNote}
+                                    value={note}
+                                />
                             </View>
                             <TouchableOpacity onPress={()=>{
                                     updateNoteInStatusGreen();
-                                }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#05A56B',}]}>
+                                }} style={[styles.statusRedButton ,{marginLeft:"3%",marginTop:15, marginBottom:20, backgroundColor:'#004466',}]}>
                                 {/* <AntDesign name="delete" size={20} color="black" /> */}
-                                <Text style={styles.statusRedText}>อัพเดต</Text>
+                                <Text style={styles.statusRedText}>ยืนยัน</Text>
                             </TouchableOpacity>
                     </View>
                     )}
 
                     { dataHistory.status=="red" && (
-                        <View style={[styles.line, {flex:1, justifyContent:'center', alignContent:'space-around', flexDirection:'row'}]}>
+                        <View style={[styles.line, {flex:1, justifyContent:'center', marginTop:20,alignContent:'space-around', flexDirection:'row'}]}>
                             <TouchableOpacity onPress={()=>{
                                     deleteStore();
-                                }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
-                                <AntDesign name="delete" size={20} color="black" />
-                                <Text style={styles.statusRedText}>ลบรายการร้องเรียน</Text>
+                                }} style={[styles.statusRedButton ,{backgroundColor:'#EB7373',}]}>
+                                <AntDesign name="delete" size={20} color="white" />
+                                <Text style={styles.statusRedText}> ลบรายการ</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={()=>{
                                     updateStore();
                                 }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#05A56B',}]}>
-                                <AntDesign name="delete" size={20} color="black" />
                                 <Text style={styles.statusRedText}>อัพเดต</Text>
                             </TouchableOpacity>
                         </View>
                     )}
 
                     { dataHistory.status=="orange" && (
-                        <View style={[styles.line, {flex:1, justifyContent:'center', alignContent:'space-around', flexDirection:'row'}]}>
+                        <View style={[styles.line, {flex:1, justifyContent:'center',marginTop:20, alignContent:'space-around', flexDirection:'row'}]}>
                         <TouchableOpacity onPress={()=>{
                                 updateStore();
-                            }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#05A56B',}]}>
-                            <AntDesign name="delete" size={20} color="black" />
+                            }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#FF9770',}]}>
+                            {/* <AntDesign name="delete" size={20} color="black" /> */}
                             <Text style={styles.statusRedText}>อัพเดต</Text>
                         </TouchableOpacity>
                     </View>
@@ -337,9 +345,23 @@ const styles = StyleSheet.create({
         padding: 10,// แก้ขนาดปุ่ม
         flexDirection:'row',
         // justifyContent:'center',
-        marginTop:"3%"
-        
+        marginTop:15        
     },
+    dropdown: {
+        width:"55%",
+        height: "auto",
+        // backgroundColor: 'white',
+        borderRadius: 12,
+        padding: 6, //ขนาดของdropdown
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 1,
+          height: 2,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 6,
+        // elevation: 2,
+      },
     // อันนี้คือแต่ละบรรทัด
     line: {
       marginTop:"6%",
@@ -356,24 +378,26 @@ const styles = StyleSheet.create({
     statusRedButton: {
         flexDirection:'row',
         justifyContent:'center',
-        borderWidth:1,
+        // borderWidth:1,
         alignItems:'center',
-        alignSelf:'center',
-        paddingHorizontal:"2%",
-        paddingVertical:'5%',
+        alignSelf: 'flex-start',
+        paddingHorizontal:"10%",
+        paddingVertical:'4%',
         borderRadius:10,
     },
     statusRedText: {
         fontSize:14,
+        color:'white'
     },
     detailInput: {
-        marginEnd:25 ,
+        // marginEnd:25 ,
         height: "auto",
-        marginTop: "5%",
+        // marginTop: "5%",
         // borderWidth: 1,
-        paddingLeft:"10%",
+        paddingLeft:"5%",
         backgroundColor:'white',
-        borderRadius:10
+        borderRadius:20,
+
     },
     shadowProp: {  
         shadowColor: '#000',
@@ -382,6 +406,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8, //ทำให้เงามันจางที่ส่วนปลาย
         // elevation: 2, //มีผลกับบางเวอร์ชั่นในandroid เอาไว้เผื่อใช้เพราะเขาแนะนำกัน
     },  
+    
     
      
 });

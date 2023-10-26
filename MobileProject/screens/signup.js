@@ -68,7 +68,7 @@ const signup = ({navigation}) => {
                 <Text style={{color: '#004466',fontWeight:"bold", fontSize:25}}>WTH, Bro</Text>
                 <Text style={{color: '#004466', fontWeight:"bold", fontSize:20}}>ลงทะเบียน</Text>
             </View>
-            <View style={{flex:0.7, backgroundColor:'#ed8e73', width: '80%', borderRadius:10, marginHorizontal:10, marginTop:"13%" }}>
+            <View style={{flex:0.7, width: '80%', borderRadius:10, marginHorizontal:10, marginTop:"13%" ,backgroundColor:'#ed8e73'}}>
                 <TextInput
                     style={styles.input}
                     placeholder="ชื่อผู้ใช้:"
@@ -86,6 +86,7 @@ const signup = ({navigation}) => {
                     placeholder="รหัสผ่าน:"
                     onChangeText={setUserPassword}
                     value={userPassword}
+                    secureTextEntry={true}
                 />
                 <TextInput
                     style={styles.input}
@@ -100,6 +101,7 @@ const signup = ({navigation}) => {
                     <Text style={styles.validationText}>*ข้อมูลรหัสผ่านไม่ตรงกัน</Text>
                 )}
             </View>
+            <Text> </Text>
             <View style={{flex:0.1, backgroundColor:'white', width:'60%',marginTop:"10%", borderRadius:50,backgroundColor:'#004466',  }}>
                 <TouchableOpacity style={{flex:1, justifyContent:'center', alignSelf:'center', }}
                     onPress={() => {addUSer();}}
@@ -128,11 +130,13 @@ const styles = StyleSheet.create({
       flex: 3,
       backgroundColor: '#FF724C',
       justifyContent:'center'
+      
     },
     content:{
-        flex: 0.7,
+        flex:1,
         justifyContent:'space-between',
         alignItems:'center',
+        // backgroundColor:'violet'
     },
     input: {
       height: 40,
@@ -145,10 +149,11 @@ const styles = StyleSheet.create({
       fontWeight:"bold"
     },
     title: {
+        marginTop:70,
         flex:0.1,
         justifyContent: 'center',
         alignItems: 'center',
-        fontFamily: 'Cochin', //ค่อยเปลี่ยน
+        // fontFamily: 'Cochin', //ค่อยเปลี่ยน
     },
     validationText: {
         height: "auto",

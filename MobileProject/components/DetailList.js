@@ -12,7 +12,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 // Firebase
 import firebase from "../database/firebaseDB";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 // dataUser = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: []}
@@ -62,12 +62,29 @@ const DetailList = (props) => {
     const dataUser = props.dataUser // ข้อมูลของuserทั้งหมดเลย
     const navigation = props.navigation;
     const index = props.index; // indexคือ ลำดับ history ใน array History ทั้งหมด
-    console.log("dataHistory.status ", dataHistory);
+    // console.log("dataHistory.status ", dataHistory);
 
     const [note , setNote] = useState("ไม่มีหมายเหตุ")
-    if(dataHistory.note != undefined){
-        setNote(dataHistory.note)
-    }
+    
+    useEffect(() => {
+        if(dataHistory.note != undefined){
+                setNote(dataHistory.note)
+                console.log(note, "note");
+            }
+            else{
+                setNote("ไม่มีหมายเหตุ")
+            }
+        return () => {
+            console.log("👻👻",dataHistory.note);
+            // if(dataHistory.note != undefined){
+            //     setNote(dataHistory.note)
+            //     console.log(note, "note");
+            // }
+            console.log(note, "note");
+        };
+      }, []); // ตำแหน่งนี้กำหนด dependencies เป็น [] ซึ่งหมายถึง useEffect จะทำงานเมื่อ component ถูกเรนเดอร์ครั้งแรกเท่านั้น
+    
+    
 
     return (
         <SafeAreaView style={styles.list}>

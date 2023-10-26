@@ -92,10 +92,19 @@ const complaint = ({ navigation }) => {
   
   const renderList = ({ item, index }, props) => {
     return(
-      <View style={{flex:1, backgroundColor:"lime"}}>
-        <Text>User Name: {item.userName}</Text>
+      <View style={{flex:1, marginBottom:10}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          <View>
+            <Text style={{width: 30, textAlign: 'center'}}>{(index+1).toString()}</Text>
+          </View>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        </View>
+        <Text> </Text>
+        <Text style={{fontWeight:'bold'}}>User Name: {item.userName}</Text>
         <Text>History:</Text>
         <FlatList
+            style={{marginTop:5}}
             data={item.allhistoryForEachUser}
             renderItem={({ item: historyItem }) => (
               <Box 
@@ -107,13 +116,7 @@ const complaint = ({ navigation }) => {
             )}
             keyExtractor={(historyItem, index) => index.toString()}
         />
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
-          <View>
-            <Text style={{width: 30, textAlign: 'center'}}></Text>
-          </View>
-          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
-        </View>
+        <Text> </Text>
       </View>
     )
     
@@ -247,8 +250,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    top:-70
-    
+    top:-70,
+    marginBottom:50
   },
 
 });

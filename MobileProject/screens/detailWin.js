@@ -24,7 +24,7 @@ const detailWin = ({ navigation, route }) => {
                             <Text> </Text>
                             {/* <br /> */}
                             <Text>เลขทะเบียนรถจักรยานยนต์:</Text>
-                            <Text>MM00 กรุงเทพมหานคร</Text>
+                            <Text>{data.license}</Text>
                             <Text> </Text>
                             {/* <br /> */}
                             <Text>เลขคิววิน: {data.no}</Text>

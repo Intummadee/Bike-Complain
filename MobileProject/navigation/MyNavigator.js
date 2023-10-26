@@ -139,7 +139,7 @@ import detailComplaint from '../screens/AdminScreen/detailComplaint';
 
 const DashboardStack = () => {
     return (
-        <Stack.Navigator initialRouteName='Dashboard' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
+        <Stack.Navigator initialRouteName='Dashboard' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white', fontSize:13}  }}>
             <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: "Dashboard", headerShown:false}}/>
             {/* <Stack.Screen name='Complaint' component={Complaint} options={{ headerTitle: "รายการการร้องเรียน",}}/> */}
         </Stack.Navigator>
@@ -148,19 +148,19 @@ const DashboardStack = () => {
 
 const WinServiceStack = () => {
     return(
-        <Stack.Navigator initialRouteName='จุดบริการมอเตอร์ไซค์รับจ้าง' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
-            <Stack.Screen name='จุดบริการมอเตอร์ไซค์รับจ้าง' component={WinService} options={{ title: "จุดบริการมอเตอร์ไซค์รับจ้าง",}}/>
-            <Stack.Screen name='WinList' component={WinList}/>
-            <Stack.Screen name='WinDetail' component={Windetail}/> 
+        <Stack.Navigator initialRouteName='จุดบริการมอเตอร์ไซค์รับจ้าง' screenOptions={{headerShown:false ,headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466',  fontSize:10, color:'white'}, headerTitleStyle: {color: 'white', fontSize:10}, }}>
+            <Stack.Screen name='จุดบริการมอเตอร์ไซค์รับจ้าง' component={WinService} options={{ title: "จุดบริการมอเตอร์ไซค์รับจ้าง", }}/>
+            <Stack.Screen name='WinList' component={WinList} options={{title:'รายชื่อวิน'}}/>
+            <Stack.Screen name='WinDetail' component={Windetail} options={{title:'ข้อมูลประจำตัววิน'}}/> 
         </Stack.Navigator>
     )
 }
 
 const ComplaintStack = () => {
     return(
-        <Stack.Navigator initialRouteName='complaint' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
-            <Stack.Screen name='รายการการร้องเรียน' component={Complaint} options={{ headerTitle: "รายการร้องเรียน", headerShown:true}} />
-            <Stack.Screen name='รายละเอียดการร้องเรียน' component={detailComplaint} options={{headerShown:true, headerTitle:"รายละเอียดการร้องเรียน"}}  />
+        <Stack.Navigator initialRouteName='complaint' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white', fontSize:13}  }}>
+            <Stack.Screen name='รายการการร้องเรียน' component={Complaint} options={{ headerTitle: "รายการร้องเรียน", headerShown:false}} />
+            <Stack.Screen name='รายละเอียดการร้องเรียน' component={detailComplaint} options={{headerShown:true, headerTitle:"รายละเอียดการร้องเรียน", headerShown:false}}  />
         </Stack.Navigator>
     )
 }
@@ -168,18 +168,26 @@ const ComplaintStack = () => {
 
 const admin = () => {
     return(
-        <Drawer.Navigator initialRouteName="Dashboard" screenOptions={{headerShown:false ,headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'},
+        <Drawer.Navigator initialRouteName="Dashboard" screenOptions={{headerShown:true ,
+            headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, 
+            headerTitleStyle: {color: 'white', fontSize: 15},
          color:'white'
         }} >
-            <Drawer.Screen name="Dashboard" component={DashboardStack}options={{ headerShown:true , drawerLabel: "Dashboard",drawerIcon: ({ color }) => {
+            <Drawer.Screen name="Dashboard" component={DashboardStack} options={{ headerShown:true , drawerLabel: "Dashboard",drawerIcon: ({ color }) => {
                 return <MaterialCommunityIcons name="view-dashboard-outline" size={24} color={color} />;},
             }}/>
             <Drawer.Screen name="จุดบริการมอเตอร์ไซค์รับจ้าง" component={WinServiceStack} options={{ drawerLabel: "จุดบริการมอเตอร์ไซค์รับจ้าง", drawerIcon: ({ color }) => {
                 return <MaterialCommunityIcons name="map-marker-radius-outline" size={24} color={color} />;
             },}}/>
-            <Drawer.Screen name="รายการการร้องเรียน" component={ComplaintStack} options={{drawerLabel: "รายการการร้องเรียน", drawerIcon: ({ color }) => {
+            <Drawer.Screen name="รายการการร้องเรียน" component={ComplaintStack} options={{headerShown:true,
+
+            drawerLabel: "รายการการร้องเรียน", drawerIcon: ({ color }) => {
                 return <FontAwesome5 name="envelope" size={24} color={color} />;},
             }}/>
+
+
+            <Drawer.Screen name="ออกจากระบบ"  options={{headerShown:true, drawerLabel: "ออกจากระบบ", headerShown:false, drawerActiveTintColor: "tomato", }} component={authen} />
+
 
 
         </Drawer.Navigator>

@@ -50,6 +50,7 @@ const updateStore = (id, dataHistory, dataUser, navigation, time ,date,detail ) 
         status: dataHistory.status,
         time: formattedTime+"",
         type: dataHistory.type,
+        // ไปใส่ฟิลเพิ่ม
     }
 
     
@@ -188,11 +189,11 @@ const updateForm = ({ route }) => {
                 </View>
                 
 
-                <View style={[styles.line, {backgroundColor:'red'}]}>
+                <View style={[styles.line, ]}>
                     <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
                     <Text style={styles.textFront}>สถานที่: </Text>
                     <TextInput 
-                        style={{borderWidth:1, backgroundColor:'red', width:"100%", height:"auto", padding: 10, marginTop:"6%",}}
+                        style={{borderWidth:1, width:"100%", height:"auto", padding: 10, marginTop:"6%",}}
                         onChangeText={setPlace}
                         value={place}
                     />
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
       marginTop: StatusBar.currentHeight || 0,
     },
     scrollView: {
-        backgroundColor: 'pink',
+
         marginHorizontal: 10,
       },
     list: {

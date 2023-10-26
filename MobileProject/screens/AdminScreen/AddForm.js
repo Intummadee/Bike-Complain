@@ -218,7 +218,7 @@ const AddDataForm = ( props ) => {
             {!image ? (
             <>
               {isloading ? (
-                <View style={{flex:1, backgroundColor:'cyan' , justifyContent:'center'}}>
+                <View style={{flex:1,  justifyContent:'center'}}>
                   <ActivityIndicator color={"red"} animating size={"large"} />
                 </View>
               ) : (
@@ -241,7 +241,7 @@ const AddDataForm = ( props ) => {
             </>
             ) : (
             <>
-              <View style={{flex:0.4, backgroundColor:'cyan' , justifyContent:'center' , width:"50%", alignContent:'center',alignItems:'center' , alignSelf:'center' ,height:'auto'}}>
+              <View style={{flex:0.4 , justifyContent:'center' , width:"50%", alignContent:'center',alignItems:'center' , alignSelf:'center' ,height:'auto'}}>
                   <Image style={{width:"100%", height:200, }} source={{uri : image}} />
               </View>
             </>
@@ -254,7 +254,7 @@ const AddDataForm = ( props ) => {
             {!imageLicense ? (
             <>
               {isloadingLicense ? (
-                <View style={{flex:1, backgroundColor:'cyan' , justifyContent:'center'}}>
+                <View style={{flex:1 , justifyContent:'center'}}>
                   <ActivityIndicator color={"red"} animating size={"large"} />
                 </View>
               ) : (
@@ -277,7 +277,7 @@ const AddDataForm = ( props ) => {
             </>
             ) : (
             <>
-              <View style={{flex:0.4, backgroundColor:'cyan' , justifyContent:'center' , width:"50%", alignContent:'center',alignItems:'center' , alignSelf:'center' ,height:'auto'}}>
+              <View style={{flex:0.4, justifyContent:'center' , width:"50%", alignContent:'center',alignItems:'center' , alignSelf:'center' ,height:'auto'}}>
                 <Image style={{width:"100%", height:200}} source={{uri : imageLicense}} />
               </View>
               
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   scrollView: {
-    backgroundColor: 'pink',
+    
     // marginHorizontalRight: 5,
   },
   label: {
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       padding: 10,
       marginTop: 20,
-      backgroundColor:'yellow',
+   
   },
   fontButton:{
     width: '40px',
