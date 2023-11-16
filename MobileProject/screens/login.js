@@ -8,6 +8,7 @@ import { putUSER_DATA } from "../store/actions/myAction";
 
 // Firebase
 import firebase from "../database/firebaseDB";
+// import firebase from "../database/db"
 
 
 const login = ({navigation}) => {
@@ -18,9 +19,7 @@ const login = ({navigation}) => {
     // data User
     const [userName , setUserName] = useState('');
     const [userPassword , setUserPassword] = useState('');
-    // array User --> Collect in Redux เหมือนจะไม่ใช้แล้ว 
-    // const [user, setUser] = useState([]);
-
+   
     // Validation Form 
     const [showIncorrect, setIncorrect] = useState(false);
     const [showIncorrectPassword, setIncorrectPassword] = useState(false);
@@ -32,10 +31,11 @@ const login = ({navigation}) => {
     
      
     const getCollection = (querySnapshot) => {
+        
         const all_data = [];
         let userFound = false; // เอาไว้เช็กว่า ชื่อผู้ใช้ถูกไหม ถ้าถูกก็ไม่ต้องขึ้นเตือนสีแดง
         querySnapshot.forEach((res) => {
-             
+            console.log(res.id, "res!!!!!!!!!!!!!!!!");     
     
             setIncorrectEmail(true)
             if(res.id == userName){ // ถ้าเข้าเงื่อนไขนี้คือ ชื่อผู้ใช้ถูกแล้ว
@@ -70,6 +70,7 @@ const login = ({navigation}) => {
     };
 
     const findUser = () => {
+        console.log("test!!!!!!!!!!!!!!!!");
         const unsubscribe = subjCollection.onSnapshot(getCollection);
         return () => {
           unsubscribe(); // ในบางกรณี, คุณต้องการทำงานบางอย่าง (เช่น, unsubscribe จาก Firebase, หรือทำความสะอาดข้อมูลที่ไม่ได้ใช้ = Unmounting (การลบ component ออกจาก DOM)

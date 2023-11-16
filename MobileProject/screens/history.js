@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     dropdown: {
       width:"80%",
       height: "70%",
-      // backgroundColor: 'white',
+      backgroundColor: 'white',
       borderRadius: 12,
       padding: 5, //ขนาดของdropdown
       shadowColor: '#000',

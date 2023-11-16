@@ -44,7 +44,7 @@ const signup = ({navigation}) => {
                 name: userName,
                 password:userPassword,
             }).then(() => {
-                //ส่งไปให้Storeส่วนกลาง หรือ Redux
+                // ส่งไปให้Storeส่วนกลาง หรือ Redux
                 dispatch( putDocumentName(userName) )
                 dispatch( putUSER_DATA({email: userEmail,history: [],name: userName,password:userPassword}) )
                 navigation.navigate("tab");
@@ -63,12 +63,13 @@ const signup = ({navigation}) => {
     const [userConfirm, setUserConfirm] = useState('')
      return (
     <View style={styles.container}>
-        <View style={styles.content}>
+       
             <View style={styles.title}>
-                <Text style={{color: '#004466',fontWeight:"bold", fontSize:25}}>WTH, Bro</Text>
+                <Text style={styles.signupLargeText}>WTH, Bro</Text>
                 <Text style={{color: '#004466', fontWeight:"bold", fontSize:20}}>ลงทะเบียน</Text>
             </View>
-            <View style={{flex:0.7, width: '80%', borderRadius:10, marginHorizontal:10, marginTop:"13%" ,backgroundColor:'#ed8e73'}}>
+            {/* View ด้านล่าง คือไอกล่องส้มจางที่มีปัญหา  */}
+            <View style={{height:"auto", width: '80%', borderRadius:10,  marginTop:"10%" ,backgroundColor:'#ed8e73'}}>
                 <TextInput
                     style={styles.input}
                     placeholder="ชื่อผู้ใช้:"
@@ -93,6 +94,7 @@ const signup = ({navigation}) => {
                     placeholder="ยืนยันรหัสผ่าน:"
                     onChangeText={setUserConfirm}
                     value={userConfirm}
+                    secureTextEntry={true}
                 />
                 {showIncorrect && (
                     <Text style={styles.validationText}>*กรอกข้อมูลให้ครบ</Text>
@@ -101,42 +103,34 @@ const signup = ({navigation}) => {
                     <Text style={styles.validationText}>*ข้อมูลรหัสผ่านไม่ตรงกัน</Text>
                 )}
             </View>
-            <Text> </Text>
-            <View style={{flex:0.1, backgroundColor:'white', width:'60%',marginTop:"10%", borderRadius:50,backgroundColor:'#004466',  }}>
-                <TouchableOpacity style={{flex:1, justifyContent:'center', alignSelf:'center', }}
-                    onPress={() => {addUSer();}}
-                >
+            {/* <Text> </Text> */}
+            <View style={{padding:8, height:'auto' ,backgroundColor:'white', width:'60%',marginTop:"10%", borderRadius:50,backgroundColor:'#004466',  }}>
+                <TouchableOpacity style={{ justifyContent:'center', alignSelf:'center', }} onPress={() => {addUSer();}}>
                     <Text style={{fontSize:16, color:'white' }}>ลงทะเบียน</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{color:'grey', marginTop:"2%" , flex:0.1, justifyContent:'center',alignSelf:'center', flexDirection:'row', width:"100%"}}>
+            <View style={{color:'grey', marginTop:"2%" , height:'auto', justifyContent:'center',alignSelf:'center', flexDirection:'row', width:"100%"}}>
                 <Text style={{fontSize:14, color:'grey'}}>มีบัญชีแล้ว?</Text>
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate("login");
-                }}
-                style={{width:'auto'}}
-                >
+                <TouchableOpacity onPress={() => { navigation.navigate("login");}} style={{width:'auto'}}>
                     <Text style={{color:'grey', fontWeight:'bold' ,textDecorationLine:'underline', marginLeft:"8%", width:"100%", fontSize:14 }}>คลิกเพื่อเข้าสู่ระบบตอนนี้</Text>
                 </TouchableOpacity>
             </View>
-             
-        </View>
-
     </View>
   )
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 3,
+      flex: 4,
       backgroundColor: '#FF724C',
-      justifyContent:'center'
+      justifyContent:'center',
+      alignItems:'center'
       
     },
     content:{
         flex:1,
         justifyContent:'space-between',
         alignItems:'center',
-        // backgroundColor:'violet'
+        backgroundColor:'violet'
     },
     input: {
       height: 40,
@@ -149,11 +143,11 @@ const styles = StyleSheet.create({
       fontWeight:"bold"
     },
     title: {
-        marginTop:70,
-        flex:0.1,
+        // WTH BRO
+        height:'auto',
         justifyContent: 'center',
         alignItems: 'center',
-        // fontFamily: 'Cochin', //ค่อยเปลี่ยน
+        marginTop:"10%"
     },
     validationText: {
         height: "auto",
@@ -164,6 +158,13 @@ const styles = StyleSheet.create({
         fontSize:16, 
         // backgroundColor:'white' 
     },
+    signupLargeText:{
+        color: '#004466',
+        fontWeight:"bold", 
+        fontSize:25,
+        fontFamily:'Lobster-Regular'
+
+    }
   
   });
 

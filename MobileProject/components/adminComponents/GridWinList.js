@@ -21,7 +21,7 @@ const GridWinList = (props) => {
                 <Text style={{color:'grey', fontSize:10}}>
                     {props.dataItem.zone}
                 </Text>
-                
+                {/* EFF3F4 */}
             </View>
         </TouchableOpacity>
     );
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     margin: 15,
     height: 150,
     marginTop: 30,
+  
   },
   container: {
     flex: 1,
@@ -45,15 +46,16 @@ const styles = StyleSheet.create({
     padding: 15,
     justifyContent: 'center',
     alignItems: "center",
-    backgroundColor: "white",
-    borderColor: '#FF724C',
-    borderWidth: 1.5,
+    backgroundColor: "#004466",
+    borderColor: 'white',
+    borderWidth: 2,
   },
   // ชื่อวิน
   title: {
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "right",
+    color:'white'
   },
   // หมายเลขวิน
   number: {
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
     top: '-20%',
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: '#FF724C',
+    borderColor: 'white',
+
   },
 });
 

@@ -7,6 +7,8 @@ import Modal from 'react-native-modal';
 // Icon
 import { AntDesign } from "@expo/vector-icons"; 
 import { FontAwesome } from '@expo/vector-icons'; 
+import { EvilIcons } from '@expo/vector-icons'; 
+
 
 // Firebase
 import firebase from "../../database/firebaseDB";
@@ -16,6 +18,7 @@ import GridWinList from "../../components/adminComponents/GridWinList";
 
 // AdminScreen
 import AddDataForm from './AddForm';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
     
@@ -44,15 +47,19 @@ const FirstRoute = (props) => {
   });
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor:'#C8D2D4' }}>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
-          placeholder="Search..."
+          placeholder="ค้นหา"
+          placeholderTextColor='grey'
           value={searchText}
           onChangeText={setSearchText}
         />
-        <Button title="เพิ่มรายชื่อวิน" onPress={handleOpenAddForm} />
+        <TouchableOpacity onPress={handleOpenAddForm} style={{backgroundColor:"#FF724C" , borderRadius:50, paddingHorizontal:4, paddingVertical:10,}}>
+          <Text style={{color:'white'}}>+ เพิ่มรายชื่อวิน</Text>
+        </TouchableOpacity>
+        {/* <Button title="เพิ่มรายชื่อวิน" onPress={handleOpenAddForm} /> */}
         <Modal visible={isAddFormVisible} style={styles.modalContainer} animationType="slide">
           {/* modal Formอยู่ตรงนี้ */}
             <AddDataForm allPrice={props.allPrice} allWin={props.allWin} service_point={props.service_point}  onClose={handleCloseAddForm} />
@@ -110,23 +117,23 @@ const SecondRoute = (props) => {
       // (You can add the Firebase update code here)
       const priceRef = firebase.firestore().collection("Service_Points").doc(data);
 
-    priceRef.get()
-      .then((doc) => {
-        const currentData = doc.data();
-        currentData.price.push(newItemObject);
+      priceRef.get()
+        .then((doc) => {
+          const currentData = doc.data();
+          currentData.price.push(newItemObject);
 
-        priceRef
-          .update({ price: currentData.price })
-          .then(() => {
-            console.log("New item added successfully to Firebase.");
-          })
-          .catch((error) => {
-            console.error("Error adding new item to Firebase: ", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error getting Firebase document: ", error);
-      });
+          priceRef
+            .update({ price: currentData.price })
+            .then(() => {
+              console.log("New item added successfully to Firebase.");
+            })
+            .catch((error) => {
+              console.error("Error adding new item to Firebase: ", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error getting Firebase document: ", error);
+        });
     }
   };
 
@@ -193,7 +200,7 @@ const SecondRoute = (props) => {
   
     // Set the editedPriceList with the item removed
     setEditedPriceList(updatedPriceList);
-};
+  };
 
 
   const saveChangesToFirebase = () => {
@@ -255,45 +262,55 @@ const SecondRoute = (props) => {
       />
       {/* "Add" button to open the form */}
       
-      <View style={{marginBottom: 15, marginTop: 12}}>
-        <Button
-        title='เพิ่มรายการใหม่'
-        
-        onPress={() => setIsAddFormVisible(true)}
-        />
+      {/* ปุ่มบวก++++ */}
+      <View style={{flex:1}}>
+        <View style={{position:'absolute', right:-140,bottom:40, alignSelf:'flex-end',backgroundColor:"#05A56B", borderRadius:50   }}>
+          <TouchableOpacity style={{backgroundColor:"#05A56B", borderRadius:50  }} onPress={() => setIsAddFormVisible(true)}>
+            <Text style={{paddingVertical:5, fontSize:35, color:'white', paddingHorizontal:20  }}>+</Text>
+          </TouchableOpacity>
+           {/* <Button
+             title="+"
+             color="#05A56B"
+             accessibilityLabel="Press"
+             onPress={() => setIsAddFormVisible(true)}
+             style={{ width: 50, height: 50 }}
+             /> */}
+        </View>
       </View>
+      {/* <TouchableOpacity style={{marginBottom: 15, marginTop: 12 , position: "fixed" , backgroundColor:'#05A56B', borderRadius:10 }} onPress={() => setIsAddFormVisible(true)}  >
+        <Text style={{color:'white', padding:15}}>เพิ่มรายการใหม่</Text>
+      </TouchableOpacity> */}
 
       {/* Form Modal */}
       <Modal isVisible={isAddFormVisible} style={{alignItems: 'center'}}>
         <View style={styles.formContainer}>
-        <Text style={{fontSize: 18}}>สถานที่:</Text>
+        <Text style={{fontSize: 18, fontWeight:'bold', marginTop:10 }}>สถานที่:</Text>
           <TextInput
-            style={{borderWidth: 1, width: '100%'}}
+            style={{borderWidth: 1, width: '100%', marginTop:10, paddingHorizontal:10}}
             value={newItem.des}
             onChangeText={(text) => setNewItem({ ...newItem, des: text })}
           />
-          <Text style={{fontSize: 18}}>ราคา:</Text>
+          <Text style={{fontSize: 18, fontWeight:'bold'}}>ราคา:</Text>
           <TextInput
-            style={{borderWidth: 1, width: '100%'}}
+            style={{borderWidth: 1, width: '100%', marginTop:10, paddingHorizontal:10}}
             value={newItem.cost}
             onChangeText={(text) => setNewItem({ ...newItem, cost: text })}
           />
-          <View style={{marginTop: 15}}>
-          <Button
-            title='ยกเลิก'
-            onPress={handleFormClose}
-            color={"red"}
-          />
+          <View style={{marginTop: 25}}>
+            <Button
+              title='ยกเลิก'
+              onPress={handleFormClose}
+              color={"#F65045"}
+            />
           </View>
 
-          <View style={{marginTop: 5}}>
-           <Button
-            title='ยืนยัน'
-            color={"green"}
-            onPress={handleAddItem}
-          />
+          <View style={{marginTop: 5, marginBottom:10}}>
+            <Button
+              title='ยืนยัน'
+              color={"#05A56B"}
+              onPress={handleAddItem}
+            />
           </View>
-          
         </View>
       </Modal>
     </View>
@@ -409,12 +426,13 @@ const styles = StyleSheet.create({
       borderColor: 'gray',
       borderRadius: 5,
       padding: 5,
+      backgroundColor:'white'
     },
     formContainer: {
       backgroundColor: 'white',
       padding: 20,
       width: '75%',
-      borderRadius:10
+      borderRadius:10,
     },
     
 });

@@ -16,7 +16,7 @@ const myProfile = ({ navigation }) => {
     <View style={styles.list}>
       <View style={styles.box}>
         <View style={{width:"100%", alignItems:'center'}}>
-            <Image style={styles.pic} source={require("../assets/Nahida.avif")}/>
+            <Image style={styles.pic} source={{uri:"https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fmr-anonymous.png?alt=media&token=dcf6f7bb-6940-434e-8aae-8e9aee445bf1"}}/>
             {/* {data.email} กับ {data.name} ค่อยแก้ทีหลัง  */}
             <Text style={{fontWeight:'bold' , fontSize:20}}>{data.email}</Text>
             <Text style={{color:'grey', fontWeight:'bold'}}>{data.name}</Text>

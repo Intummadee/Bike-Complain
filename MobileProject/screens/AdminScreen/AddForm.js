@@ -32,7 +32,7 @@ const AddDataForm = ( props ) => {
 
 
   const defaultImageWin = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fmr-anonymous.png?alt=media&token=dcf6f7bb-6940-434e-8aae-8e9aee445bf1"
-  const defaultImageLicense = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fimage.png?alt=media&token=a558abe7-1545-4493-b79a-cda2c8bbd871"
+  const defaultImageLicense = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fimage.png?alt=media&token=66e0aaa7-c87e-4d6c-97cd-fe37501affa9"
 
   const pickImage = async () => {
     console.log("pickImage 🟢🟢🟢");
@@ -296,7 +296,7 @@ const AddDataForm = ( props ) => {
             </TouchableOpacity>
                 <TouchableOpacity style={[styles.buttonEnd, {backgroundColor:'#05A56B'}]}
                 onPress={()=>{updateStore()}}>
-                  <Text>ยืนยัน</Text>
+                  <Text style={{fontWeight:'bold', color:"white"}}>ยืนยัน</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -307,7 +307,7 @@ const AddDataForm = ( props ) => {
 const styles = StyleSheet.create({
   container: {
     padding: 36,
-    backgroundColor: 'white',
+    backgroundColor: '#FFC3B3',
     height: 570,
     borderRadius: 10,
   },
@@ -330,6 +330,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     padding: 8,
+    backgroundColor:'white'
   },
   image: {
     width: 200,
@@ -353,6 +354,7 @@ const styles = StyleSheet.create({
     alignItems:'center', 
     padding:10,
     borderRadius:30,
+    paddingHorizontal:15
   }
 });
 

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView,SafeAreaView } from 'react-native';
 import { useEffect, useState } from 'react';
 import firebase from "../../database/firebaseDB";
 
@@ -66,50 +66,65 @@ export default function Dashboard() {
   }, []);
   
   return (
-  
+    
     <ScrollView style={styles.container}>
       <View style={styles.allComplaintContainer}>
-        <Text style={{ fontSize: 20 }}>จำนวนที่ร้องเรียน:</Text>
-        <Text style={{ textAlign: 'right', fontSize: 35 }}>{totalComplaints}</Text>
+        <Text style={{ fontSize: 20, fontWeight:'bold', }}>จำนวนที่ร้องเรียน:</Text>
+        <Text style={{ textAlign: 'right', fontSize: 35,  fontWeight:'bold' }}>{totalComplaints}</Text>
       </View>
       <View style={styles.complaint}>
         <View style={styles.done}>
-          <Text style={{ fontSize: 35 }}>{totalGreenComplaints}</Text>
-          <Text style={{ marginTop: 5, fontSize: 15 }}>ดำเนินการเสร็จแล้ว</Text>
+          <Text style={{ fontSize: 35, fontWeight:'bold', textAlign:'center' }}>{totalGreenComplaints}</Text>
+          <Text style={{ marginTop: 5, fontSize: 14,fontWeight:'bold', textAlign:'center' }}>ดำเนินการเสร็จแล้ว</Text>
         </View>
         <View style={styles.undone}>
-          <Text style={{ fontSize: 35 }}>{totalRedComplaints}</Text>
-          <Text style={{ marginTop: 5, fontSize: 15 }}>ยังไม่ได้ดำเนินการ</Text>
+          <Text style={{ fontSize: 35, fontWeight:'bold', textAlign:'center' }}>{totalRedComplaints}</Text>
+          <Text style={{ marginTop: 5, fontSize: 14,fontWeight:'bold', textAlign:'center' }}>ยังไม่ได้ดำเนินการ</Text>
         </View>
       </View>
       <View style={{ textAlign: 'left', marginTop: '4%' }}>
-        <Text style={{ fontSize: 20 }}>ลำดับคนที่โดนร้องเรียนมากที่สุด:</Text>
+        <Text style={{ fontSize: 20,fontWeight:'bold' }}>ลำดับคนที่โดนร้องเรียน:</Text>
       </View>
       
       {mostFrequentNames.map((name, index) => (
-      <View style={{flexDirection: 'row', alignItems:'center', marginTop:'3%' , backgroundColor:'white', paddingVertical: 10}}>
-        <View style={{width: '40%'}} >
-          <Text style={{textAlign: 'center', fontSize: 20, backgroundColor: 'orange', marginVertical: 20, marginHorizontal: 45, borderRadius: 50, padding: 7}}> {index+1}</Text>
+        <View style={{flexDirection: 'row', alignItems:'center', marginTop:'3%' , backgroundColor:'white', paddingVertical: 10}}>
+            <View style={{width: '40%'}} >
+              <Text style={{textAlign: 'center', fontSize: 20, backgroundColor: 'orange', marginVertical: 20, marginHorizontal: 45, borderRadius: 50, padding: 7}}> {index+1}</Text>
+            </View>
+            
+            <View style={{flexDirection: 'column'}}>
+              <Text style={{ fontSize: 18 }}> {name}</Text>
+              <Text style={{ fontSize: 15 }}> เขต: {nameCountMap.get(name).place}</Text>
+              <Text style={{ fontSize: 15 }}> เลขคิววิน: {nameCountMap.get(name).detail}</Text>
+            </View>
         </View>
-        <View style={{flexDirection: 'column'}}>
-        <Text style={{ fontSize: 18 }}> {name}</Text>
-        <Text style={{ fontSize: 15 }}> เขต: {nameCountMap.get(name).place}</Text>
-        <Text style={{ fontSize: 15 }}> เลขคิววิน: {nameCountMap.get(name).detail}</Text>
-        </View>
-      </View>
       ))}
+      
+      <Text> </Text> 
+      <Text> </Text> 
+      <Text> </Text> 
+      
+      
+       
     </ScrollView>
+   
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: 'green',
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor:"red",
+  },
+  container: {
+    paddingTop: StatusBar.currentHeight,
+    flex: 1,
+    // backgroundColor: 'green',
     backgroundColor:"#E3E1F3",
     paddingHorizontal: 20,
-    paddingTop: 40,
-    marginBottom: 10
+    paddingTop: 25,
+    // marginBottom: 10
   },
   allComplaintContainer: {
     padding: 10,

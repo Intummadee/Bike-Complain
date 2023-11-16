@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView,FlatList, StatusBar, Divider } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,SafeAreaView,FlatList, StatusBar, Divider, TextInput } from 'react-native'
+
 
 
 // import dropdown
@@ -10,6 +11,7 @@ import { Dropdown } from 'react-native-element-dropdown'
 import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons'; 
 
 // Import Component
 import Box from "../../components/Box";
@@ -46,6 +48,9 @@ const renderItem = item => {
 
 const complaint = ({ navigation }) => {
 
+   
+
+
   // dropdown
   const [value, setValue] = useState(""); //ค่า สถานะจาก dropdown ที่ถูกเลือก
   const [clickStatus, setclickStatus] = useState(false); //ค่า สถานะจาก dropdown ที่ถูกเลือก
@@ -54,6 +59,9 @@ const complaint = ({ navigation }) => {
   const [clickDate, setClickDate] = useState(false);
   const [historySort, sethistorySort] = useState([]); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
   const [countDate, setcountDate] = useState(1); // Array ที่เอาไว้ sort ข้อมูลตาม วันที่
+
+
+  
 
   
   const [AllUser_FromDB, setAllUser_FromDB] = useState([]);
@@ -94,14 +102,14 @@ const complaint = ({ navigation }) => {
     return(
       <View style={{flex:1, marginBottom:10}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          <View style={{flex: 1, height: 1, backgroundColor: 'black', marginRight:10, }} />
           <View>
             <Text style={{width: 30, textAlign: 'center'}}>{(index+1).toString()}</Text>
           </View>
-          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          <View style={{flex: 1, height: 1, backgroundColor: 'black', marginRight:20,  }} />
         </View>
         <Text> </Text>
-        <Text style={{fontWeight:'bold'}}>User Name: {item.userName}</Text>
+        <Text style={{fontWeight:'bold', fontSize:17}}>User Name: {item.userName}</Text>
         <Text>History:</Text>
         <FlatList
             style={{marginTop:5}}
@@ -123,7 +131,11 @@ const complaint = ({ navigation }) => {
     
   };
 
-
+  // ลบได้
+  const [searchText, setSearchText] = useState('');
+  const filteredData = AllUser_FromDB.filter(item =>
+    item.userName.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
     <View style={styles.list}>
@@ -131,49 +143,20 @@ const complaint = ({ navigation }) => {
         <View>
           <Text style={{fontSize:20, color:'#004466', fontWeight:'600'}}>สถานะการร้องเรียน:</Text>
         </View>
-        {/* <View style={{flexDirection:'row', marginTop:"4%"}}>
-          <Dropdown
-              style={styles.dropdown}
-              placeholderStyle={{fontSize: 16, color:'grey', paddingLeft:"34%", }} // ขนาดplaceholderอยู่ตรงกลางประมาณ 35% แต่ดูจากเว็บตอนนี้ด้วยตามันเหมือนจะ34 (ไม่มั่นใจแหะ)
-              placeholder="ทั้งหมด"
-              selectedTextStyle={{ fontSize: 16, paddingLeft:"35%", }} // styleของtextที่ถูกเลือก
-              iconStyle={{width: 20, height: 20,}}
-              data={data}
-              maxHeight={300}
-              labelField="label"
-              valueField="value"
-              searchPlaceholder="Search..."
-              value={value}
-
-              onChange={item => { 
-                setValue(item.value);
-                setclickStatus(true)
-                renderSort(item.value, false, countDate)
-
-              }}
-               
-              renderLeftIcon={() => (
-                  <AntDesign name="folder1" size={20} color="grey" style={{}} />
-                )}
-              renderItem={renderItem}
-          />
-          <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                // วันที่
-                renderSort(value, true, countDate+1)
-              }}>
-              <View style={{ width:'100%',  justifyContent:'center',alignItems:'center', flexDirection:'column' }}>
-                  <FontAwesome name="sort" size={20} color="#004466" />
-                  <Text style={{color:'#004466', paddingLeft:'5%', fontSize:13, fontWeight:'bold'}}>วันที่</Text>
-              </View>
-          </TouchableOpacity>
-        </View> */}
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search by Username..."
+          value={searchText}
+          onChangeText={setSearchText}
+        />
       </View>
+
+
       {/* ด้านล้างเป็นโซนของ รายการร้องเรียน */}
       <View style={{ width:'100%', height:"100%", flexDirection:'row'}}>
         <SafeAreaView style={styles.container}>
-          <FlatList 
+          {/* ของเก่า */}
+          {/* <FlatList 
             // navigation={navigation} 
             data={AllUser_FromDB}
             renderItem={(item) => 
@@ -183,35 +166,21 @@ const complaint = ({ navigation }) => {
             } 
             numColumns={1} 
             keyExtractor={(item, index) => item.userName}
+          /> */}
+          <FlatList
+            data={filteredData}
+            renderItem={(item) => renderList(item, { navigation })}
+            numColumns={1}
+            keyExtractor={(item, index) => item.userName}
           />
-          
-          {/* {(clickStatus==true || clickDate==true) ? (
-              <FlatList 
-                navigation={navigation} 
-                data={historySort}
-                renderItem={(item) => 
-                  renderList(item, { navigation, id, dataUser })
-                } 
-                numColumns={1} 
-                keyExtractor={(item, index) => index.toString()}
-              />
-            ) : (
-              <FlatList 
-                navigation={navigation} 
-                data={dataUser.history}
-                renderItem={(item) => 
-                  renderList(item, { navigation, id, dataUser })
-                } 
-                numColumns={1} 
-                keyExtractor={(item, index) => index.toString()}
-              />
-            )
-          } */}
 
-
+          <Text>  </Text>
+          <Text>  </Text>
+          <Text>  </Text>
+          <Text>  </Text>
+           
         </SafeAreaView>
       </View>
-      
     </View>
   );
 }
@@ -250,8 +219,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    top:-70,
-    marginBottom:50
+    top:-10,
+    marginBottom:50,
+    // backgroundColor:'lime',
+  },
+  searchInput: {
+    height: 45,
+    borderColor: 'gray',
+    borderWidth: 1,
+    // marginBottom: 16,
+    paddingLeft: 15,
+    marginRight:15,
+    marginTop:15,
+    backgroundColor:'white',
+    borderRadius:10,
+    paddingVertical:10,
   },
 
 });

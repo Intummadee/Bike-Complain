@@ -1,22 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image,TextInput,Button, SafeAreaView, ScrollView,StatusBar  } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 
+import { collection, getDocs, getDoc, query, where } from "firebase/firestore";
 
+ // Firebase
+ import firebase from "../../database/firebaseDB";
 
 
 
 const screen1 = ({navigation, route}) => {
-    // const data = route.params.item;
+
 
     const uri_image = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen1.jpg?alt=media&token=08358861-8ccf-4547-9a93-8f60f29546c3" 
     
      
     return (
-        <SafeAreaView style={styles.container}>
+         
           <ScrollView style={styles.scrollView}>
               <View style={styles.content_above}>
-                <Text style={{fontSize:20, fontWeight:'bold', textAlign:'center'}}>ผู้บริโภคแจ้งยังพบวินมอไซค์เก็บค่าโดยสารเกินราคาจริงและขับรถหวาดเสียว</Text>
+                <Text style={{fontSize:19, fontWeight:'bold', textAlign:'center'}}>ปัญหาที่มักพบเจอกับการใช้บริการวิน</Text>
                 <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย เฟรม. </Text>
               </View>
               {/* <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}> */}
@@ -40,16 +43,29 @@ const screen1 = ({navigation, route}) => {
                 <Text>  5. ร้องเรียนได้ที่ กรมการขนส่งทางบก สายด่วน 1584 , มูลนิธิเพื่อผู้บริโภค 02-2483737</Text>
                 <Text>  </Text>
                 <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                <Text>  </Text>
+                 
               </View>
             </ScrollView>
-        </SafeAreaView>
+         
     )
    
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: 'grey',
+      // flex: 1,
+      backgroundColor: '#EEEBEB',
       paddingTop: StatusBar.currentHeight,
     },
     content_above:{

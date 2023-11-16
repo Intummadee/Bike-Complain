@@ -23,7 +23,7 @@ const dummyData = [
 
 const home = ({navigation}) => {
 
- 
+    
 
 
 

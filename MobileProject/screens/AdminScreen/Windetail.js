@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity, FlatList, Button, Text, Image,
     TextInput,
     Alert,
     ActivityIndicator,
+    ScrollView
 } from 'react-native';
 
 import Modal from "react-native-modal";
@@ -25,20 +26,22 @@ const Windetail = ({ navigation, route }) => {
 
     const data = route.params.routeData; // {license: 'MM00 กรุงเทพมหานคร', no: '02', win_url: 'https://firebasestorage.', license_url: 'url', place: 'วินคลอง 4 เขตลาดกระบัง', name: "Blue Firebase"}
     //  point: 'ซอยเกกี1', item: 0
+    // data = { license: "MM100" , license_url: "https://firebasestorage." , name: "โมริ รัน" , no: "103" , win_url: "https://firebasestorage.g }
     const win_url_data = data.win_url
     const point = route.params.point;
+    const license_url = data.license_url;
     const item = route.params.item;
     
-    
     const subjCollection = firebase.firestore().collection("Service_Points");
-    const [all_price , setAll_price] = useState([]);
+    const [all_price , setAll_price] = useState([]); // สองArrayนี้เอาไว้เก็บ price กับ winทั้งหมดในจุดให้บริการที่ตรงกับที่ adminเลือก
     const [all_winAll , setAll_winAll] = useState([]);
 
     const getCollection = (querySnapshot) => {
         var all_price = [];
         var all_winAll = [];
         querySnapshot.forEach((res) => {
-            if(res.id == point){
+            if(res.id == point){ 
+                // FBT == FBT
                 all_price = [...res.data().price]
                 all_winAll = [...res.data().winAll]
             }
@@ -70,8 +73,10 @@ const Windetail = ({ navigation, route }) => {
       
       // image
       const [image, setImage] = useState(win_url_data)
-      const defaultLicenseWin = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Service_Points%2Fimage.png?alt=media&token=89225b40-7817-421e-8f77-d2c439935aea";
-      const [imageLicense, setImageLicense] = useState(defaultLicenseWin)
+      const defaultLicenseWin = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fimage.png?alt=media&token=66e0aaa7-c87e-4d6c-97cd-fe37501affa9";
+      
+      const [imageLicense, setImageLicense] = useState(license_url) // set รูปภาพเริ่มต้นกรณีที่เราไม่ได้uploadรูปภาพจากคลัง
+       
     
     const toggleModal = () => {
         console.log("toggleModal");
@@ -79,19 +84,24 @@ const Windetail = ({ navigation, route }) => {
         setModalVisible(!isModalVisible);
     };
 
+   
+
     const updateData = () => {
+         
         if(edit == false){
             // แก้ไม่ได้ ให้แก้ได้
-            // console.log("แก้ไม่ได้ ให้แก้ได้");
             setEdit(true)
             setbuttonEditText("ยืนยันการเปลี่ยนแปลง")
             setcolorButton("#05A56B")
+             
+
         }
         else{
-            // แก้ได้ ให้ไม่สามารถแก้ได้
+            // แก้ได้ ให้ไม่สามารถแก้ได้ โดยตรงนี้จะอัพเดตลงฐานข้อมูล 
             setcolorButton("rgba(255, 193, 7, 1)")
             setEdit(false)
             setbuttonEditText("แก้ไข")
+
 
             
             let test = {...all_winAll[item]} // {no: '15', name: 'Blue Firebase', win_url: '', license: 'MM00 กรุงเทพมหานคร'}
@@ -111,9 +121,13 @@ const Windetail = ({ navigation, route }) => {
                   onPress: () => {
                     console.log('Cancel Pressed')
                     deleteImage()
+                    // กรณีถ้ากดยกเลิกการแก้ไขในตอนDialog จะต้องย้อนค่าstateกลับไปเป็นเหมือนเดิม เหมือนค่าdefault
                     setImage(win_url_data)
-                    setImageLicense(defaultLicenseWin)
-    
+                    setImageLicense(license_url)
+                    setName(data.name)
+                    setRegisNumber(data.license)
+                    setQueueNumber(data.no)
+
                 },
                   style: 'cancel',
                 },
@@ -429,10 +443,10 @@ const Windetail = ({ navigation, route }) => {
             </View>
 
             <View style={styles.licenseBox}>
-                <View style={{justifyContent:'space-evenly', alignSelf:'center', flex:1, }}>
-                    <Text style={{fontWeight:'bold'}}>ใบอนุญาตขับรถจักรยานยนต์สาธารณะ</Text>
+                <View style={{justifyContent:'space-evenly', alignSelf:'center', flex:2,  }}>
+                    <Text style={{fontWeight:'bold', fontSize:14}}>ใบอนุญาตขับรถจักรยานยนต์สาธารณะ</Text>
                     {/* viewด้านล่าง = รูปภาพของ ใบขับขี่วิน */}
-                    <Image source={{uri: imageLicense}} style={{width:"auto", height:"50%",}} /> 
+                    <Image source={{uri: license_url}} style={{width:"auto", height:"50%" ,}} />     
                     {imageLicense == defaultLicenseWin ? (
                         <>
                             {isloadingLicense ? (
@@ -486,6 +500,7 @@ const Windetail = ({ navigation, route }) => {
                         >
                             <Text style={{fontSize:12,color:'white' }}>ลบรายชื่อ</Text>
                         </TouchableOpacity>
+                        {/* ปุ่มแก้ไข ปุ่มสีเหลือง */}
                         <TouchableOpacity
                             style={{borderRadius:10, width:"45%", marginLeft:10, flexDirection:'row', justifyContent:'center', padding:6,alignItems:'center' , marginBottom:15, 
                             backgroundColor:colorButton,paddingVertical:10}}

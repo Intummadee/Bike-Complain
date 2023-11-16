@@ -117,8 +117,12 @@ const DetailListAdmin = (props) => {
     };
 
     const updateStore = () => {
+        if(dropDownValue == undefined){
+            dropDownValue = "red";
+        }
         allHistory[arrayIndex].status = dropDownValue
         let setNewHistory = [...allHistory]
+        // dropDownValue = orange , red , green
 
         Alert.alert('Confirm', 'ยืนยันการแก้ไขไหม', [
             {
@@ -174,7 +178,7 @@ const DetailListAdmin = (props) => {
                 }).catch(() => {
                     alert("ยังไม่ได้แก้ไข");
                 })
-                navigation.goBack();
+                // navigation.goBack();
             }},
         ]);
 
@@ -212,8 +216,8 @@ const DetailListAdmin = (props) => {
                         renderItem={renderItem}
                     />
                     <View style={{}}>
-                        <Text>ผู้ร้องเรียน:</Text>
-                        <Text>{userName}</Text>
+                        <Text style={[styles.textFront, {fontSize:18}]}>ผู้ร้องเรียน:</Text>
+                        <Text style={[styles.textBack, {fontSize:15}]}>{userName}</Text>
                     </View>
 
                 </View>
@@ -235,7 +239,7 @@ const DetailListAdmin = (props) => {
                         </Text>
                         
                         <Text style={{fontSize:13, }}>
-                            <MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
+                            <Feather name="clock" size={20} color="black" />
                             <Text style={styles.textFront}>เวลา: </Text>
                             <Text style={styles.textBack}>{dataHistory.time}</Text>
                         </Text>
@@ -294,7 +298,8 @@ const DetailListAdmin = (props) => {
                             <TouchableOpacity onPress={()=>{
                                     updateStore();
                                 }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#05A56B',}]}>
-                                <Text style={styles.statusRedText}>อัพเดต</Text>
+                                    <MaterialCommunityIcons name="update" size={20} color="white" />
+                                <Text style={styles.statusRedText}> อัพเดต</Text>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -305,7 +310,8 @@ const DetailListAdmin = (props) => {
                                 updateStore();
                             }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#FF9770',}]}>
                             {/* <AntDesign name="delete" size={20} color="black" /> */}
-                            <Text style={styles.statusRedText}>อัพเดต</Text>
+                            <MaterialCommunityIcons name="update" size={20} color="white" />
+                            <Text style={styles.statusRedText}> อัพเดต</Text>
                         </TouchableOpacity>
                     </View>
                     )}

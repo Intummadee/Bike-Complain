@@ -18,16 +18,16 @@ const detailWin = ({ navigation, route }) => {
                     {/* กล่องชื่อของวิน */}
                     <View style={{width:'100%', justifyContent:'center', alignItems:'center', flexDirection:'row', }}>
                         <Image source={{uri : data.win_url}} style={{width:"50%", height:"60%"}} /> 
-                        <View style={{marginLeft:'10%', }}>
-                            <Text>ชื่อ:</Text>
+                        <View style={{marginLeft:'8%', }}>
+                            <Text style={{ fontWeight: 'bold' }}>ชื่อ:</Text>
                             <Text>{data.name}</Text>
                             <Text> </Text>
                             {/* <br /> */}
-                            <Text>เลขทะเบียนรถจักรยานยนต์:</Text>
+                            <Text style={{ fontWeight: 'bold' }}>เลขทะเบียนรถจักรยานยนต์:</Text>
                             <Text>{data.license}</Text>
                             <Text> </Text>
                             {/* <br /> */}
-                            <Text>เลขคิววิน: {data.no}</Text>
+                            <Text style={{ fontWeight: 'bold' }}>เลขคิววิน: {data.no}</Text>
                         </View>
                     </View >
                 </View>

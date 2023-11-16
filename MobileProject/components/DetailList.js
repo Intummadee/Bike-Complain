@@ -118,7 +118,7 @@ const DetailList = (props) => {
                             <Text style={styles.textBack}>{dataHistory.date}</Text>
                         </Text>
                         <Text style={{fontSize:13, }}>
-                            <MaterialCommunityIcons name="face-woman-profile" size={20} color="black"/> 
+                            <Feather name="clock" size={20} color="black" />
                             <Text style={styles.textFront}>เวลา: </Text>
                             <Text style={styles.textBack}>{dataHistory.time}</Text>
                         </Text>
@@ -149,11 +149,11 @@ const DetailList = (props) => {
                 
                 <View style={[styles.line , { flex:1 }]}>
                     { dataHistory.status=="green" && (
-                        <View style={[styles.line, {flex:0.2,}]}>
+                        <View  style={[styles.line, {flex:0.2, }]}>
                             <Text style={{fontSize:20, fontWeight:"bold"}}>หมายเหตุ: </Text>
                             <View style={[styles.touchOpacity, {backgroundColor:'white', }]} >
-                            <Text style={styles.textBack}>{note}</Text>
-                        </View>
+                                <Text style={styles.textBack}>{note}</Text>
+                            </View>
                     </View>
                     )}
 
@@ -170,9 +170,9 @@ const DetailList = (props) => {
                             </TouchableOpacity>
                             <TouchableOpacity onPress={()=>{
                                     updateStore(id, dataHistory, dataUser, index, navigation);
-                                }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',}]}>
-                                <AntDesign name="delete" size={20} color="black" />
-                                <Text style={styles.statusRedText}>ลบรายการร้องเรียน</Text>
+                                }} style={[styles.statusRedButton ,{marginLeft:"3%", backgroundColor:'#EB7373',borderWidth: 0,}]}>
+                                <AntDesign name="delete" size={20} color="white" />
+                                <Text style={[styles.statusRedText, {color:'white' }]}>ลบรายการร้องเรียน</Text>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -203,9 +203,8 @@ const styles = StyleSheet.create({
         width:"100%",
         padding: 10,// แก้ขนาดปุ่ม
         flexDirection:'row',
-        // justifyContent:'center',
-        marginTop:"3%"
-        
+        marginTop:"3%",
+         
     },
     // อันนี้คือแต่ละบรรทัด
     line: {
@@ -223,7 +222,7 @@ const styles = StyleSheet.create({
     statusRedButton: {
         flexDirection:'row',
         justifyContent:'center',
-        borderWidth:1,
+        borderWidth:0.6,
         alignItems:'center',
         alignSelf:'center',
         paddingHorizontal:"2%",

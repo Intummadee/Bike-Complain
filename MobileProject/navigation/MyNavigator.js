@@ -21,6 +21,7 @@ import updateForm from "../screens/updateForm";
 import screen1 from "../screens/HomeScreen/screen1";
 import screen2 from '../screens/HomeScreen/screen2';
 import screen3 from '../screens/HomeScreen/screen3';
+import screen4 from "../screens/HomeScreen/screen4"
 
 
 // import Icon
@@ -53,18 +54,46 @@ const authen = () => {
 
 const homeStack = () => { 
     return(
-        <Stack.Navigator screenOptions={{headerShown:true, 
+        <Stack.Navigator screenOptions={{
+            headerShown:true, 
             headerTintColor: '#FF9770',
             headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: '#FF9770'}  
         }}>
             <Stack.Screen name='home' component={home} options={{headerShown:false}} />
             <Stack.Screen name='screen1' component={screen1} 
-                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true}) }   />
+                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true, 
+                    headerTitleStyle: {
+                        fontSize: 20, // Set the desired font size here
+                      },
+                      headerTitleContainerStyle: {
+                        width: '70%', // Set the maximum width of the header title container
+                        alignItems: 'center', // Center the title horizontally
+                      },
+                      headerTitleAlign: 'center', // Center the title vertically
+                      
+                
+                })}    />
             <Stack.Screen name='screen2' component={screen2}
-                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true}) }
+                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true,
+                    headerTitleStyle: {
+                        fontSize: 20, // Set the desired font size here
+                        headerTitleNumberOfLines: 2, // Set the number of lines before wrapping
+                        headerTitleContainerStyle: {
+                        width: '70%', // Set the maximum width of the header title container
+                        },
+                      }
+                }) }
             />
             <Stack.Screen name='screen3' component={screen3}
-                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true}) }
+                options={({ route }) => ({title: route.params.item.id.toString() , headerShown:true,
+                    headerTitleStyle: {
+                        fontSize: 20, // Set the desired font size here
+                        headerTitleNumberOfLines: 2, // Set the number of lines before wrapping
+                        headerTitleContainerStyle: {
+                        width: '70%', // Set the maximum width of the header title container
+                        },
+                      }
+                }) }
             />
         </Stack.Navigator>
     )
@@ -76,18 +105,18 @@ import FindWinPlace from "../screens/maps/FindWinPlace"
 
 const map = () => { 
     return(
-        <Stack.Navigator initialRouteName='FindWinPlace' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
+        <Stack.Navigator initialRouteName='FindWinPlace' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}, headerTintColor: 'white',  }}>
             <Stack.Screen name='FindWinPlace' component={FindWinPlace} options={{headerShown:false}}/>
-            <Stack.Screen name='listWin' component={listWin}  />
-            <Stack.Screen name='detailWin' component={detailWin}/>
-            <Stack.Screen name='form' component={form}/>
+            <Stack.Screen name='listWin' component={listWin}  options={({ route }) => ({ title: route.params.title.toString() })}  />
+            <Stack.Screen name='detailWin' component={detailWin} options={({ route }) => ({ title: route.params.routeData.name.toString() })}  />
+            <Stack.Screen name='form' component={form} options={{title:"ฟอร์มร้องเรียน"}}  />
         </Stack.Navigator>
     )
 }
 
 const profile = () => { 
     return(
-        <Stack.Navigator initialRouteName='myProfile' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}  }}>
+        <Stack.Navigator initialRouteName='myProfile' screenOptions={{headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, headerTitleStyle: {color: 'white'}, headerTintColor: 'white',  }}>
             <Stack.Screen name='myProfile' component={myProfile} options={{title:'บัญชีของฉัน'}} />
             <Stack.Screen name='history' component={history} options={{title:'ประวัติการร้องเรียน'}} />
             <Stack.Screen name='detailList' component={detailList} options={{title:'รายละเอียดการร้องเรียน'}} />
@@ -130,6 +159,7 @@ const Drawer = createDrawerNavigator();
 
 // screenฝั่งadmin
 import Dashboard from "../screens/AdminScreen/dashboard"
+
 import Complaint from '../screens/AdminScreen/complaint';
 import WinService from '../screens/AdminScreen/winservice';
 import WinList from '../screens/AdminScreen/WinList';
@@ -148,10 +178,20 @@ const DashboardStack = () => {
 
 const WinServiceStack = () => {
     return(
-        <Stack.Navigator initialRouteName='จุดบริการมอเตอร์ไซค์รับจ้าง' screenOptions={{headerShown:false ,headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466',  fontSize:10, color:'white'}, headerTitleStyle: {color: 'white', fontSize:10}, }}>
-            <Stack.Screen name='จุดบริการมอเตอร์ไซค์รับจ้าง' component={WinService} options={{ title: "จุดบริการมอเตอร์ไซค์รับจ้าง", }}/>
-            <Stack.Screen name='WinList' component={WinList} options={{title:'รายชื่อวิน'}}/>
-            <Stack.Screen name='WinDetail' component={Windetail} options={{title:'ข้อมูลประจำตัววิน'}}/> 
+        <Stack.Navigator initialRouteName='จุดบริการมอเตอร์ไซค์รับจ้าง' screenOptions={{headerShown:true ,headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'},  headerTitleStyle: {color: 'white', fontSize: 15},  headerTintColor: 'white',color:'white' }}>
+            {/* <Stack.Screen name='จุดบริการมอเตอร์ไซค์รับจ้าง' component={WinService} options={{ headerTitle: "Dashboard", headerShown:false}} /> */}
+            <Stack.Screen name='จุดบริการมอเตอร์ไซค์รับจ้าง' component={WinService} options={{ title: "จุดบริการมอเตอร์ไซค์รับจ้าง",  }}/>
+            <Stack.Screen name='WinList' component={WinList} 
+            options={
+                ({ route }) => ({
+                    title: route.params.service.toString(),
+                }) }   
+                />
+            <Stack.Screen name='WinDetail' component={Windetail} options={
+                ({ route }) => ({
+                    title: route.params.routeData.name.toString(),
+                })
+                  }/> 
         </Stack.Navigator>
     )
 }
@@ -168,20 +208,20 @@ const ComplaintStack = () => {
 
 const admin = () => {
     return(
-        <Drawer.Navigator initialRouteName="Dashboard" screenOptions={{headerShown:true ,
-            headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'}, 
-            headerTitleStyle: {color: 'white', fontSize: 15},
-         color:'white'
+        <Drawer.Navigator initialRouteName="รายการการร้องเรียน" screenOptions={{headerShown:true , headerTitleAlign: 'center', headerStyle: {backgroundColor: '#004466'},  headerTitleStyle: {color: 'white', fontSize: 15},  headerTintColor: 'white',color:'white'
         }} >
             <Drawer.Screen name="Dashboard" component={DashboardStack} options={{ headerShown:true , drawerLabel: "Dashboard",drawerIcon: ({ color }) => {
                 return <MaterialCommunityIcons name="view-dashboard-outline" size={24} color={color} />;},
             }}/>
-            <Drawer.Screen name="จุดบริการมอเตอร์ไซค์รับจ้าง" component={WinServiceStack} options={{ drawerLabel: "จุดบริการมอเตอร์ไซค์รับจ้าง", drawerIcon: ({ color }) => {
-                return <MaterialCommunityIcons name="map-marker-radius-outline" size={24} color={color} />;
-            },}}/>
-            <Drawer.Screen name="รายการการร้องเรียน" component={ComplaintStack} options={{headerShown:true,
-
-            drawerLabel: "รายการการร้องเรียน", drawerIcon: ({ color }) => {
+            <Drawer.Screen name="จุดบริการมอเตอร์ไซค์รับจ้าง" component={WinServiceStack} options={{ 
+                drawerLabel: "จุดบริการมอเตอร์ไซค์รับจ้าง", drawerIcon: ({ color }) => {
+                    return <MaterialCommunityIcons name="map-marker-radius-outline" size={24} color={color} />;
+                },
+                headerShown:false
+                }}/>
+            <Drawer.Screen name="รายการการร้องเรียน" component={ComplaintStack} 
+            options={{headerShown:true,
+                drawerLabel: "รายการการร้องเรียน", drawerIcon: ({ color }) => {
                 return <FontAwesome5 name="envelope" size={24} color={color} />;},
             }}/>
 

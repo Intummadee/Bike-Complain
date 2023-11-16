@@ -8,14 +8,14 @@ const screen2 = () => {
     const uri_image1 = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen2.2.jpg?alt=media&token=190d2998-9041-4d3f-929c-d6b6e481aea6";
 
     return (
-        <SafeAreaView style={styles.container}>
+        
             <ScrollView style={styles.scrollView}>
                 <View style={styles.content_above}>
                     <Text style={{fontSize:20, fontWeight:'bold', textAlign:'center'}}>คำว่า "วิน" มาจากไหน</Text>
                     <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย เอิน. </Text>
                 </View>
                 {/* <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}> */}
-                    <Image style={{width:"100%", height:'15%'}} source={{uri : uri_image}} />
+                    <Image style={{width:"100%", height:'10%'}} source={{uri : uri_image}} />
                 {/* </View> */}
                 <View style={styles.content_below}>
                     <Text>  บรรดาสื่อต่างๆ มักใช้คำว่า "วิน จยย." หรือ "วินมอเตอร์ไซค์" หลายคนอาจจะสงสัย คำว่า "วิน" นั้น มาจากไหน? ทำไมถึงใช้คำนี้? "วิน" เป็นคำที่ใช้กันโดยทั่วไปและที่ปรากฏในสื่อมวลชนก็มีต่างๆ กันไป เช่น "วินมอเตอร์ไซค์" "วินรถจักรยานยนต์รับจ้าง" "วินรถตู้โดยสาร" "ผู้ขี่รถวิน" "เจ้าแม่วิน" "ผู้คุมวิน" "เจ้าของวิน" "เสื้อวิน" ฯลฯ</Text>
@@ -39,10 +39,48 @@ const screen2 = () => {
                     <Text>  คำนี้เมื่อจะแปลกลับเป็นภาษาอังกฤษ หนังสือพิมพ์ภาษาอังกฤษบ้านเราใช้ว่า "Queue" ซึ่งแปลกลับมาเป็นไทย (เชื้อสายฝรั่ง) ได้ว่า "คิว" นั่นเอง บางครั้งจึงมีคนใช้คำว่า "คิวรถ" แทน "วินรถ" ใครขืนแปลคำว่า "วิน" กลับไปเป็น "Win" ฝรั่งคงงง</Text>
                     <Text>  </Text>
                     <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    <Text>  </Text>
+                    
+                     
+                    
+                     
                 </View>
 
             </ScrollView>
-        </SafeAreaView>
+        
     )
 }
 

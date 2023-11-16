@@ -7,14 +7,14 @@ const screen3 = ({route}) => {
   const uri_image1 = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen3.2.webp?alt=media&token=4f86832e-dfcd-4eb8-88d9-26061941d308";
   
     return (
-      <SafeAreaView style={styles.container}>
+      
         <ScrollView style={styles.scrollView}>
           <View style={styles.content_above}>
             <Text style={{fontSize:20, fontWeight:'bold', textAlign:'center'}}>แนะเลือกใช้วินมอเตอร์ไซค์ถูกกฎหมาย</Text>
             <Text style={{color:'grey', fontSize:14, marginTop:5,marginLeft:'2%' }}>เขียนโดย อุ้ม. </Text>
           </View>
           {/* <View style={{height:'70%', marginHorizontal:"2%", backgroundColor:'yellow', alignItems:'center', marginTop:'5%'}}> */}
-              <Image style={{width:"100%", height:'16%'}} source={{uri : uri_image}} />
+              <Image style={{width:"100%", height:'10%'}} source={{uri : uri_image}} />
           {/* </View> */}
           <View style={styles.content_below}>
             
@@ -35,10 +35,34 @@ const screen3 = ({route}) => {
             <Text>  หากพบการฝ่าฝืนนำรถจักรยานยนต์ส่วนบุคคลมาให้บริการ จะมีความผิดฐานนำรถจักรยานยนต์ส่วนบุคคลมาใช้รับ-ส่งผู้โดยสาร ปรับไม่เกิน 2,000 บาท, กรณีแต่งกายไม่ถูกต้องตามประกาศกรมการขนส่งทางบก ปรับไม่เกิน 1,000 บาท , การไม่แสดงใบอนุญาตขับรถสาธารณะปรับไม่เกิน 1,000 บาท, และหากนำรถจักรยานยนต์สาธารณะของตนไปรับจ้างในสถานที่ตั้งวินอื่นจะถูกพิจารณาถอนชื่อออกจากบัญชีรายชื่อในสถานที่ตั้งวินที่ผู้นั้นขับรถอยู่ทั้งนี้ หากพบปัญหาจากการใช้บริการสามารถร้องเรียนได้ที่ ศูนย์คุ้มครองผู้โดยสารและรับเรื่องร้องเรียน สายด่วน 1584 ตลอด 24 ชั่วโมง, แอปพลิเคชัน DLT GPS, Line ID “@1584dlt”, facebook “1584 ร้องเรียนรถโดยสารสาธารณะ”</Text>
             <Text>  </Text>
             <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            <Text>  </Text>
+            
+             
           </View>
 
         </ScrollView>
-      </SafeAreaView>
+      
     )
 }
 
