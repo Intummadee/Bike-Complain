@@ -2,6 +2,7 @@
 <h6>อินทุมดี It kmitl</h6>
 
 <h4>คำสั่ง Install ทั้งหมด</h4>
+<p>
 <hุ6>npx create-expo-app MobileProject</h6>
 <h6>เข้าไปในไฟล์project : cd MobileProject</h6> 
 <h6>npx expo install react-native-web@~0.18.10 react-dom@18.2.0 @expo/webpack-config@^18.0.1</h6>
@@ -31,6 +32,7 @@
 <h6>npx expo install expo-file-system</h6>
 <h6>npm install moment --save</h6>
 <h6>npx expo install --fix (ถ้ามีขึ้น หลังจากที่ใช้คำสั่ง start ไปแล้ว ก็ให้ ctrl + c ออกใช้คำสั่งนี้)</h6>
+</p>
  
 
 <h6>แก้ไขในไฟล์ babel.config.js ให้เพิ่มคำว่า plugins: ['@babel/plugin-proposal-export-namespace-from','react-native-reanimated/plugin',],</h6>
@@ -42,3 +44,7 @@
 
 <h3 align="left">Languages and Tools:</h3>
 <p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a> <a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://reactnative.dev/" target="_blank" rel="noreferrer"> <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> </a> </p>
+
+<h5>Figma : https://www.figma.com/file/6Nunl3MsBoMM49Fzevu4RF/UI-design?type=design&node-id=0%3A1&mode=design&t=4olHyy86VGdKRKqC-1</h5>
+
+
