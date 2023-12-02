@@ -3,7 +3,7 @@
 
 <img alt="coding" width="100%" src="https://codilime.com/static/2b5773beca118974180168ada813ba7b/an-introduction-to-low-level-programming.jpg" >
 
-<h4>🗨️ คำสั่ง Install ทั้งหมด</h4>
+<h4>🌱 คำสั่ง Install ทั้งหมด</h4>
 <p>
 <hุ6>npx create-expo-app MobileProject</h6>
 <h6>เข้าไปในไฟล์project : cd MobileProject</h6> 
@@ -44,9 +44,9 @@
  
 
 <h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a> <a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://reactnative.dev/" target="_blank" rel="noreferrer"> <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> </a> </p>
+<p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a> <a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://reactnative.dev/" target="_blank" rel="noreferrer"> <img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="40" height="40"/> </a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </p>
 
-<h5>Figma : https://www.figma.com/file/6Nunl3MsBoMM49Fzevu4RF/UI-design?type=design&node-id=0%3A1&mode=design&t=4olHyy86VGdKRKqC-1</h5>
+<h5>Figma 👨‍💻 : https://www.figma.com/file/6Nunl3MsBoMM49Fzevu4RF/UI-design?type=design&node-id=0%3A1&mode=design&t=4olHyy86VGdKRKqC-1</h5>
 
 <p><img width="40%" src="https://media.discordapp.net/attachments/943369143191732335/1180499407175696464/image.png?ex=657da4bf&is=656b2fbf&hm=8ffecb0f55c5496b5f15f23457006da82acf8446c3bee499c8a10c51c9161eee&=&format=webp&quality=lossless&width=302&height=671"><img align="right" width="40%" src="https://media.discordapp.net/attachments/943369143191732335/1180499443443830825/image.png?ex=657da4c7&is=656b2fc7&hm=4969a61039f6a54cf9c43a6770fd985932222ef44d54e0d7c11390a1dee29184&=&format=webp&quality=lossless&width=299&height=671"></p>
 
