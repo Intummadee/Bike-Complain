@@ -26,6 +26,13 @@ npm install react-native-safe-area-context@4.7.1
 npm install react-native-screens@3.24.0  
 npm install react-navigation-header-buttons
 npx expo install @react-native-community/datetimepicker
+npx expo install expo-image-picker
+npm i react-native-modal
+npx expo install expo-location
+npx expo install react-native-maps
+
+npx expo install expo-file-system
+
 npm install moment --save
 
 
@@ -35,3 +42,7 @@ npm install moment --save
 คำสั่ง start เริ่ม : npx expo start --reset-cache
 
 npx expo install --fix (ถ้ามีขึ้น หลังจากที่ใช้คำสั่ง startไปแล้ว ก็ให้ ctrl + c ออกใช้คำสั่งนี้)```
+
+
+![image](https://github.com/Intummadee/Mobile-Application-Motorcycle/assets/88524336/96709fb6-ae5d-4ef1-a633-fba88f3f740f)
+
