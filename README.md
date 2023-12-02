@@ -44,5 +44,5 @@ npm install moment --save
 npx expo install --fix (ถ้ามีขึ้น หลังจากที่ใช้คำสั่ง startไปแล้ว ก็ให้ ctrl + c ออกใช้คำสั่งนี้)```
 
 
-![image](https://github.com/Intummadee/Mobile-Application-Motorcycle/assets/88524336/96709fb6-ae5d-4ef1-a633-fba88f3f740f)
+ 
 
