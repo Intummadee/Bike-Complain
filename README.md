@@ -1,7 +1,9 @@
 <h3 align="center">Mobile Application Motorcycle</h3>
-<h6>อินทุมดี It kmitl</h6>
+<h6 align="center">🖥️ อินทุมดี It kmitl 🖥️</h6>
 
-<h4>คำสั่ง Install ทั้งหมด</h4>
+<img align="center" alt="coding" width="600" src="https://codilime.com/static/2b5773beca118974180168ada813ba7b/an-introduction-to-low-level-programming.jpg" >
+
+<h4>🗨️ คำสั่ง Install ทั้งหมด</h4>
 <p>
 <hุ6>npx create-expo-app MobileProject</h6>
 <h6>เข้าไปในไฟล์project : cd MobileProject</h6> 
@@ -36,7 +38,7 @@
  
 
 <h6>แก้ไขในไฟล์ babel.config.js ให้เพิ่มคำว่า plugins: ['@babel/plugin-proposal-export-namespace-from','react-native-reanimated/plugin',],</h6>
-<h4>คำสั่ง start เริ่ม : npx expo start --reset-cache</h4>
+<h4>คำสั่ง start เริ่ม 👉 : npx expo start --reset-cache</h4>
 
  
 <p align="left">
