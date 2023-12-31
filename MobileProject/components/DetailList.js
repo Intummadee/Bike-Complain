@@ -18,7 +18,6 @@ import { useState, useEffect } from 'react';
 // dataUser = {name: 'เฟรม', password: '1111', email: '64070257@kmitl.ac.th', history: []}
 const updateStore = (id, dataHistory, dataUser, index, navigation ) => {
 
-
     //dataUser.history = [{}, {}, {}, {}] , x = {}
     // dataHistory = {place: 'ซอยเกกี1', numberWin: '05', status: 'red', time: '12:12', type: 'วาจาไม่สุภาพ', …}
 
@@ -89,7 +88,7 @@ const DetailList = (props) => {
     return (
         <SafeAreaView style={styles.list}>
             <ScrollView style={styles.scrollView}>
-                <Text style={{fontSize:25, fontWeight:"bold",}}>ประเภทคำร้อง :</Text>
+                <Text style={{fontSize:25, fontWeight:"bold",}}>สถานะคำร้อง :</Text>
                 <View style={{height:'auto', marginTop:10, }}>
                     <TouchableOpacity style={[styles.touchOpacity, {flexDirection:'row',width:"55%", justifyContent:'center', backgroundColor:dataHistory.status, }]} onPress={()=>{console.log("clickk!!");}}>
                         <Text style={{color:'white', fontWeight:"bold", height:"100%", fontSize:15, }}>

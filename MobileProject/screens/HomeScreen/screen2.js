@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image,TextInput,Button, SafeAreaView, ScrollVie
 
 
 
-const screen2 = () => {
+const Screen2 = () => {
     const uri_image = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen2.1.jpg?alt=media&token=b75e2de1-7511-4c42-a9f2-32a572ad0f97" 
     const uri_image1 = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen2.2.jpg?alt=media&token=190d2998-9041-4d3f-929c-d6b6e481aea6";
 
@@ -67,12 +67,7 @@ const screen2 = () => {
                     <Text>  </Text>
                     <Text>  </Text>
                     <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
-                    <Text>  </Text>
+                     
                     
                      
                     
@@ -113,4 +108,4 @@ const styles = StyleSheet.create({
 
 
 
-export default screen2
+export default Screen2

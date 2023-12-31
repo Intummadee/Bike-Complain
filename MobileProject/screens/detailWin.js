@@ -5,7 +5,7 @@ import { StyleSheet, View, TouchableOpacity, FlatList, Button, Text, Image } fro
 import { AntDesign } from '@expo/vector-icons'; 
 
 
-const detailWin = ({ navigation, route }) => {
+const DetailWin = ({ navigation, route }) => {
 
     const data = route.params.routeData;
     // {name: 'Pink Firebase', license_url: 'url', win_url: 'https://firebasestorage', no: '18', license: 'MM00 กรุงเทพมหานคร',place: "วินคลอง 4 เขตลาดกระบัง"}
@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default detailWin
+export default DetailWin

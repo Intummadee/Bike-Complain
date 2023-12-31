@@ -9,7 +9,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useSelector, useDispatch } from "react-redux";
 
 
-const myProfile = ({ navigation }) => {
+const MyProfile = ({ navigation }) => {
     const data = useSelector((state) => state.myReducer.user_data) // {email: '64070257@kmitl.ac.th', history: Array(0), password: '1111', name: 'judas'}
     
     return (
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
      
 });
 
-export default myProfile
+export default MyProfile

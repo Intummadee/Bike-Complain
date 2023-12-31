@@ -20,16 +20,17 @@ import { AntDesign } from '@expo/vector-icons';
 
 // Firebase
 import firebase from "../database/firebaseDB";
+import { LongPressGestureHandler } from 'react-native-gesture-handler';
 
 
 
-const updateStore = (id, dataHistory, dataUser, navigation, time ,date,detail ) => {
+const updateStore = (id, dataHistory, dataUser, navigation, time ,date,detail, place ) => {
 
     const dataIndex = dataUser.history.findIndex(item => {
         return Object.keys(item).every(key => item[key] === dataHistory[key]);
     });
 
-    console.log("Index ของ data ใน dataUser:", dataIndex); //index ของhistoryที่จะลบ
+    // console.log("Index ของ data ใน dataUser:", dataIndex); //index ของhistoryที่จะลบ
 
     const options = {
         hour: "2-digit",
@@ -37,23 +38,34 @@ const updateStore = (id, dataHistory, dataUser, navigation, time ,date,detail ) 
         hour12: false
       };
       
-    const formattedTime = date.toLocaleTimeString(undefined, options);
+    const formattedTime = time.toLocaleTimeString(undefined, options);
     // console.log("time", formattedTime); // time: 22:41
     // console.log("date", date.toLocaleDateString()); // date: 10/17/2023
-
+     
+    console.log("☃️historyก่อนจะอัพเดตค่า ", dataUser.history[dataIndex]);
+    console.log("time : ",time.toLocaleTimeString(undefined, options));
     dataUser.history[dataIndex] = {
         date: date.toLocaleDateString(),
         detail: detail,
         nameWin: dataHistory.nameWin,
         numberWin: dataHistory.numberWin,
-        place: dataHistory.place,
+        place: place,
         status: dataHistory.status,
-        time: formattedTime+"",
+        time: formattedTime,
         type: dataHistory.type,
+        url: dataHistory.url,
         // ไปใส่ฟิลเพิ่ม
     }
-
     
+     
+    console.log("☀️historyที่จะอัพ", dataUser.history[dataIndex]);
+    
+    console.log("id = ", id);
+    console.log(dataUser.name);
+    console.log(dataUser.password);
+    console.log(dataUser.email);
+    navigation.goBack();
+ 
     const subjCollection = firebase.firestore().collection("Users");
     subjCollection.doc(id)
     .set({
@@ -63,8 +75,8 @@ const updateStore = (id, dataHistory, dataUser, navigation, time ,date,detail ) 
         history: dataUser.history,
     })
     .then(() => {
-        navigation.goBack();
-
+        // navigation.navigate("myProfile");
+        navigation.navigate("history");
     }).catch(() => {
         alert("ยูเซอร์ไม่ถูก Add");
     })
@@ -73,7 +85,7 @@ const updateStore = (id, dataHistory, dataUser, navigation, time ,date,detail ) 
 
 
 
-const updateForm = ({ route }) => {
+const UpdateForm = ({ route }) => {
 
     const data1 = route.params.data; // data = {dataUser: {…}, data: {…}, id: 'Intummadee', index: 0, navigation: {…}}
 
@@ -83,17 +95,26 @@ const updateForm = ({ route }) => {
     const navigation = data1.navigation;
     const index = data1.index; // indexคือ ลำดับ history ใน array History ทั้งหมด
 
-    console.log(dataHistory); 
-    console.log("dataHistory", dataHistory.place); 
-    console.log("dataHistory", dataHistory.nameWin); 
+    console.log("dataHistory 🐉 ",dataHistory); 
+    // console.log("dataHistory", dataHistory.place); 
+    // console.log("dataHistory", dataHistory.nameWin); 
 
     // input ของ ฟอร์ม
     const [detail, setDetail] = useState(dataHistory.detail);
 
     const [place, setPlace] = useState(dataHistory.place)
+    
+
+    // แปลงข้อมูล time ให้มันแสดงได้ ถ้าไม่แปลงมันจะขึ้น Invalid date
+    const timeString = dataHistory.time;
+    console.log("timeString ",timeString);
+    const [hours, minutes] = timeString.split(":");
+    const num = new Date(); // 2023-12-30T00:00:00.000Z
+    num.setHours(parseInt(hours, 10));
+    num.setMinutes(parseInt(minutes, 10)); 
 
     // input ของ time
-    const [time, setTime] = useState(new Date());
+    const [time, setTime] = useState(num);
     const [showTimePicker, setShowTimePicker] = useState(false);
     const onChangeTime = (event, selectedTime) => {
         setShowTimePicker(false);
@@ -102,9 +123,13 @@ const updateForm = ({ route }) => {
         }
     };
 
+    // แปลงข้อมูล dateเหมือนtime ให้มันแสดงได้ ถ้าไม่แปลงมันจะขึ้น Invalid date
+    const dateString = dataHistory.date;
+    const [day, month, year] = dateString.split('/');
+    const dateObject = new Date(`${year}-${month}-${day}`); // 2023-12-30T00:00:00.000Z
 
     // พวกCalendar
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(dateObject);
     const [showDatePicker, setShowDatePicker] = useState(false);
     const onChangeDate = (event, selectedDate) => {
         setShowDatePicker(false);
@@ -150,7 +175,8 @@ const updateForm = ({ route }) => {
                         setShowDatePicker(true)
                     }}>
                         <View style={{}}>
-                            <Text style={styles.textBack}>{dataHistory.date}</Text>
+                            <Text style={styles.textBack}>{moment(date).format('DD/MM/YYYY')}</Text>
+                            {/* <Text style={styles.textBack}>{dataHistory.date}</Text> */}
                             
                         </View>
                     </TouchableOpacity>
@@ -174,15 +200,16 @@ const updateForm = ({ route }) => {
                                 setShowTimePicker(true)
                             }}>
                                 <View style={{}}>
-                                    <Text style={styles.textBack}>{dataHistory.time}</Text>
+                                    <Text style={styles.textBack}>{moment(time).format('HH:mm')}</Text>
                                 </View>
                             </TouchableOpacity>
+                            {/* ถ้ามีการกดเวลา จะโชว์ นาฬิกาให้เลือกเวลา โดย value = time */}
                             {showTimePicker && (
                                 <DateTimePicker
-                                value={time}
-                                mode={"time"}
-                                is24Hour={true}
-                                onChange={onChangeTime}
+                                    value={time}
+                                    mode={"time"}
+                                    is24Hour={true}
+                                    onChange={onChangeTime}
                                 />
                             )}
                 </Text>
@@ -190,8 +217,8 @@ const updateForm = ({ route }) => {
                 
 
                 <View style={[styles.line, ]}>
-                    <MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />
-                    <Text style={styles.textFront}>สถานที่: </Text>
+                    
+                    <Text style={styles.textFront}><MaterialCommunityIcons name="map-marker-outline" size={20} color="black" />สถานที่: </Text>
                     <TextInput 
                         style={{borderWidth:1, width:"100%", height:"auto", padding: 10, marginTop:"6%",}}
                         onChangeText={setPlace}
@@ -208,14 +235,14 @@ const updateForm = ({ route }) => {
                         multiline
                         numberOfLines={3} //บรรทัดที่โชว์ ถ้ามากกว่านี้มันจะสไลด์ให้แทน
                         maxLength={200}
-                        style={[styles.textBack, {marginTop:"3%", fontSize:13,borderWidth:1, borderBlockColor:"#FF724C"}]}
+                        style={[styles.textBack, {marginTop:"3%", fontSize:13,borderWidth:1, borderBlockColor:"#FF724C", paddingLeft: 10}]}
                         onChangeText={setDetail}
                         value={detail}
                     />
                 </View>
                 
                 <View style={[styles.line, {fontSize:13,}]}>
-                <Text style={styles.textFront}><AntDesign name="picture" size={20} color="black" />ภาพหลักฐาน: </Text> 
+                {/* <Text style={styles.textFront}><AntDesign name="picture" size={20} color="black" />ภาพหลักฐาน: </Text>  */}
                 </View>
 
             </View>
@@ -227,14 +254,15 @@ const updateForm = ({ route }) => {
                 <View style={[styles.line, {flex:0.2, justifyContent:'center', alignContent:'space-around', flexDirection:'row'}]}>
                     <TouchableOpacity style={[styles.statusRedButton,{backgroundColor: "#05A56B"}]}
                         onPress={() => {
-                            updateStore(id, dataHistory, dataUser, navigation, time, date, detail);
+                            updateStore(id, dataHistory, dataUser, navigation, time, date, detail, place);
                         }}
                     >
                         <AntDesign name="checkcircleo" size={24} color="white" />
                         <Text style={[styles.statusRedText, {color:"white"}]}>ตกลง</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
-                            console.log("ยกเลิก");
+                            // console.log("ยกเลิก");
+                            navigation.goBack()
                         }} 
                         style={[styles.statusRedButton ,{marginLeft:"3%", borderColor:"#C95454"}]}>
                         <AntDesign name="closecircleo" size={24} color="#C95454" />
@@ -310,6 +338,6 @@ const styles = StyleSheet.create({
 
 
 
-export default updateForm
+export default UpdateForm
 
 

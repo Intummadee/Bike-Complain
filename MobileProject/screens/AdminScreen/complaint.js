@@ -46,7 +46,7 @@ const renderItem = item => {
 
 
 
-const complaint = ({ navigation }) => {
+const Complaint = ({ navigation }) => {
 
    
 
@@ -70,7 +70,7 @@ const complaint = ({ navigation }) => {
   const getCollection = (querySnapshot) => {
     let AllUser_FromDB = []; // อยากได้โครงสร้างแบบนี้ ->  [{allhistoryForEachUser:[{}, {}, {}], userName:""}] 
     querySnapshot.forEach((res) => {
-      console.log("🐸🐸🐸",res.data());
+      // console.log("🐸🐸🐸",res.data());
 
       // res.data() ได้ข้อมูลUserมาแต่ละคร ตัวอย่าง 1 ใน user เช่น = {name: 'judas', email: '64070257@kmitl.ac.th', history: Array(1), password: '1111'}
       let newObj = {
@@ -239,4 +239,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default complaint
+export default Complaint

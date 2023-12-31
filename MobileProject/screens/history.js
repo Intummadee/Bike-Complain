@@ -58,7 +58,7 @@ const renderList = ({ item, index }, props) => {
 };
 
 
-const history = ({ navigation }) => {
+const History = ({ navigation }) => {
 
  
   
@@ -234,7 +234,7 @@ const history = ({ navigation }) => {
       {/* ด้านล่างเป็นส่วนของกล่องรายการร้องเรียน */}
       {/* <View style={{ width:'100%', height:"100%", flexDirection:'row'}}> */}
         <SafeAreaView style={styles.container}>
-          <ScrollView style={styles.scrollView}>
+          {/* <ScrollView style={styles.scrollView}> */}
             {(clickStatus==true || clickDate==true) ? (
                 <FlatList 
                   navigation={navigation} 
@@ -262,7 +262,7 @@ const history = ({ navigation }) => {
 
 
 
-          </ScrollView>
+          {/* </ScrollView> */}
         </SafeAreaView>
       {/* </View> */}
     </View>
@@ -318,4 +318,4 @@ const styles = StyleSheet.create({
      
 });
 
-export default history
+export default History

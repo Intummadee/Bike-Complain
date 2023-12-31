@@ -49,6 +49,7 @@ const DetailListAdmin = (props) => {
 
     // สำหรับ หมายเหตุ ในฝั่ง admin
     const [note, setNote] = useState("ไม่มีหมายเหตุ");
+    const [noteOld, setNoteOld] = useState(""); // เอาไว้เก็บประวัติ Note กรณีที่ admin กดปุ่มยกเลิกในการยืนยันการเปลี่ยนแปลว
     
 
     const subjCollection = firebase.firestore().collection("Users");
@@ -59,9 +60,11 @@ const DetailListAdmin = (props) => {
             // res.data() = {name: 'Intummadee', history: Array(3), password: '1111', email: '64070257@kmitl.ac.th'}
             // res.id เช่น Intummadee ,dottoresimp ,judas
             if(res.id == userName){
+                 
                 dataUser = {...res.data()}
                 res.data().history.forEach((element) => {
                     allHistory.push(element)
+                    // console.log("element ", element); // เป็นประวัติทั้งหมดของ user คนนี้อยู่ใน allHistory
                 })
             }
         });
@@ -71,6 +74,7 @@ const DetailListAdmin = (props) => {
             return Object.keys(item).every(key => item[key] === dataHistory[key]);
         });
         console.log("Index ของ data ใน dataUser:", dataIndex); //index ของhistoryที่จะลบ
+        console.log("รายการร้องเรียนที่ถูกเลือก = ", allHistory[dataIndex]);
         setArrayIndex(dataIndex)
 
         if(dataHistory.note != undefined){
@@ -84,7 +88,8 @@ const DetailListAdmin = (props) => {
           unsubscribe(); 
         };
       }, []); 
-
+    
+    // ปุ่มลบรายการร้องเรียนสำหรับสถานะ ยังไม่ได้ดำเนินการ
     const deleteStore = () => {
         allHistory.splice(arrayIndex, 1)
         let setNewHistory = [...allHistory]
@@ -98,6 +103,7 @@ const DetailListAdmin = (props) => {
               style: 'cancel',
             },
             {text: 'OK', onPress: () => {
+                setNote(note)
                 subjCollection.doc(userName)
                 .set({
                     name: dataUser1.name,
@@ -106,16 +112,17 @@ const DetailListAdmin = (props) => {
                     history: setNewHistory,
                 })
                 .then(() => {
-                    navigation.goBack();
-
+                    // navigation.goBack();
+                    navigation.navigate('allComplaint');
                 }).catch(() => {
                     alert("ยังไม่ลบ");
                 })
-                navigation.goBack();
+                // navigation.goBack();
             }},
         ]);
     };
 
+    // ไว้ใช้อัพเดตกรณี เป้นสถานะสีเหลืองกับสีแดง 
     const updateStore = () => {
         if(dropDownValue == undefined){
             dropDownValue = "red";
@@ -141,22 +148,33 @@ const DetailListAdmin = (props) => {
                     history: setNewHistory,
                 })
                 .then(() => {
-                    navigation.goBack();
-
+                    // navigation.navigate("allComplaint");
+                    navigation.replace('allComplaint');
+                    // console.log("หลังกดconfirm แสดงNoteหน่อยย ",allHistory[arrayIndex].note);
                 }).catch(() => {
                     alert("ยังไม่ได้แก้ไข");
                 })
-                navigation.goBack();
+                // navigation.goBack();
             }},
         ]);
     };
 
+
+    // ไว้ใช้ในสถานะสีเขียว อย่างการอัพเดต Note เท่านั้น
     const updateNoteInStatusGreen = () => {
         allHistory[arrayIndex].status = "green"
-        allHistory[arrayIndex].note = note
-        console.log(allHistory[arrayIndex]);
-        console.log(allHistory[arrayIndex].note);
+
+        if (!note.trim()) {
+            console.log("note ว่างเปล่าหรือมีเฉพาะช่องว่าง");
+            allHistory[arrayIndex].note = "ไม่มีหมายเหตุ"
+        }
+        else{
+            allHistory[arrayIndex].note = note
+        }
+        setNoteOld(note)
         let setNewHistory = [...allHistory]
+
+
         Alert.alert('Confirm', 'ยืนยันการแก้ไขไหม', [
             {
               text: 'Cancel',
@@ -166,6 +184,7 @@ const DetailListAdmin = (props) => {
               style: 'cancel',
             },
             {text: 'OK', onPress: () => {
+
                 subjCollection.doc(userName)
                 .set({
                     name: dataUser1.name,

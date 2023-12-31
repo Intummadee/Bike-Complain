@@ -21,7 +21,7 @@ const dummyData = [
  
 
 
-const home = ({navigation}) => {
+const Home = ({navigation}) => {
 
     
 
@@ -132,4 +132,4 @@ const styles = StyleSheet.create({
   });
   
 
-export default home;
+export default Home;

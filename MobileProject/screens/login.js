@@ -11,7 +11,7 @@ import firebase from "../database/firebaseDB";
 // import firebase from "../database/db"
 
 
-const login = ({navigation}) => {
+const Login = ({navigation}) => {
 
 
     // FireBase
@@ -50,7 +50,7 @@ const login = ({navigation}) => {
                     setIncorrectPassword(false)
                     if(res.data().role == "Admin"){
                         console.log("🥞🥞 role", res.data().role);
-                        navigation.navigate("admin"); // 
+                        navigation.replace("admin"); // 
                     }
                     else{
                         console.log("User role : ", res.data().role);
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
       height: 40,
       margin: 12,
       padding: 10,
-      placeholderTextColor: 'gray',
+    //   placeholderTextColor: 'gray', ตัวนี้ใช้ไม่ได้ใน React 
       borderBottomWidth: 1,
       backgroundColor:'white',
       borderRadius: 6,
@@ -187,4 +187,4 @@ const styles = StyleSheet.create({
   });
 
 
-export default login;
+export default Login;

@@ -12,7 +12,7 @@ import { AntDesign } from '@expo/vector-icons';
 // Import Component
 import DetailListAdmin from "../../components/adminComponents/DetailListAdmin";
 
-const detailComplaint = ({route, navigation}) => {
+const DetailComplaint = ({route, navigation}) => {
 
   const data = route.params.data; // {place: 'Zapolyany palace', time: '10:00', date: '10/10/2023', type: 'วาจาไม่สุภาพ', service_point: '', detail: "ใครสอนให้ยิ้มแบบนั้น", nameWin:"Pantalone", numberWin: "09", status: "red", url: ""} 
   const userName = route.params.userName
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
      
 });
 
-export default detailComplaint
+export default DetailComplaint

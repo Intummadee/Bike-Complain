@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { putDocumentName } from "../store/actions/myAction";
 import { putUSER_DATA } from "../store/actions/myAction";
 
-const signup = ({navigation}) => {
+const Signup = ({navigation}) => {
 
     // Redux
     const dispatch = useDispatch();
@@ -23,10 +23,26 @@ const signup = ({navigation}) => {
     // Validation Form 
     const [showIncorrect, setIncorrect] = useState(false);
     const [showIncorrectConfirm, setIncorrectConfirm] = useState(false);
+    const [showMatchUserNameInDB, setMatchUserNameInDB] = useState(false); // ตรวจสอบชื่อผู้ใช้ห้ามซํ้า
+
+    // ตรวจสอบชื่อผู้ใช้ห้ามซํ้า
+    const getCollection = (querySnapshot) => {
+        querySnapshot.forEach((res) => {
+            console.log(res.id, "res!!!!!!!!!!!!!!!!"); 
+            if(res.id == userName){
+                setMatchUserNameInDB(true)
+            }
+             
+        })
+    }
+
 
     // Firebase
     const subjCollection = firebase.firestore().collection("Users");
-    const addUSer = () => {    
+    const addUSer = () => {
+        subjCollection.onSnapshot(getCollection);
+    
+        
         if(userName=="" || userEmail=="" || userPassword==""){
             setIncorrect(true);
         }
@@ -34,8 +50,11 @@ const signup = ({navigation}) => {
             setIncorrect(false);
             setIncorrectConfirm(true);
         }
+        // else if(userName == ){
+        // }
         else{
             setIncorrectConfirm(false);
+            setMatchUserNameInDB(false)
             // ให้ชื่อ document ตามชื่อ username
 
             subjCollection.doc(userName).set({
@@ -45,7 +64,7 @@ const signup = ({navigation}) => {
                 password:userPassword,
             }).then(() => {
                 // ส่งไปให้Storeส่วนกลาง หรือ Redux
-                dispatch( putDocumentName(userName) )
+                dispatch( putDocumentName(userName))
                 dispatch( putUSER_DATA({email: userEmail,history: [],name: userName,password:userPassword}) )
                 navigation.navigate("tab");
             }).catch(() => {
@@ -101,6 +120,9 @@ const signup = ({navigation}) => {
                 )}
                 {showIncorrectConfirm && (
                     <Text style={styles.validationText}>*ข้อมูลรหัสผ่านไม่ตรงกัน</Text>
+                )}
+                {showMatchUserNameInDB && (
+                    <Text style={styles.validationText}>*ชื่อผู้ใช้นี้ถูกใช้แล้ว</Text>
                 )}
             </View>
             {/* <Text> </Text> */}
@@ -162,11 +184,11 @@ const styles = StyleSheet.create({
         color: '#004466',
         fontWeight:"bold", 
         fontSize:25,
-        fontFamily:'Lobster-Regular'
+        // fontFamily:'Lobster-Regular'
 
     }
   
   });
 
 
-export default signup;
+export default Signup;

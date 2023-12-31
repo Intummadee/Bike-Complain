@@ -9,7 +9,7 @@ import { collection, getDocs, getDoc, query, where } from "firebase/firestore";
 
 
 
-const screen1 = ({navigation, route}) => {
+const Screen1 = ({navigation, route}) => {
 
 
     const uri_image = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen1.jpg?alt=media&token=08358861-8ccf-4547-9a93-8f60f29546c3" 
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   });
 
 
-export default screen1;
+export default Screen1;

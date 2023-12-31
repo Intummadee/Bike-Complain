@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image,TextInput,Button, SafeAreaView, ScrollView,StatusBar  } from 'react-native';
 
 
-const screen3 = ({route}) => {
+const Screen3 = ({route}) => {
   const uri_image = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen3.1.webp?alt=media&token=f35ef046-d89e-47b3-8c3f-3da2b224e5a6" 
   const uri_image1 = "https://firebasestorage.googleapis.com/v0/b/projectmobile-3a802.appspot.com/o/Home%2Fscreen3.2.webp?alt=media&token=4f86832e-dfcd-4eb8-88d9-26061941d308";
   
@@ -92,4 +92,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default screen3
+export default Screen3

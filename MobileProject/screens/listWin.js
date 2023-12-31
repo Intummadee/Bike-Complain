@@ -77,7 +77,7 @@ const dummyCost = [
   
 
 
-const listWin = ({ navigation, route }) => {
+const ListWin = ({ navigation, route }) => {
 
   const service_point_maps = route.params.title // {"title": "วินสี่แยก"}
   console.log("service_point_maps 💄💄",service_point_maps);
@@ -171,4 +171,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default listWin
+export default ListWin

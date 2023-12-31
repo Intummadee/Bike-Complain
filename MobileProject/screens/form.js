@@ -62,7 +62,7 @@ const data = [
     );
   };
 
-const form = ({ navigation , route }) => {
+const Form = ({ navigation , route }) => {
 
     const subjCollection = firebase.firestore().collection("Users");
 
@@ -283,8 +283,6 @@ const form = ({ navigation , route }) => {
                             )}
                         </View>
                         <View style={{width:"50%", }}>
-                         
-
                             <Text>เวลา:</Text>
                             <TouchableOpacity style={styles.touch_dateAndTime} onPress={()=>{
                                 console.log("Click Time");
@@ -292,7 +290,6 @@ const form = ({ navigation , route }) => {
                             }}> 
                                 <View style={styles.dateAndTime}>
                                     <Text style={styles.dateAndTime_Text}><Ionicons name="ios-time-outline" size={20} color="grey"  style={{marginLeft:"10%"}} /> {moment(time).format('hh:mm')}</Text>
-                                  
                                 </View>
                             </TouchableOpacity>
                             {showTimePicker && (
@@ -304,11 +301,7 @@ const form = ({ navigation , route }) => {
                                 />
                             )}
                             {/* <Text>{date.toLocaleString()}</Text> */}
-
-                          
-
                         </View>
-                        
                     </View>
                     <View style={{width:"auto", height:'10%', marginTop:'10%',marginLeft:"5%" }}>
                         <Text>สถานที่เกิดเหตุ</Text>
@@ -615,4 +608,4 @@ const styles = StyleSheet.create({
 
     });
     
-export default form
+export default Form
