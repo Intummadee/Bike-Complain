@@ -3,7 +3,7 @@
 
 <img alt="coding" width="100%" src="https://codilime.com/static/2b5773beca118974180168ada813ba7b/an-introduction-to-low-level-programming.jpg" >
 
-<h4>🌱 คำสั่ง Install ทั้งหมด</h4>
+<h4>🌱 ทั้งหมด</h4>
 <p>
 <hุ6>npx create-expo-app MobileProject</h6>
 <h6>เข้าไปในไฟล์project : cd MobileProject</h6> 
