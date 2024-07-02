@@ -1,7 +1,27 @@
-<h3 align="center">Mobile Application Motorcycle</h3>
-<h6 align="center">🖥️ อินทุมดี It kmitl — 17/11/2023 🖥️</h6>
 
-<img alt="coding" width="100%" src="https://codilime.com/static/2b5773beca118974180168ada813ba7b/an-introduction-to-low-level-programming.jpg" >
+
+<div align="center">
+ <h1>BikeComplain <img src="https://giffiles.alphacoders.com/359/35961.gif" width="70px"></h1>
+<a href="https://github.com/Ileriayo/markdown-badges"><img src="https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" /></a>
+<a href="https://github.com/Ileriayo/markdown-badges"><img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" /></a>
+<a href="https://github.com/Ileriayo/markdown-badges"><img src="https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34" /></a>
+ <h5> MOBILE DEVICE PROGRAMMING | It KMTIL | 3rd Year Term /2023 </h5>
+</div>
+
+
+## Getting Started
+To get started, follow these steps:
+1. Clone this repository using `git clone https://github.com/Intummadee/Mobile-Application-Motorcycle.git`
+2. Install dependencies using `npm install`
+3. Run the app using `npm start`
+
+## Tech Stack :
+- **Frontend:** React Native, Javascript  
+- **Database:** Firebase
+- **Version Control:** Git and GitHub
+- **Code Editor and tools**: VS Code
+
+---
 
 <h4>🌱 ทั้งหมด</h4>
 <p>
